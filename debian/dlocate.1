@@ -1,0 +1,112 @@
+.TH DLOCATE 1 "March 2002"
+.\" Please adjust this date whenever revising the manpage.
+.\" NAME should be all caps, SECTION should be 1-8, maybe w/ subsection
+.\" other parms are allowed: see man(7), man(1)
+
+.SH NAME
+dlocate \- program to view debian package information
+
+.SH SYNOPSIS
+.B dlocate
+[ option ] [
+.I package
+|
+.I string
+]
+
+.SH "DESCRIPTION"
+.PP
+.B dlocate
+is a fast alternative to dpkg for queries like `dpkg -L' and `dpkg -S'
+
+.SH OPTIONS
+.TP
+.B (none)
+list all records where either package name or filename matches
+.I string
+\.
+.TP
+.B \-h
+Produces a short help message.
+.TP
+.B \-S
+list records where files match
+.I string
+\.
+.TP
+.B \-l
+simplistic emulation of `dpkg -l'.  Shows all packages which match
+.IR package .
+Internally this uses egrep on a file containing the reformatted output
+of `dpkg -l' (four fields separated by one space-character: status,
+package-name, installed version, description) so it will return packages whose
+tag-line matches, too. Extended regular expression are allowed. For example,
+\fBdlocate -l '^.. libc5'\fP will list all the package names starting with
+`libc5'.)
+\.
+.TP
+.B \-L
+list all files in 
+.I package
+\.
+.TP
+.B \-s
+print status of
+.I package
+\.
+.TP
+.B \-ls
+`ls -ldF' of all files in 
+.I package
+\.
+.TP
+.B \-lsconf
+`ls -ldF' of conffiles in
+.I package
+\.
+.TP
+.B \-conf
+list conffiles in
+.I package
+\.
+.TP
+.B \-du
+`du -sck' of all files in
+.I package
+\.
+.TP
+.B \-md5sum
+list md5sums (if any) of 
+.I package
+\.
+.TP
+.B \-md5check
+check md5sums (if any) of 
+.I package
+\.
+.TP
+.B \-man
+list man pages (if any) of
+.I package
+\.
+.PP
+
+.SH ENVIRONMENT VARIABLES
+.TP
+.B COLUMNS
+Sets the number of columns \fBdlocate\fP should use when displaying formatted
+text.  Currently only used by -l. Values lower than 80 are ignored.
+
+.SH "SEE ALSO"
+\fBdpkg\fP(8),
+\fBupdate-dlocatedb\fP(8),
+\fBegrep\fP(1)
+and
+\fBgrep-dctrl\fP(1).
+
+
+
+.SH AUTHOR
+dlocate was written by Jim Pick <jim@pick.com> and Craig Sanders
+<cas@taz.net.au>. dlocate is Free Software licensed under the GNU
+General Public License.

@@ -1,0 +1,18 @@
+This package was debianized by Craig Sanders <cas@taz.net.au> on
+Fri, 16 Jul 1999 11:31:28 +1000.
+
+It was created from original source code by Jim Pick <jim@pick.com>, 
+greatly modified and enhanced by myself.
+
+Various versions have been posted to the debian mailing lists and it's
+well past time to package it.
+
+Upstream Author(s): Jim Pick <jim@pick.com>
+                    Craig Sanders <cas@taz.net.au>
+
+Copyright:
+
+original script by Jim Pick <jim@jimpick.com>, GPL'd of course
+
+see /usr/share/common-licenses/GPL for details
+

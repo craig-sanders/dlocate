@@ -1,0 +1,97 @@
+#! /usr/bin/perl
+
+#      _       _     _
+#   __| | ___ | |__ | |
+#  / _` |/ _ \| '_ \| |
+# | (_| | (_) | | | |_|
+#  \__,_|\___/|_| |_(_)
+#
+# i spend an hour or so writing this and then i realise that
+# 'dpkg -l "*"' would do the job just as well.  (better, even!)
+
+$/ = '' ;
+
+$cmd="grep-status -e '.' -s Package,Version,Status,Description" ;
+
+$outfile = "/var/lib/dlocate/dpkg-list" ;
+
+$header = <<__EOF__;
+Desired=Unknown/Install/Remove/Purge
+| Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
+|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+||/ Name            Version        Description
++++-===============-==============-============================================
+__EOF__
+
+open(PIPE,"$cmd|") || die "couldn't open pipe to $cmd: $!" ;
+
+while(<PIPE>) {
+
+	my ($state,$ok,$status,%package) ;
+	my ($Status,$Package,$Version,$Description) ;
+
+	my (@lines) = split /\n/ ;
+
+	foreach (@lines) {
+		next if (/^ /) ;
+		s/ *$// ;
+
+		if (s/^Status: //io) {
+			($state,$ok,$status) = split ;
+
+			# install=i, de-install=r, hold=h, purged=p
+			$state =~ s/(.).*/$1/ ;
+			$state = 'r' if ($state eq "d" ) ;
+
+			# installed=i, not-installed=n, configfiles=c
+			# Unpacked=u, Failed-config=f, Half-installed=h
+			$status =~ s/(.).*/$1/ ;
+
+			if ($ok != "ok" ) {
+				# fixme - need to figure out error conditions.
+				# for now, just output X (X == both errors)
+				$err = "X" ;
+			} else {
+				$err=" ";
+			};
+			$Status = $state . $status . $err ;
+
+		} elsif (s/Package: //io) {
+			$Package = $_ ;
+		} elsif (s/Version: //io) {
+			$Version = $_ ;
+		} elsif (s/Description: //io) {
+			$Description = $_ ;
+		} ;
+	} ;
+
+	next if ($Package eq "" ) ;
+
+	if ($Version eq "") { $Version = "<none>" } ;
+	if ($Description eq "") { $Description = "(no description available)" } ;
+
+	$Package = substr($Package,0,15) ;
+	$Version = substr($Version,0,14) ;
+	$Description = substr($Description,0,44) ;
+
+	$packages{$Package}{version} = $Version ;
+	$packages{$Package}{status} = $Status ;
+	$packages{$Package}{desc} = $Description ;
+
+} ;
+
+close (PIPE) ;
+
+
+open(OUT, ">$outfile") || die "couldn't open $outfile: $!" ;
+
+print OUT $header ;
+foreach (sort keys %packages) {
+	printf OUT "%-3s %-15s %-14s %s\n", $packages{$_}{status}, 
+									$_,
+									$packages{$_}{version}, 
+									$packages{$_}{desc} ;
+
+} ;
+
+close(OUT) ;
