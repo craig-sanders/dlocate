@@ -1,3 +1,12 @@
+dlocate (0.5-0.2) unstable; urgency=low
+
+  * NMU to fix RC bug
+  * Updated Standards version to 3.6.2.1
+  * Use debhelper v5, Closes: #337711 - Puts link in /usr/doc
+  * escape minus chars in man pages
+
+ -- Bastian Kleineidam <calvin@debian.org>  Fri, 25 Nov 2005 16:58:10 +0100
+
 dlocate (0.5-0.1) unstable; urgency=low
 
   * Non-Maintainer Upload.

@@ -4,7 +4,7 @@
 .\" other parms are allowed: see man(7), man(1)
 
 .SH NAME
-dlocate \- program to view debian package information
+dlocate - program to view debian package information
 
 .SH SYNOPSIS
 .B dlocate
@@ -35,13 +35,13 @@ list records where files match
 \.
 .TP
 .B \-l
-simplistic emulation of `dpkg -l'.  Shows all packages which match
+simplistic emulation of `dpkg \-l'.  Shows all packages which match
 .IR package .
 Internally this uses egrep on a file containing the reformatted output
-of `dpkg -l' (four fields separated by one space-character: status,
-package-name, installed version, description) so it will return packages whose
-tag-line matches, too. Extended regular expression are allowed. For example,
-\fBdlocate -l '^.. libc5'\fP will list all the package names starting with
+of `dpkg \-l' (four fields separated by one space\-character: status,
+package\-name, installed version, description) so it will return packages whose
+tag\-line matches, too. Extended regular expression are allowed. For example,
+\fBdlocate \-l '^.. libc5'\fP will list all the package names starting with
 `libc5'.)
 \.
 .TP
@@ -56,12 +56,12 @@ print status of
 \.
 .TP
 .B \-ls
-`ls -ldF' of all files in 
+`ls \-ldF' of all files in
 .I package
 \.
 .TP
 .B \-lsconf
-`ls -ldF' of conffiles in
+`ls \-ldF' of conffiles in
 .I package
 \.
 .TP
@@ -71,7 +71,7 @@ list conffiles in
 \.
 .TP
 .B \-du
-`du -sck' of all files in
+`du \-sck' of all files in
 .I package
 \.
 .TP
@@ -95,14 +95,14 @@ list man pages (if any) of
 .TP
 .B COLUMNS
 Sets the number of columns \fBdlocate\fP should use when displaying formatted
-text.  Currently only used by -l. Values lower than 80 are ignored.
+text.  Currently only used by \-l. Values lower than 80 are ignored.
 
 .SH "SEE ALSO"
 \fBdpkg\fP(8),
-\fBupdate-dlocatedb\fP(8),
+\fBupdate\-dlocatedb\fP(8),
 \fBegrep\fP(1)
 and
-\fBgrep-dctrl\fP(1).
+\fBgrep\-dctrl\fP(1).
 
 
 
