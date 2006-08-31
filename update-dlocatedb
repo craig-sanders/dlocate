@@ -24,5 +24,11 @@ foreach $pkg (@pkgs) {
 }    
 close FRCODE ;
 
-rename("$dbfile","$dbfile.old") if ( -e $dbfile ) ;
+# Create a backup to the database before replacing it with the new database.
+# This is effectively two rename's done atomically.
+if (-e $dbfile) {
+	unlink("$dbfile.old") if (-e "$dbfile.old");
+	link("$dbfile", "$dbfile.old") if (-e $dbfile);
+}
+
 rename("$dbfile.new","$dbfile") ;

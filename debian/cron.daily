@@ -2,7 +2,7 @@
 
 DPKGLIST=/var/lib/dlocate/dpkg-list
 
-# exit if dlocate ist uninstalled but not purged
+# exit if dlocate is uninstalled but not purged
 test -x /usr/sbin/update-dlocatedb || exit 0
 # update dlocate database
 /usr/sbin/update-dlocatedb >/dev/null

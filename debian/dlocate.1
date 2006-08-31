@@ -23,16 +23,14 @@ is a fast alternative to dpkg for queries like `dpkg -L' and `dpkg -S'
 .TP
 .B (none)
 list all records where either package name or filename matches
-.I string
-\.
+.IR string .
 .TP
 .B \-h
 Produces a short help message.
 .TP
 .B \-S
 list records where files match
-.I string
-\.
+.IR string .
 .TP
 .B \-l
 simplistic emulation of `dpkg \-l'.  Shows all packages which match
@@ -43,52 +41,42 @@ package\-name, installed version, description) so it will return packages whose
 tag\-line matches, too. Extended regular expression are allowed. For example,
 \fBdlocate \-l '^.. libc5'\fP will list all the package names starting with
 `libc5'.)
-\.
 .TP
 .B \-L
 list all files in 
-.I package
-\.
+.IR package .
 .TP
 .B \-s
 print status of
-.I package
-\.
+.IR package .
 .TP
 .B \-ls
 `ls \-ldF' of all files in
-.I package
-\.
+.IR package .
 .TP
 .B \-lsconf
 `ls \-ldF' of conffiles in
-.I package
-\.
+.IR package .
 .TP
 .B \-conf
 list conffiles in
-.I package
-\.
+.IR package .
 .TP
 .B \-du
 `du \-sck' of all files in
-.I package
-\.
+.IR package .
 .TP
 .B \-md5sum
 list md5sums (if any) of 
-.I package
-\.
+.IR package .
 .TP
 .B \-md5check
 check md5sums (if any) of 
-.I package
-\.
+.IR package .
 .TP
 .B \-man
 list man pages (if any) of
-.I package
-\.
+.IR package .
 .PP
 
 .SH ENVIRONMENT VARIABLES

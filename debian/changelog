@@ -1,3 +1,21 @@
+dlocate (0.5-0.3) unstable; urgency=low
+
+  * Non-Maintainer Upload.
+  * Updated Standards version to 3.7.2.1
+  * Depend on dctrl-tools or grep-dctrl (Closes: #314276)
+  * Remove -v from md5check routine so md5checking works with md5sum from
+    textutils (Closes: #318980)
+  * Change Build-Depends-Indep to Build-Depends since debhelper is called from
+    the clean target, this makes dlocate lintian clean.
+  * Apply patch from Sam Morris to return non-zero if a package is not
+    installed (Closes: #123777, #322290, #213292, 364318)
+  * Make database backups atomic (Closes: #372151)
+  * Apply patch from Nicolas Fancios to fix typos in manpage (Closes: #271328)
+  * Use capital letters in long description (Closes: #374475)
+  * Fix typo in cron file (Closes: #243620)
+
+ -- Jon Bernard <jbernard@debian.org>  Thu, 31 Aug 2006 13:11:16 -0400
+
 dlocate (0.5-0.2) unstable; urgency=low
 
   * NMU to fix RC bug

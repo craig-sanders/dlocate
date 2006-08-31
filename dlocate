@@ -88,6 +88,7 @@ case "$OPTION" in
 		;;
 	"-S")
 		$LOCATE -d $DLOCATEDB $PKG | grep ":.*$PKG.*"
+		result=$?
 		;;
 	"-s")
 		if [ -e $DPKG_INFO/$PKG.list ] ; then 
@@ -144,13 +145,14 @@ case "$OPTION" in
 		if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
 			cat $DPKG_INFO/$PKG.md5sums | \
 				awk '{print $1 "  /" $2}' | \
-				md5sum -v -c /dev/stdin
+				md5sum -c /dev/stdin
 		else
 			echo Package \"$PKG\" not installed or has no md5sums.
 		fi
 		;;
 	*)
 		$LOCATE -d $DLOCATEDB "$PKG"
+		result=$?
 		;;
 esac
 
@@ -158,4 +160,5 @@ shift
 PKG=$1
 done
 
+test -n "$result" && exit $result
 
