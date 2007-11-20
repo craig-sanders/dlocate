@@ -1,3 +1,19 @@
+dlocate (0.7) unstable; urgency=low
+
+  * fixed small bug in arg handling
+  * added more commentary and examples in the dlocate man page to resolve
+    various searching issues (both locate and egrep are different to dpkg's
+    shell-style pattern matching).  
+    Also added 'SEE ALSO locate(1)' to the man page.
+    (Closes: #441183, #208425, #447141)
+  * man page for dpkg is in section 1.  (Closes: #354648)
+  * added -lsman option to list full path/filename of man pages.
+    (Closes: #361125, #289351)
+  * added -lsbin option to list full path/filename of binaries
+    (Closes: #441109)
+
+ -- Craig Sanders <cas@taz.net.au>  Wed, 21 Nov 2007 01:53:17 +1100
+
 dlocate (0.6) unstable; urgency=low
 
   * Applied patch from Andreas Metzler: GNU locate has been split off to

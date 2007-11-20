@@ -30,18 +30,23 @@ function dlocate_help {
 Usage: dlocate [option] [string...]
 
 Options:
-    (no option) string  list all records that match
-    -S        string      list records where files match
-    -L        package     list all files in package
-    -l        package     almost-emulation of 'dpkg -l'
-    -s        package     print package's status
-    -ls       package     'ls -ldF' of all files in package
-    -du       package     'du -sck' of all files in package
-    -conf     package     list conffiles in package
-    -lsconf   package     'ls -ldF' of conffiles in package
-    -md5sum   package     list package's md5sums (if any)
-    -md5check package     check package's md5sums (if any)
-    -man      package     list package's man pages (if any)
+  (no option) string  list all records that match
+  -S          string      list records where files match
+  -L          package     list all files in package
+  -l          package     almost-emulation of 'dpkg -l'
+  -s          package     print package's status
+  -ls         package     'ls -ldF' of all files in package
+  -du         package     'du -sck' of all files in package
+  -conf       package     list conffiles in package
+  -lsconf     package     'ls -ldF' of conffiles in package
+  -md5sum     package     list package's md5sums (if any)
+  -md5check   package     check package's md5sums (if any)
+  -man        package     list package's man pages (if any)
+  -lsman      package     list full path/filenames of man pages
+  -lsbin      package     list full path/filenames of executable files
+
+  -h                      display this help message and exit.
+  -V                      display dlocate's version number and exit.
 
   The -L, -s, and -S commands are roughly analagous to the
   equivalent dpkg commands.
@@ -49,17 +54,20 @@ __EOF__
   exit 1
 } 
 
+function dlocate_version {
+  #VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
+  #  /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
+  VERSION_BANNER="0.7"
+  echo "dlocate version "$VERSION_BANNER
+  exit
+}
+
 OPTION="$1"
 shift
 
 case "$OPTION" in
   ''|'-h'|'-H'|'--help') dlocate_help ;;
-  "-V"|"--version")
-                VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
-                    /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
-                echo "dlocate version "$VERSION_BANNER
-                exit
-                ;;
+  "-v"|"-V"|"--version")      dlocate_version ;;
 esac
 
 PKGS_REGEXP=$(echo "$*" | sed -e 's/ /|/g')
@@ -93,10 +101,10 @@ if [ "$OPTION" == '-l' ] ; then
 else 
     
     PKGS="$*"
+    [ -z "$PKGS" ] && PKGS="$OPTION"
     
     for P in $PKGS; do
         PKG="$P"
-        [ -z "$PKG" ] && PKG="$OPTION"
     
         case "$OPTION" in
         
@@ -158,6 +166,15 @@ else
                 fi
                 ;;
 
+            "-lsman")
+                if [ -e $DPKG_INFO/$PKG.list ] ; then 
+                    dlocate -L $PKG | \
+					  grep '/man.*/.*[0-9]/'
+                else
+                    echo Package \"$PKG\" not installed. >/dev/stderr
+                fi
+				;;
+
             "-man")
                 if [ -e $DPKG_INFO/$PKG.list ] ; then 
                     dlocate -L $PKG | \
@@ -167,6 +184,17 @@ else
                     echo Package \"$PKG\" not installed. >/dev/stderr
                 fi
                 ;;
+
+            "-lsbin")
+                if [ -e $DPKG_INFO/$PKG.list ] ; then 
+                    dlocate -L $PKG | \
+					  xargs ls -ld | \
+					  grep -v "^d" | \
+					  egrep '^-.{2,8}[xs]'
+                else
+                    echo Package \"$PKG\" not installed. >/dev/stderr
+                fi
+				;;
 
             "-md5check")
                 if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 

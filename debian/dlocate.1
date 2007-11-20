@@ -22,32 +22,65 @@ is a fast alternative to dpkg for queries like `dpkg -L' and `dpkg -S'
 .SH OPTIONS
 .TP
 .B (none)
-list all records where either package name or filename matches
+List all records where either the package name or the filename matches
 .IR string .
+
+Note that dlocate uses GNU locate for this search, so locate's caveats about
+metacharacters needs to be taken into account.
+
+For example, to search for `/usr/bin/[', you need to type:
+
+\fBdlocate '*\\['\fP
 .TP
 .B \-h
-Produces a short help message.
+Produces a short help message and exits.
+.TP
+.B \-h
+Display dlocate's version number and exits.
 .TP
 .B \-S
-list records where files match
+list all records where only the filename matches
 .IR string .
+
+Note that dlocate uses GNU locate for this search, so locate's caveats about
+metacharacters needs to be taken into account.
+
+For example, to search for `/usr/bin/[', you need to type:
+
+\fBdlocate -S '*\\['\fP
+
 .TP
 .B \-l
-simplistic emulation of `dpkg \-l'.  Shows all packages which match
+Simplistic emulation of `dpkg \-l'.  Shows all packages which match
 .IR package .
+
 Internally this uses egrep on a file containing the reformatted output
 of `dpkg \-l' (four fields separated by one space\-character: status,
-package\-name, installed version, description) so it will return packages whose
-tag\-line matches, too. Extended regular expression are allowed. For example,
-\fBdlocate \-l '^.. libc5'\fP will list all the package names starting with
-`libc5'.)
+package\-name, installed version, description) so it will return
+packages whose tag\-line matches, too.
+
+Extended regular expression are allowed. For example,
+
+\fBdlocate \-l '^.. libc5'\fP
+
+will list all the package names starting with `libc5'.
+
+Note that because of the difference between regular expressions and
+dpkg's shell\-style pattern matching, the output from \fBdlocate -l\fP
+is occasionally different to the output from \fBdpkg -l\fP.
+
+This is not a bug, regular expressions are far more flexible than shell
+pattern matching.  This is the way dlocate is supposed to run, but it
+may require some knowledge of regular expressions to get the output you
+want.
+
 .TP
 .B \-L
-list all files in 
+List all files in 
 .IR package .
 .TP
 .B \-s
-print status of
+Print status of
 .IR package .
 .TP
 .B \-ls
@@ -59,7 +92,7 @@ print status of
 .IR package .
 .TP
 .B \-conf
-list conffiles in
+List conffiles in
 .IR package .
 .TP
 .B \-du
@@ -67,15 +100,23 @@ list conffiles in
 .IR package .
 .TP
 .B \-md5sum
-list md5sums (if any) of 
+List md5sums (if any) of 
 .IR package .
 .TP
 .B \-md5check
-check md5sums (if any) of 
+Check md5sums (if any) of 
 .IR package .
 .TP
 .B \-man
-list man pages (if any) of
+List man pages (if any) in
+.IR package .
+.TP
+.B \-lsman
+List full path/filenames of man pages (if any) in
+.IR package .
+.TP
+.B \-lsbin
+List full path/filenames of executable files (if any) in
 .IR package .
 .PP
 
@@ -86,7 +127,8 @@ Sets the number of columns \fBdlocate\fP should use when displaying formatted
 text.  Currently only used by \-l. Values lower than 80 are ignored.
 
 .SH "SEE ALSO"
-\fBdpkg\fP(8),
+\fBlocate\fP(1),
+\fBdpkg\fP(1),
 \fBupdate\-dlocatedb\fP(8),
 \fBegrep\fP(1)
 and
