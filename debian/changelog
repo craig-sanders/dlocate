@@ -1,3 +1,14 @@
+dlocate (0.8) unstable; urgency=low
+
+  * call md5sum -c with '-' rather than /dev/stdin (Closes: #413804)
+  * can not reproduce 61790, and nobody else has ever reported anything
+    similar.  probably some problem with cron on Lazarus' system at the
+    time (Apr 2000).  (Closes: #61790)
+  * improved error messages from update-dlocatedb.  also modified
+    script to comply with 'use strict;'.  (Closes: #361196)
+
+ -- Craig Sanders <cas@taz.net.au>  Wed, 21 Nov 2007 10:29:20 +1100
+
 dlocate (0.7) unstable; urgency=low
 
   * fixed small bug in arg handling

@@ -4,19 +4,26 @@
 # modified by cas to pipe its output through frcode and then > to the
 # db file.
 
-$dbfile='/var/lib/dlocate/dlocatedb' ;
+use strict;
+use File::Basename;
 
-$frcode='/usr/lib/locate/frcode' ;
+my $program = basename($0);
 
-open(FRCODE,"|$frcode >$dbfile.new") || die "couldn't open pipe to $frcode: $!\n" ;
+my $dbfile='/var/lib/dlocate/dlocatedb' ;
 
-opendir(DIR, "/var/lib/dpkg/info") || die "can't open dir";
-@pkgs = grep { /list$/ && s/\.list// } readdir(DIR);
+my $frcode='/usr/lib/locate/frcode' ;
+
+my $infodir='/var/lib/dpkg/info';
+
+open(FRCODE,"|$frcode >$dbfile.new") || die "$program: couldn't open pipe to $frcode: $!\n" ;
+
+opendir(DIR, $infodir) || die "$program: can't open directory $infodir: $!\n";
+my @pkgs = grep { /list$/ && s/\.list// } readdir(DIR);
 closedir DIR;
 
-chdir "/var/lib/dpkg/info";
-foreach $pkg (@pkgs) {
-    open(FILE, $pkg . ".list") || die "can't open file";
+chdir $infodir;
+foreach my $pkg (@pkgs) {
+    open(FILE, $pkg . ".list") || die "$program: can't open file $pkg: $!\n";
     foreach (<FILE>) {
         print FRCODE $pkg, ": ", $_;
     }

@@ -200,7 +200,7 @@ else
                 if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
                     cat $DPKG_INFO/$PKG.md5sums | \
                         awk '{print $1 "  /" $2}' | \
-                        md5sum -c /dev/stdin
+                        md5sum -c -
                 else
                     echo Package \"$PKG\" not installed or has no md5sums. >/dev/stderr
                 fi
