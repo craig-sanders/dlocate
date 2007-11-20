@@ -17,148 +17,176 @@ DLOCATEDB=/var/lib/dlocate/dlocatedb
 DPKGLIST=/var/lib/dlocate/dpkg-list
 DPKG_INFO=/var/lib/dpkg/info
 
-LOCATE="/usr/bin/locate" 
-# slocate diverts locate
-LOCATE=`/usr/sbin/dpkg-divert --truename /usr/bin/locate`
+if [ -x /usr/bin/locate.findutils ] ; then
+    # locate package is installed
+    LOCATE='/usr/bin/locate.findutils' 
+else
+    # slocate diverts locate
+    LOCATE=$(/usr/sbin/dpkg-divert --truename /usr/bin/locate)
+fi
 
-OPTION="$1" ; shift
+function dlocate_help {
+  cat <<__EOF__
+Usage: dlocate [option] [string...]
+
+Options:
+    (no option) string  list all records that match
+    -S        string      list records where files match
+    -L        package     list all files in package
+    -l        package     almost-emulation of 'dpkg -l'
+    -s        package     print package's status
+    -ls       package     'ls -ldF' of all files in package
+    -du       package     'du -sck' of all files in package
+    -conf     package     list conffiles in package
+    -lsconf   package     'ls -ldF' of conffiles in package
+    -md5sum   package     list package's md5sums (if any)
+    -md5check package     check package's md5sums (if any)
+    -man      package     list package's man pages (if any)
+
+  The -L, -s, and -S commands are roughly analagous to the
+  equivalent dpkg commands.
+__EOF__
+  exit 1
+} 
+
+OPTION="$1"
+shift
 
 case "$OPTION" in
-	""|"-h"|"-H"|"--help")
-		echo "Usage: dlocate [option] [string...]"
-		echo 
-		echo "Options:"
-		echo "    (no option) string  list all records that match"
-		echo "    -S        string      list records where files match"
-		echo "    -L        package     list all files in package"
-		echo "    -l        package     almost-emulation of 'dpkg -l'"
-		echo "    -s        package     print package's status"
-		echo "    -ls       package     'ls -ldF' of all files in package"
-		echo "    -du       package     'du -sck' of all files in package"
-		echo "    -conf     package     list conffiles in package"
-		echo "    -lsconf   package     'ls -ldF' of conffiles in package"
-		echo "    -md5sum   package     list package's md5sums (if any)"
-		echo "    -md5check package     check package's md5sums (if any)"
-		echo "    -man      package     list package's man pages (if any)"
-		echo 
-		echo "  The -L, -s, and -S commands are roughly analagous to the"
-		echo "  equivalent dpkg commands."
-		exit
-		;;
+  ''|'-h'|'-H'|'--help') dlocate_help ;;
+  "-V"|"--version")
+                VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
+                    /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
+                echo "dlocate version "$VERSION_BANNER
+                exit
+                ;;
 esac
 
-PKG=$1
-[ -z "$1" ] && PKG="$OPTION"
+PKGS_REGEXP=$(echo "$*" | sed -e 's/ /|/g')
+[ -z "$PKGS_REGEXP" ] && PKGS_REGEXP='^$'
 
-while [ -n "$PKG" ] ; do
-
-case "$OPTION" in
-	"-l")
-		[ -z "$COLUMNS" ] &&
-			COLUMNS=$(stty -a 2>&- |
-				sed -ne '/columns/s/.*columns \([0-9]*\)[^0-9].*/\1/p');
-		[ 0"$COLUMNS" -lt 80 ] && COLUMNS=80;
-		((fieldw=(COLUMNS-24)/4));
-		# dpkg uses
-		#((fieldd=fieldw*2+16));
-		# limiting the output to COLUMNS-2 characters and losing up to
-		# additional 3 characters due to the rounding error.
-		((fieldd=COLUMNS-fieldw*2-6));
-		fmt_eq=$(echo ==================================================== |
-			cut -c-$fieldw)
-		printf \
+if [ "$OPTION" == '-l' ] ; then
+        [ -z "$COLUMNS" ] &&
+            COLUMNS=$(stty -a 2>&- |
+                sed -ne '/columns/s/.*columns \([0-9]*\)[^0-9].*/\1/p');
+        [ 0"$COLUMNS" -lt 80 ] && COLUMNS=80;
+        ((fieldw=(COLUMNS-24)/4));
+        # dpkg uses
+        #((fieldd=fieldw*2+16));
+        # limiting the output to COLUMNS-2 characters and losing up to
+        # additional 3 characters due to the rounding error.
+        ((fieldd=COLUMNS-fieldw*2-6));
+        fmt_eq=$(echo ==================================================== |
+            cut -c-$fieldw)
+        printf \
 "Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ %-${fieldw}s %-${fieldw}s %s
 +++-${fmt_eq}-${fmt_eq}-${fmt_eq}${fmt_eq}==================\\n" \
-			Name Version Description
+            Name Version Description
 
-		egrep "$1" $DPKGLIST | while read stat name ver descr; do
-			printf "%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n" \
-				"$stat" "$name" "$ver" "$descr";
-		done
-		;;
-	"-L")
-		if [ -e $DPKG_INFO/$PKG.list ] ; then 
-			cat $DPKG_INFO/$PKG.list
-		else
-			echo Package \"$PKG\" not installed.
-		fi
-		;;
-	"-S")
-		$LOCATE -d $DLOCATEDB $PKG | grep ":.*$PKG.*"
-		result=$?
-		;;
-	"-s")
-		if [ -e $DPKG_INFO/$PKG.list ] ; then 
-			grep-dctrl -X -P $PKG /var/lib/dpkg/status
-		else
-			echo Package \"$PKG\" not installed.
-		fi
-		;;
-	"-ls")
-		if [ -e $DPKG_INFO/$PKG.list ] ; then
-			xargs ls -ldF < $DPKG_INFO/$PKG.list
-		else
-			echo Package \"$PKG\" not installed.
-		fi
-		;;
-	"-du")
-		if [ -e $DPKG_INFO/$PKG.list ] ; then 
-			du -sck $(cat $DPKG_INFO/$PKG.list | xargs ls -1dF | grep -v "@$\|/$" )
-		else
-			echo Package \"$PKG\" not installed.
-		fi
-		;;
-	"-conf")
-		if [ -e $DPKG_INFO/$PKG.conffiles ] ; then 
-			cat $DPKG_INFO/$PKG.conffiles
-		else
-			echo Package \"$PKG\" not installed or has no conffiles.
-		fi
-		;;
-	"-lsconf")
-		if [ -e $DPKG_INFO/$PKG.conffiles ] ; then 
-			ls -ldF $(cat $DPKG_INFO/$PKG.conffiles)
-		else
-			echo Package \"$PKG\" not installed or has no conffiles.
-		fi
-		;;
-	"-md5sum")
-		if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
-			cat $DPKG_INFO/$PKG.md5sums
-		else
-			echo Package \"$PKG\" not installed or has no md5sums.
-		fi
-		;;
-	"-man")
-		if [ -e $DPKG_INFO/$PKG.list ] ; then 
-			dlocate -L $PKG | \
-				sed -n -e 's/\.gz$//' \
-					  -e '/man.*\/.*[0-9]/s/^.*\/\([^\/]*\)\.\(.*\)/\2 \1/p'
-		else
-			echo Package \"$PKG\" not installed.
-		fi
-		;;
-	"-md5check")
-		if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
-			cat $DPKG_INFO/$PKG.md5sums | \
-				awk '{print $1 "  /" $2}' | \
-				md5sum -c /dev/stdin
-		else
-			echo Package \"$PKG\" not installed or has no md5sums.
-		fi
-		;;
-	*)
-		$LOCATE -d $DLOCATEDB "$PKG"
-		result=$?
-		;;
-esac
+        egrep "$PKGS_REGEXP" "$DPKGLIST" | while read stat name ver descr; do
+            printf "%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n" \
+                "$stat" "$name" "$ver" "$descr" | sed -e 's/ *$//';
+        done
+else 
+    
+    PKGS="$*"
+    
+    for P in $PKGS; do
+        PKG="$P"
+        [ -z "$PKG" ] && PKG="$OPTION"
+    
+        case "$OPTION" in
+        
+            "-L")
+                if [ -e $DPKG_INFO/$PKG.list ] ; then 
+                    cat $DPKG_INFO/$PKG.list
+                else
+                    echo Package \"$PKG\" not installed. >/dev/stderr
+                fi
+                ;;
 
-shift
-PKG=$1
-done
+            "-S")
+                $LOCATE -d $DLOCATEDB -- $PKG | grep ":.*$PKG.*"
+                result=$?
+                ;;
+
+            "-s")
+                    grep-dctrl -X -P $PKG /var/lib/dpkg/status || \
+                    echo Package \"$PKG\" does not exist. >/dev/stderr
+                ;;
+
+            "-ls")
+                if [ -e $DPKG_INFO/$PKG.list ] ; then
+                    xargs ls -ldF < $DPKG_INFO/$PKG.list
+                else
+                    echo Package \"$PKG\" not installed. >/dev/stderr
+                fi
+                ;;
+
+            "-du")
+                if [ -e $DPKG_INFO/$PKG.list ] ; then 
+                    du -sck $(cat $DPKG_INFO/$PKG.list | xargs ls -1dF | grep -v "@$\|/$" )
+                else
+                    echo Package \"$PKG\" not installed. >/dev/stderr
+                fi
+                ;;
+
+            "-conf")
+                if [ -e $DPKG_INFO/$PKG.conffiles ] ; then 
+                    cat $DPKG_INFO/$PKG.conffiles
+                else
+                    echo Package \"$PKG\" not installed or has no conffiles. >/dev/stderr
+                fi
+                ;;
+
+            "-lsconf")
+                if [ -e $DPKG_INFO/$PKG.conffiles ] ; then 
+                    ls -ldF $(cat $DPKG_INFO/$PKG.conffiles)
+                else
+                    echo Package \"$PKG\" not installed or has no conffiles. >/dev/stderr
+                fi
+                ;;
+
+            "-md5sum")
+                if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
+                    cat $DPKG_INFO/$PKG.md5sums
+                else
+                    echo Package \"$PKG\" not installed or has no md5sums. >/dev/stderr
+                fi
+                ;;
+
+            "-man")
+                if [ -e $DPKG_INFO/$PKG.list ] ; then 
+                    dlocate -L $PKG | \
+                        sed -n -e 's/\.gz$//' \
+                               -e '/\/man.*\/.*[0-9]/s/^.*\/\([^\/]*\)\.\(.*\)/\2 \1/p'
+                else
+                    echo Package \"$PKG\" not installed. >/dev/stderr
+                fi
+                ;;
+
+            "-md5check")
+                if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
+                    cat $DPKG_INFO/$PKG.md5sums | \
+                        awk '{print $1 "  /" $2}' | \
+                        md5sum -c /dev/stdin
+                else
+                    echo Package \"$PKG\" not installed or has no md5sums. >/dev/stderr
+                fi
+                ;;
+
+            *)
+                $LOCATE -d $DLOCATEDB -- "$PKG"
+                result=$?
+                ;;
+
+        esac
+    done
+fi
+
 
 test -n "$result" && exit $result
 

@@ -27,7 +27,7 @@ case "$1" in
 		# generate initial dlocate database
 		/usr/sbin/update-dlocatedb >/dev/null 2>&1 &
 		# generate initial 'dpkg -l' file
-		LINES=40 COLUMNS=200 dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' >/var/lib/dlocate/dpkg-list
+		COLUMNS=200 dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' >/var/lib/dlocate/dpkg-list
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

@@ -8,4 +8,4 @@ test -x /usr/sbin/update-dlocatedb || exit 0
 /usr/sbin/update-dlocatedb >/dev/null
 
 # update 'dlocate -l' emulation
-LINES=40 COLUMNS=200 dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' >$DPKGLIST
+COLUMNS=200 dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' >$DPKGLIST

@@ -1,7 +1,7 @@
-#!/usr/bin/perl                                                                 
+#!/usr/bin/perl
 
 # perl script originally by hallon@debian.org, much faster than sed & sh.
-# modified by cas to pass it's output through frcode and then > to the
+# modified by cas to pipe its output through frcode and then > to the
 # db file.
 
 $dbfile='/var/lib/dlocate/dlocatedb' ;
@@ -13,22 +13,22 @@ open(FRCODE,"|$frcode >$dbfile.new") || die "couldn't open pipe to $frcode: $!\n
 opendir(DIR, "/var/lib/dpkg/info") || die "can't open dir";
 @pkgs = grep { /list$/ && s/\.list// } readdir(DIR);
 closedir DIR;
- 
+
 chdir "/var/lib/dpkg/info";
 foreach $pkg (@pkgs) {
     open(FILE, $pkg . ".list") || die "can't open file";
     foreach (<FILE>) {
         print FRCODE $pkg, ": ", $_;
-    }                                                                           
+    }
     close FILE;
-}    
+}
 close FRCODE ;
 
 # Create a backup to the database before replacing it with the new database.
 # This is effectively two rename's done atomically.
 if (-e $dbfile) {
-	unlink("$dbfile.old") if (-e "$dbfile.old");
-	link("$dbfile", "$dbfile.old") if (-e $dbfile);
+    unlink("$dbfile.old") if (-e "$dbfile.old");
+    link("$dbfile", "$dbfile.old") if (-e $dbfile);
 }
 
 rename("$dbfile.new","$dbfile") ;

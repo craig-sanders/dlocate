@@ -1,3 +1,25 @@
+dlocate (0.6) unstable; urgency=low
+
+  * Applied patch from Andreas Metzler: GNU locate has been split off to
+    a separate package. Adapt dlocate to work both with the new and the
+    old setup.  (Closes: #451750)
+  * always pass '--' to locate.  (Closes: #360824, #360824)
+  * can not reproduce bug 65974.  my guess is that update-dlocatedb hadn't
+    been run.  (Closes: #65974)
+  * error messages now go to stderr (Closes: 375271)
+  * first option is no longer a special case (Closes: #380081)
+  * 'LINES=40' isn't needed.  removed.  (Closes: #224947)
+  * shameful trailing blanks removed from -l output (Closes: #261733)
+  * 'dlocate -l' no longer outputs one header for each package name.  
+    (Closes: #268288, #319251, #354285)
+  * added '/' to start of dlocate -man regexp.  (Closes: #290562)
+  * dlocate now has --version and -V options (Closes: #223698)
+  * dlocate really needs a rewrite.  it started as a Q&D hack and grew
+    beyond that.  the remaining bugs need a rewrite to fix.
+    expect a rewrite from scratch soon.
+
+ -- Craig Sanders <cas@taz.net.au>  Tue, 20 Nov 2007 23:12:18 +1100
+
 dlocate (0.5-0.3) unstable; urgency=low
 
   * Non-Maintainer Upload.
