@@ -1,6 +1,6 @@
-debian/dlocate.1
-debian/update-dlocatedb.8
-debian/dpkg-hold.1
-debian/dpkg-unhold.1
-debian/dpkg-remove.1
-debian/dpkg-purge.1
+dlocate.1
+update-dlocatedb.8
+dpkg-hold.1
+dpkg-unhold.1
+dpkg-remove.1
+dpkg-purge.1

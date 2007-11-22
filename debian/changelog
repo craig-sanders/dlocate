@@ -1,3 +1,9 @@
+dlocate (0.91) unstable; urgency=low
+
+  * corrected minor mistake in dpkg-remove man page.
+
+ -- Craig Sanders <cas@taz.net.au>  Thu, 22 Nov 2007 21:20:26 +1100
+
 dlocate (0.9) unstable; urgency=low
 
   * cron.daily doesn't need to have COLUMNS=200.  this was fixed in dpkg
