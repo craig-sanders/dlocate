@@ -1,3 +1,20 @@
+dlocate (0.9) unstable; urgency=low
+
+  * cron.daily doesn't need to have COLUMNS=200.  this was fixed in dpkg
+    years ago.
+  * redirect error output from -lsbin to /dev/null.  (Closes: #452297)
+  * made -lsbin output consistent with other -ls options
+  * added dpkg-hold, dpkg-unhold, dpkg-remove, and dpkg-purge to /usr/sbin.
+    simple command line tools that i've been using for years to
+    flag/unflag a package for hold, or flag it to be removed or purged.
+    They *ONLY* change the status of the package which will be noticed
+    the next time dpkg, dselect, or apt-get is run.
+  * write simple man pages for dpkg-{hold,unhold,remove,purge}
+  * really fixed bad handling of first arg this time (Closes: #380081)
+  * updated date in dlocate.1 man page
+
+ -- Craig Sanders <cas@taz.net.au>  Thu, 22 Nov 2007 20:48:19 +1100
+
 dlocate (0.8) unstable; urgency=low
 
   * call md5sum -c with '-' rather than /dev/stdin (Closes: #413804)

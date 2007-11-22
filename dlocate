@@ -57,18 +57,18 @@ __EOF__
 function dlocate_version {
   #VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
   #  /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
-  VERSION_BANNER="0.7"
+  VERSION_BANNER="0.9"
   echo "dlocate version "$VERSION_BANNER
   exit
 }
 
-OPTION="$1"
-shift
-
-case "$OPTION" in
+case "$1" in
   ''|'-h'|'-H'|'--help') dlocate_help ;;
-  "-v"|"-V"|"--version")      dlocate_version ;;
+  '-v'|'-V'|'--version')      dlocate_version ;;
+  '-S'|'-L'|'-l'|'-s'|'-ls'|'-du'|'-conf'|'-lsconf'|'-md5sum'|'-md5check'|'-man'|'-lsman'|'-lsbin')  OPTION="$1" ; shift ;;
+  *) OPTION=DEFAULT ;;
 esac
+
 
 PKGS_REGEXP=$(echo "$*" | sed -e 's/ /|/g')
 [ -z "$PKGS_REGEXP" ] && PKGS_REGEXP='^$'
@@ -101,14 +101,12 @@ if [ "$OPTION" == '-l' ] ; then
 else 
     
     PKGS="$*"
-    [ -z "$PKGS" ] && PKGS="$OPTION"
     
-    for P in $PKGS; do
-        PKG="$P"
+    for PKG in $PKGS; do
     
         case "$OPTION" in
         
-            "-L")
+            '-L')
                 if [ -e $DPKG_INFO/$PKG.list ] ; then 
                     cat $DPKG_INFO/$PKG.list
                 else
@@ -116,17 +114,17 @@ else
                 fi
                 ;;
 
-            "-S")
-                $LOCATE -d $DLOCATEDB -- $PKG | grep ":.*$PKG.*"
+            '-S')
+                $LOCATE -d $DLOCATEDB -- $PKG | grep ":.*$PKG"
                 result=$?
                 ;;
 
-            "-s")
+            '-s')
                     grep-dctrl -X -P $PKG /var/lib/dpkg/status || \
                     echo Package \"$PKG\" does not exist. >/dev/stderr
                 ;;
 
-            "-ls")
+            '-ls')
                 if [ -e $DPKG_INFO/$PKG.list ] ; then
                     xargs ls -ldF < $DPKG_INFO/$PKG.list
                 else
@@ -134,7 +132,7 @@ else
                 fi
                 ;;
 
-            "-du")
+            '-du')
                 if [ -e $DPKG_INFO/$PKG.list ] ; then 
                     du -sck $(cat $DPKG_INFO/$PKG.list | xargs ls -1dF | grep -v "@$\|/$" )
                 else
@@ -142,7 +140,7 @@ else
                 fi
                 ;;
 
-            "-conf")
+            '-conf')
                 if [ -e $DPKG_INFO/$PKG.conffiles ] ; then 
                     cat $DPKG_INFO/$PKG.conffiles
                 else
@@ -150,7 +148,7 @@ else
                 fi
                 ;;
 
-            "-lsconf")
+            '-lsconf')
                 if [ -e $DPKG_INFO/$PKG.conffiles ] ; then 
                     ls -ldF $(cat $DPKG_INFO/$PKG.conffiles)
                 else
@@ -158,7 +156,7 @@ else
                 fi
                 ;;
 
-            "-md5sum")
+            '-md5sum')
                 if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
                     cat $DPKG_INFO/$PKG.md5sums
                 else
@@ -166,7 +164,7 @@ else
                 fi
                 ;;
 
-            "-lsman")
+            '-lsman')
                 if [ -e $DPKG_INFO/$PKG.list ] ; then 
                     dlocate -L $PKG | \
 					  grep '/man.*/.*[0-9]/'
@@ -175,7 +173,7 @@ else
                 fi
 				;;
 
-            "-man")
+            '-man')
                 if [ -e $DPKG_INFO/$PKG.list ] ; then 
                     dlocate -L $PKG | \
                         sed -n -e 's/\.gz$//' \
@@ -185,18 +183,20 @@ else
                 fi
                 ;;
 
-            "-lsbin")
+            '-lsbin')
                 if [ -e $DPKG_INFO/$PKG.list ] ; then 
                     dlocate -L $PKG | \
-					  xargs ls -ld | \
+					  xargs ls -ld 2> /dev/null | \
 					  grep -v "^d" | \
-					  egrep '^-.{2,8}[xs]'
+					  egrep '^-.{2,8}[xs]' | \
+					  sed -e 's/.* \//\//' | \
+					  xargs ls -1
                 else
                     echo Package \"$PKG\" not installed. >/dev/stderr
                 fi
 				;;
 
-            "-md5check")
+            '-md5check')
                 if [ -e $DPKG_INFO/$PKG.md5sums ] ; then 
                     cat $DPKG_INFO/$PKG.md5sums | \
                         awk '{print $1 "  /" $2}' | \
