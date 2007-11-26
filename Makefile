@@ -3,6 +3,7 @@
 all:
 
 clean: 
+	rm -rf debian/dlocate debian/dlocate.substvars debian/files build-stamp install-stamp new.output
 
 install:
 	install -m 755 dlocate $(DESTDIR)/usr/bin/

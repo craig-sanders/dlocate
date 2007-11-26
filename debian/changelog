@@ -1,3 +1,20 @@
+dlocate (0.92) unstable; urgency=low
+
+  * passed '--' to egrep so you can search for partial package names
+    like '-utils', '-tools', etc.
+  * fixed a bug in -md5check which prevented it from checking some
+    packages with spaces in the filenames.
+  * used '-r' ("--no-run-if-empty") everywhere with xargs.
+    (Closes: #452746)
+  * also changed numerous tests of [ -e $PKG.* ] to [ -s $PKG.* ]
+    to test for 'exists and not empty' rather than just 'exists'.
+  * removed output of double-quotes (0x22) surrounding $PKG to
+    make stderr output more parser-friendly.
+  * added simple script to test dlocate output prior to uploading
+    a new version (script is in source package only)
+
+ -- Craig Sanders <cas@taz.net.au>  Mon, 26 Nov 2007 19:26:50 +1100
+
 dlocate (0.91) unstable; urgency=low
 
   * corrected minor mistake in dpkg-remove man page.
@@ -15,7 +32,7 @@ dlocate (0.9) unstable; urgency=low
     flag/unflag a package for hold, or flag it to be removed or purged.
     They *ONLY* change the status of the package which will be noticed
     the next time dpkg, dselect, or apt-get is run.
-  * write simple man pages for dpkg-{hold,unhold,remove,purge}
+  * wrote simple man pages for dpkg-{hold,unhold,remove,purge}
   * really fixed bad handling of first arg this time (Closes: #380081)
   * updated date in dlocate.1 man page
 
