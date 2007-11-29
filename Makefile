@@ -13,3 +13,13 @@ install:
 	install -m 755 dpkg-remove $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-purge $(DESTDIR)/usr/sbin/
 	#install -m 755 update-dpkg-list $(DESTDIR)/usr/sbin/
+
+update-test:
+	./test-dlocate.sh > test.output 2>&1
+
+test:
+	./check-version-banner.sh
+	./test-dlocate.sh > new.output 2>&1
+	diff -u test.output new.output
+
+

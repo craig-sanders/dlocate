@@ -1,3 +1,23 @@
+dlocate (0.93) unstable; urgency=low
+
+  * minor fix to -lsbin.  now excludes all non-files, rather than
+    just directories.  also follows symlinks.
+  * added '--' option to make it possible to search for partial
+    files like -conf, -ls, and other '-*' that happen to match
+    dlocate options.  did i already mention that dlocate's
+    arg processing really sucks and needs a rewrite?
+  * added Makefile rules ("make test") to automate testing of dlocate
+    output, and to remind me to update the version banner in dlocate.
+    (NOTE: breaks backwards-compatibility for anyone who relies on
+    the old behaviour!)
+  * check for unknown options (Closes: #220351, #307371)
+  * only print header for 'dlocate -l' if there are any matching
+    packages found. (Closes: #447140)
+  * fixed dlocate's stderr redirection so that 'make test' works.
+    (possible bug in bash - '>/dev/stderr' treated differently to '>&2')
+
+ -- Craig Sanders <cas@taz.net.au>  Thu, 29 Nov 2007 18:27:22 +1100
+
 dlocate (0.92) unstable; urgency=low
 
   * passed '--' to egrep so you can search for partial package names
@@ -54,7 +74,7 @@ dlocate (0.7) unstable; urgency=low
   * fixed small bug in arg handling
   * added more commentary and examples in the dlocate man page to resolve
     various searching issues (both locate and egrep are different to dpkg's
-    shell-style pattern matching).  
+    shell-style pattern matching).
     Also added 'SEE ALSO locate(1)' to the man page.
     (Closes: #441183, #208425, #447141)
   * man page for dpkg is in section 1.  (Closes: #354648)
@@ -77,7 +97,7 @@ dlocate (0.6) unstable; urgency=low
   * first option is no longer a special case (Closes: #380081)
   * 'LINES=40' isn't needed.  removed.  (Closes: #224947)
   * shameful trailing blanks removed from -l output (Closes: #261733)
-  * 'dlocate -l' no longer outputs one header for each package name.  
+  * 'dlocate -l' no longer outputs one header for each package name.
     (Closes: #268288, #319251, #354285)
   * added '/' to start of dlocate -man regexp.  (Closes: #290562)
   * dlocate now has --version and -V options (Closes: #223698)
@@ -133,7 +153,7 @@ dlocate (0.5-0.1) unstable; urgency=low
     Luberda, depend on dpkg 1.8.0, drop superfluous versioned conflicts
     on very old dpkg. Once this is uploaded I'll ask the slocate-maintainer
     to remove the "Conflicts: dlocate".
-    (Closes: #100694, #101426, #129251) 
+    (Closes: #100694, #101426, #129251)
   * depend on perl. (Closes: #132931)
   * Use nice quotation marks in dlocate(1) (Closes: #129186)
   * Add manpage for update-dlocatedb.8 (Closes: #76149)
@@ -162,7 +182,6 @@ dlocate (0.5) unstable; urgency=low
   * add closes line to changelog for all the bugs that were closed
     in previous versions but i didn't get the closes syntax right:
     (closes: #43194 #45239 #46614 #45057, #43145, #43146  #42234 #42314 #42210 #42248)
-   
 
  -- Craig Sanders <cas@taz.net.au>  Tue,  2 Nov 1999 19:01:27 +1100
 
@@ -179,7 +198,7 @@ dlocate (0.3-1) unstable; urgency=low
   * added simplistic emulation of 'dpkg -l' (fixes #45057, #43145, #43146)
     NOTE: this is NOT the same as 'dpkg -l' and i will ignore bug reports
     which point out this obvious fact.  it is a simplistic emulation, not
-    an exact clone.  IMO, it is more useful than 'dpkg -l'.  if you 
+    an exact clone.  IMO, it is more useful than 'dpkg -l'.  if you
     disagree, then you are free to use the slower original.
 
  -- Craig Sanders <cas@taz.net.au>  Tue,  2 Nov 1999 17:05:56 +1100

@@ -45,6 +45,9 @@ Options:
   -lsman      package     list full path/filenames of man pages
   -lsbin      package     list full path/filenames of executable files
 
+  --                      stop processing options.  remainder of
+                          command-line is filename(s)
+
   -h                      display this help message and exit.
   -V                      display dlocate's version number and exit.
 
@@ -57,15 +60,24 @@ __EOF__
 function dlocate_version {
   #VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
   #  /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
-  VERSION_BANNER="0.9"
+  VERSION_BANNER="0.93"
   echo "dlocate version "$VERSION_BANNER
   exit
 }
 
+function dlocate_option_error () {
+  echo "dlocate: unknown option '$1'"
+  echo
+  echo "Use: 'dlocate -- $1' if you want to search for '$1'"
+  exit 1
+}
+
 case "$1" in
   ''|'-h'|'-H'|'--help') dlocate_help ;;
-  '-v'|'-V'|'--version')      dlocate_version ;;
+  '-v'|'-V'|'--version') dlocate_version ;;
   '-S'|'-L'|'-l'|'-s'|'-ls'|'-du'|'-conf'|'-lsconf'|'-md5sum'|'-md5check'|'-man'|'-lsman'|'-lsbin')  OPTION="$1" ; shift ;;
+  '--') OPTION=DEFAULT; shift ;;
+  -*) dlocate_option_error $1 ;;
   *) OPTION=DEFAULT ;;
 esac
 
@@ -86,18 +98,23 @@ if [ "$OPTION" == '-l' ] ; then
         ((fieldd=COLUMNS-fieldw*2-6));
         fmt_eq=$(echo ==================================================== |
             cut -c-$fieldw)
+
+        HEADER=$(
         printf \
 "Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ %-${fieldw}s %-${fieldw}s %s
 +++-${fmt_eq}-${fmt_eq}-${fmt_eq}${fmt_eq}==================\\n" \
-            Name Version Description
+            Name Version Description)
 
+        BODY=$(
         egrep -- "$PKGS_REGEXP" "$DPKGLIST" | while read stat name ver descr; do
             printf "%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n" \
                 "$stat" "$name" "$ver" "$descr" | sed -e 's/ *$//';
-        done
+        done )
+
+        [ -n "$BODY" ] && echo -e "$HEADER\n$BODY"
 else 
     
     PKGS="$*"
@@ -110,7 +127,7 @@ else
                 if [ -s $DPKG_INFO/$PKG.list ] ; then 
                     cat $DPKG_INFO/$PKG.list
                 else
-                    echo Package $PKG not installed or $PKG.list is empty. >/dev/stderr
+                    echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
                 ;;
 
@@ -121,14 +138,14 @@ else
 
             '-s')
                     grep-dctrl -X -P $PKG /var/lib/dpkg/status || \
-                    echo Package $PKG does not exist. >/dev/stderr
+                    echo Package $PKG does not exist. >&2
                 ;;
 
             '-ls')
                 if [ -s $DPKG_INFO/$PKG.list ] ; then
                     xargs -r ls -ldF < $DPKG_INFO/$PKG.list
                 else
-                    echo Package $PKG not installed or $PKG.list is empty. >/dev/stderr
+                    echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
                 ;;
 
@@ -136,7 +153,7 @@ else
                 if [ -s $DPKG_INFO/$PKG.list ] ; then 
                     du -sck $(cat $DPKG_INFO/$PKG.list | xargs -r ls -1dF | grep -v "@$\|/$" )
                 else
-                    echo Package $PKG not installed or $PKG.list is empty. >/dev/stderr
+                    echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
                 ;;
 
@@ -144,7 +161,7 @@ else
                 if [ -s $DPKG_INFO/$PKG.conffiles ] ; then 
                     cat $DPKG_INFO/$PKG.conffiles
                 else
-                    echo Package $PKG not installed or has no conffiles. >/dev/stderr
+                    echo Package $PKG not installed or has no conffiles. >&2
                 fi
                 ;;
 
@@ -152,7 +169,7 @@ else
                 if [ -s $DPKG_INFO/$PKG.conffiles ] ; then 
                     ls -ldF $(cat $DPKG_INFO/$PKG.conffiles)
                 else
-                    echo Package $PKG not installed or has no conffiles. >/dev/stderr
+                    echo Package $PKG not installed or has no conffiles. >&2
                 fi
                 ;;
 
@@ -160,7 +177,7 @@ else
                 if [ -s $DPKG_INFO/$PKG.md5sums ] ; then 
                     cat $DPKG_INFO/$PKG.md5sums
                 else
-                    echo Package $PKG not installed or has no md5sums. >/dev/stderr
+                    echo Package $PKG not installed or has no md5sums. >&2
                 fi
                 ;;
 
@@ -169,7 +186,7 @@ else
                     dlocate -L $PKG | \
 					  grep '/man.*/.*[0-9]/'
                 else
-                    echo Package $PKG not installed or $PKG.list is empty. >/dev/stderr
+                    echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
 				;;
 
@@ -179,20 +196,20 @@ else
                         sed -n -e 's/\.gz$//' \
                                -e '/\/man.*\/.*[0-9]/s/^.*\/\([^\/]*\)\.\(.*\)/\2 \1/p'
                 else
-                    echo Package $PKG not installed or $PKG.list is empty. >/dev/stderr
+                    echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
                 ;;
 
             '-lsbin')
                 if [ -s $DPKG_INFO/$PKG.list ] ; then 
                     dlocate -L $PKG | \
-					  xargs -r ls -ld 2> /dev/null | \
-					  grep -v "^d" | \
+					  xargs -r ls -lLd 2> /dev/null | \
+					  grep -v "^[^-]" | \
 					  egrep '^-.{2,8}[xs]' | \
 					  sed -e 's/.* \//\//' | \
 					  xargs -r ls -1
                 else
-                    echo Package $PKG not installed or $PKG.list is empty. >/dev/stderr
+                    echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
 				;;
 
@@ -203,7 +220,7 @@ else
                         md5sum -c -
 					popd >/dev/null 2>&1
                 else
-                    echo Package $PKG not installed or has no md5sums. >/dev/stderr
+                    echo Package $PKG not installed or has no md5sums. >&2
                 fi
                 ;;
 
