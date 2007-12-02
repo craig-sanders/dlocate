@@ -21,7 +21,7 @@ if [ -x /usr/bin/locate.findutils ] ; then
     # locate package is installed
     LOCATE='/usr/bin/locate.findutils' 
 else
-    # slocate diverts locate
+    # slocate or mlocate diverts locate
     LOCATE=$(/usr/sbin/dpkg-divert --truename /usr/bin/locate)
 fi
 
@@ -48,6 +48,9 @@ Options:
   --                      stop processing options.  remainder of
                           command-line is filename(s)
 
+  --ignore-case, -i       ignore case when search for filenames or
+                          package names.
+
   -h                      display this help message and exit.
   -V                      display dlocate's version number and exit.
 
@@ -72,35 +75,103 @@ function dlocate_option_error () {
   exit 1
 }
 
-case "$1" in
-  ''|'-h'|'-H'|'--help') dlocate_help ;;
-  '-v'|'-V'|'--version') dlocate_version ;;
-  '-S'|'-L'|'-l'|'-s'|'-ls'|'-du'|'-conf'|'-lsconf'|'-md5sum'|'-md5check'|'-man'|'-lsman'|'-lsbin')  OPTION="$1" ; shift ;;
-  '--') OPTION=DEFAULT; shift ;;
-  -*) dlocate_option_error $1 ;;
-  *) OPTION=DEFAULT ;;
-esac
+IGNORE_CASE=""
+LAST_OPT=0
 
+OPTION="DEFAULT"
 
-PKGS_REGEXP=$(echo "$*" | sed -e 's/ /|/g')
+PKGS=""
+for p in $@; do
+      case "$p" in 
+
+        ('--')
+
+            if [ $LAST_OPT -eq 0 ] ; then
+                LAST_OPT=1
+            else
+                PKGS="$PKGS $p"
+            fi
+            ;;
+
+        (''|'-h'|'-H'|'--help')
+
+            if [ $LAST_OPT -eq 0 ] ; then
+                dlocate_help
+            else
+                PKGS="$PKGS $p"
+            fi
+            ;;
+
+        ('-v'|'-V'|'--version')
+
+            if [ $LAST_OPT -eq 0 ] ; then
+                dlocate_version
+            else
+                PKGS="$PKGS $p"
+            fi
+            ;;
+
+        ('--ignore-case'|'-i')             
+
+            if [ $LAST_OPT -eq 0 ] ; then
+                IGNORE_CASE='-i'
+            else
+                PKGS="$PKGS $p"
+            fi
+            ;;
+
+        ('-S'|'-L'|'-l'|'-s'|'-ls'|'-du'|'-conf'|'-lsconf'|'-md5sum'|'-md5check'|'-man'|'-lsman'|'-lsbin') 
+         
+            if [ $LAST_OPT -eq 0 ] ; then
+                OPTION="$1"
+            else
+                PKGS="$PKGS $p"
+            fi
+            ;;
+
+        (-*)
+            if [ $LAST_OPT -eq 0 ] ; then
+                dlocate_option_error $1
+            else
+                PKGS="$PKGS $p"
+            fi
+            ;;
+
+        (*)
+            PKGS="$PKGS $p"
+            ;;
+      esac
+done
+
+PKGS=$(echo "$PKGS" | sed -e 's/^ //')
+
+PKGS_REGEXP=$(echo "$PKGS" | sed -e 's/ /|/g')
+FILES_REGEXP="$PKGS_REGEXP"
 [ -z "$PKGS_REGEXP" ] && PKGS_REGEXP='^$'
 
-if [ "$OPTION" == '-l' ] ; then
-        [ -z "$COLUMNS" ] &&
-            COLUMNS=$(stty -a 2>&- |
-                sed -ne '/columns/s/.*columns \([0-9]*\)[^0-9].*/\1/p');
-        [ 0"$COLUMNS" -lt 80 ] && COLUMNS=80;
-        ((fieldw=(COLUMNS-24)/4));
-        # dpkg uses
-        #((fieldd=fieldw*2+16));
-        # limiting the output to COLUMNS-2 characters and losing up to
-        # additional 3 characters due to the rounding error.
-        ((fieldd=COLUMNS-fieldw*2-6));
-        fmt_eq=$(echo ==================================================== |
-            cut -c-$fieldw)
 
-        HEADER=$(
-        printf \
+if [ "$OPTION" = '-l' ] ; then
+
+    [ -z "$COLUMNS" ] &&
+      COLUMNS=$(stty -a 2>&- |
+      sed -ne '/columns/s/.*columns \([0-9]*\)[^0-9].*/\1/p');
+
+    [ 0"$COLUMNS" -lt 80 ] && COLUMNS=80;
+
+    ((fieldw=(COLUMNS-24)/4));
+
+    # dpkg uses ((fieldd=fieldw*2+16));
+    #
+    # limiting the output to COLUMNS-2 characters and losing up to
+    # additional 3 characters due to the rounding error.
+
+    ((fieldd=COLUMNS-fieldw*2-6));
+
+    fmt_eq=$(echo ==================================================== |
+      cut -c-$fieldw)
+
+    HEADER=$(
+      printf \
 "Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
@@ -108,16 +179,25 @@ if [ "$OPTION" == '-l' ] ; then
 +++-${fmt_eq}-${fmt_eq}-${fmt_eq}${fmt_eq}==================\\n" \
             Name Version Description)
 
-        BODY=$(
-        egrep -- "$PKGS_REGEXP" "$DPKGLIST" | while read stat name ver descr; do
-            printf "%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n" \
-                "$stat" "$name" "$ver" "$descr" | sed -e 's/ *$//';
-        done )
+    BODY=$(
+      egrep $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" | while read stat name ver descr; do
+      printf "%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n" \
+        "$stat" "$name" "$ver" "$descr" | sed -e 's/ *$//';
+      done )
 
-        [ -n "$BODY" ] && echo -e "$HEADER\n$BODY"
+    [ -n "$BODY" ] && echo -e "$HEADER\n$BODY"
+
+elif [ "$OPTION" = '-S' ] ; then
+
+    $LOCATE -d $DLOCATEDB $IGNORE_CASE -- $PKGS | egrep $IGNORE_CASE "^[-a-zA-Z0-9_.+]+:.*($FILES_REGEXP)"
+    result=$?
+
+elif [ "$OPTION" = 'DEFAULT' ] ; then
+
+    $LOCATE -d $DLOCATEDB $IGNORE_CASE -- $PKGS
+    result=$?
+
 else 
-    
-    PKGS="$*"
     
     for PKG in $PKGS; do
     
@@ -129,11 +209,6 @@ else
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
-                ;;
-
-            '-S')
-                $LOCATE -d $DLOCATEDB -- $PKG | grep ":.*$PKG"
-                result=$?
                 ;;
 
             '-s')
@@ -222,11 +297,6 @@ else
                 else
                     echo Package $PKG not installed or has no md5sums. >&2
                 fi
-                ;;
-
-            *)
-                $LOCATE -d $DLOCATEDB -- "$PKG"
-                result=$?
                 ;;
 
         esac

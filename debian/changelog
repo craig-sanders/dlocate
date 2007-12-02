@@ -1,3 +1,21 @@
+dlocate (0.94) unstable; urgency=low
+
+  * optimisation for '-S' and 'DEFAULT' commands.  run locate once
+    only with multiple filenames on the command line.  significantly
+    faster when searching for multiple filenames.  slighly slower
+    when searching for only one filename.
+  * the optimisation also means that $result is the exit-code of
+    all searches combined, rather than just the exit-code of the
+    last search to be run.
+  * this also fixes the "double-vision" symption reported in bug#354644
+    i'll close this bug for now, but may reopen it if it turns out
+    that an --exact-match option would be useful.  (Closes: #354644)
+  * added '--ignore-case','-i' option for package and filename
+    searches ('-l','-S', and default command).  (Closes: #350818)
+  * used ionice in /etc/cron.daily/dlocate (Closes: #453952)
+
+ -- Craig Sanders <cas@taz.net.au>  Mon, 03 Dec 2007 07:43:37 +1100
+
 dlocate (0.93) unstable; urgency=low
 
   * minor fix to -lsbin.  now excludes all non-files, rather than
@@ -8,9 +26,9 @@ dlocate (0.93) unstable; urgency=low
     arg processing really sucks and needs a rewrite?
   * added Makefile rules ("make test") to automate testing of dlocate
     output, and to remind me to update the version banner in dlocate.
+  * check for unknown options (Closes: #220351, #307371)
     (NOTE: breaks backwards-compatibility for anyone who relies on
     the old behaviour!)
-  * check for unknown options (Closes: #220351, #307371)
   * only print header for 'dlocate -l' if there are any matching
     packages found. (Closes: #447140)
   * fixed dlocate's stderr redirection so that 'make test' works.
