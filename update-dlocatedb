@@ -1,41 +1,101 @@
 #!/usr/bin/perl
 
 # perl script originally by hallon@debian.org, much faster than sed & sh.
+#
 # modified by cas to pipe its output through frcode and then > to the
 # db file.
+#
+# caching of .list timestamps and re-use of old locatedb data added by 
+# Pawel Chmielowski <prefiks@prefiks.org>, see Bug #457572
 
 use strict;
 use File::Basename;
 
 my $program = basename($0);
 
-my $dbfile='/var/lib/dlocate/dlocatedb' ;
-
-my $frcode='/usr/lib/locate/frcode' ;
-
+my $dbfile='/var/lib/dlocate/dlocatedb';
+my $stampsfile="$dbfile.stamps";
+my $frcode='/usr/lib/locate/frcode';
 my $infodir='/var/lib/dpkg/info';
 
-open(FRCODE,"|$frcode >$dbfile.new") || die "$program: couldn't open pipe to $frcode: $!\n" ;
+my (%old_stamps, %stamps);
 
-opendir(DIR, $infodir) || die "$program: can't open directory $infodir: $!\n";
-my @pkgs = grep { /list$/ && s/\.list// } readdir(DIR);
+if (open(STAMPS, '<', $stampsfile)) {
+    while (<STAMPS>) {
+        chomp;
+        my ($stamp, $file) = split /:/, $_, 2;
+        $old_stamps{$file} = $stamp;
+    }
+    close(STAMPS);
+}
+
+open(FRCODE,"|$frcode >$dbfile.new") or die "$program: couldn't open pipe to $frcode: $!\n";
+
+opendir(DIR, $infodir) or die "$program: can't open directory $infodir: $!\n";
+while (defined(my $pkg = readdir(DIR))) {
+    next unless $pkg =~ s/\.list$// and -s "$infodir/$pkg.list";
+    $stamps{$pkg} = (stat(_))[10]; #ctime
+}
 closedir DIR;
 
+my @new_pkgs;
+my %processed;
+my $locate = '/usr/bin/locate.findutils';
+
+if (not -x $locate) {
+    # slocate or mlocate diverts locate
+    $locate = `/usr/sbin/dpkg-divert --truename /usr/bin/locate`;
+    chomp $locate;
+}
+
 chdir $infodir;
-foreach my $pkg (@pkgs) {
-    open(FILE, $pkg . ".list") || die "$program: can't open file $pkg: $!\n";
+if (%old_stamps and open(DB, "$locate -d $dbfile '' 2>/dev/null |")) {
+    while (<DB>) {
+        my ($pkg) = /^(\S+?):/;
+        if (not exists $stamps{$pkg}) {
+            # skip packages which are not longer installed
+        } elsif (exists $old_stamps{$pkg} and $stamps{$pkg} == $old_stamps{$pkg}) {
+            print FRCODE $_;
+        } elsif (not exists $processed{$pkg}) {
+            open(FILE, "$pkg.list") or die "$program: can't open file $pkg.list: $!\n";
+            foreach (<FILE>) {
+                print FRCODE "$pkg: $_";
+            }
+            close FILE;
+        }
+        $processed{$pkg} = 1;
+    }
+    close(DB);
+
+    my %tmp = %stamps;
+    delete $tmp{$_} for keys %processed;
+    @new_pkgs = keys %tmp;
+} else {
+    @new_pkgs = keys %stamps;
+}
+
+foreach my $pkg (@new_pkgs) {
+    open(FILE, '<', "$pkg.list") or die "$program: can't open file $pkg: $!\n";
     foreach (<FILE>) {
-        print FRCODE $pkg, ": ", $_;
+        print FRCODE $pkg, ': ', $_;
     }
     close FILE;
 }
-close FRCODE ;
+close FRCODE;
 
 # Create a backup to the database before replacing it with the new database.
 # This is effectively two rename's done atomically.
 if (-e $dbfile) {
     unlink("$dbfile.old") if (-e "$dbfile.old");
-    link("$dbfile", "$dbfile.old") if (-e $dbfile);
+    link($dbfile, "$dbfile.old") if (-e $dbfile);
 }
 
-rename("$dbfile.new","$dbfile") ;
+rename("$dbfile.new", $dbfile);
+
+open(STAMPS, '>', "$stampsfile.new") or die "$program: can't create stamps file $stampsfile.new: $!\n";
+print STAMPS "$stamps{$_}:$_\n" for keys %stamps;
+close STAMPS;
+
+unlink($stampsfile);
+rename("$stampsfile.new", $stampsfile);
+

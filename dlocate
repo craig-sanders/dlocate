@@ -19,9 +19,9 @@ DPKG_INFO=/var/lib/dpkg/info
 
 if [ -x /usr/bin/locate.findutils ] ; then
     # locate package is installed
-    LOCATE='/usr/bin/locate.findutils' 
+    LOCATE='/usr/bin/locate.findutils'
 else
-    # slocate or mlocate diverts locate
+    # slocate diverts locate
     LOCATE=$(/usr/sbin/dpkg-divert --truename /usr/bin/locate)
 fi
 
@@ -58,12 +58,12 @@ Options:
   equivalent dpkg commands.
 __EOF__
   exit 1
-} 
+}
 
 function dlocate_version {
   #VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
   #  /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
-  VERSION_BANNER="0.93"
+  VERSION_BANNER="0.95"
   echo "dlocate version "$VERSION_BANNER
   exit
 }
@@ -80,16 +80,17 @@ LAST_OPT=0
 
 OPTION="DEFAULT"
 
+SEPARATOR='::::::::'
 PKGS=""
-for p in $@; do
-      case "$p" in 
+for p in "$@"; do
+      case "$p" in
 
         ('--')
 
             if [ $LAST_OPT -eq 0 ] ; then
                 LAST_OPT=1
             else
-                PKGS="$PKGS $p"
+                PKGS="$PKGS$SEPARATOR$p"
             fi
             ;;
 
@@ -98,7 +99,7 @@ for p in $@; do
             if [ $LAST_OPT -eq 0 ] ; then
                 dlocate_help
             else
-                PKGS="$PKGS $p"
+                PKGS="$PKGS$SEPARATOR$p"
             fi
             ;;
 
@@ -107,25 +108,25 @@ for p in $@; do
             if [ $LAST_OPT -eq 0 ] ; then
                 dlocate_version
             else
-                PKGS="$PKGS $p"
+                PKGS="$PKGS$SEPARATOR$p"
             fi
             ;;
 
-        ('--ignore-case'|'-i')             
+        ('--ignore-case'|'-i')
 
             if [ $LAST_OPT -eq 0 ] ; then
                 IGNORE_CASE='-i'
             else
-                PKGS="$PKGS $p"
+                PKGS="$PKGS$SEPARATOR$p"
             fi
             ;;
 
-        ('-S'|'-L'|'-l'|'-s'|'-ls'|'-du'|'-conf'|'-lsconf'|'-md5sum'|'-md5check'|'-man'|'-lsman'|'-lsbin') 
-         
+        ('-S'|'-L'|'-l'|'-s'|'-ls'|'-du'|'-conf'|'-lsconf'|'-md5sum'|'-md5check'|'-man'|'-lsman'|'-lsbin')
+
             if [ $LAST_OPT -eq 0 ] ; then
                 OPTION="$1"
             else
-                PKGS="$PKGS $p"
+                PKGS="$PKGS$SEPARATOR$p"
             fi
             ;;
 
@@ -133,20 +134,27 @@ for p in $@; do
             if [ $LAST_OPT -eq 0 ] ; then
                 dlocate_option_error $1
             else
-                PKGS="$PKGS $p"
+                PKGS="$PKGS$SEPARATOR$p"
             fi
             ;;
 
         (*)
-            PKGS="$PKGS $p"
+            PKGS="$PKGS::::::::$p"
             ;;
       esac
 done
 
-PKGS=$(echo "$PKGS" | sed -e 's/^ //')
+PKGS=$(echo "$PKGS" | sed -e "s/^$SEPARATOR//")
+#echo $PKGS
 
-PKGS_REGEXP=$(echo "$PKGS" | sed -e 's/ /|/g')
+PKGS_REGEXP=$(echo "$PKGS" | sed -e "s/$SEPARATOR/|/g")
+#echo $PKGS_REGEXP
+
 FILES_REGEXP="$PKGS_REGEXP"
+#echo $FILES_REGEXP
+
+#exit
+
 [ -z "$PKGS_REGEXP" ] && PKGS_REGEXP='^$'
 
 
@@ -170,20 +178,20 @@ if [ "$OPTION" = '-l' ] ; then
     fmt_eq=$(echo ==================================================== |
       cut -c-$fieldw)
 
-    HEADER=$(
-      printf \
+    HEADER=$( printf \
 "Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ %-${fieldw}s %-${fieldw}s %s
 +++-${fmt_eq}-${fmt_eq}-${fmt_eq}${fmt_eq}==================\\n" \
-            Name Version Description)
+              Name Version Description)
 
-    BODY=$(
-      egrep $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" | while read stat name ver descr; do
-      printf "%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n" \
-        "$stat" "$name" "$ver" "$descr" | sed -e 's/ *$//';
-      done )
+    BODY_FMT_STRING="%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n"
+
+    BODY=$( egrep $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" | \
+            awk -F'\t' "{ printf \"$BODY_FMT_STRING\", \$1, \$2, \$3, \$4 }" |
+            sed -e 's/ *$//g'
+          )
 
     [ -n "$BODY" ] && echo -e "$HEADER\n$BODY"
 
@@ -197,14 +205,14 @@ elif [ "$OPTION" = 'DEFAULT' ] ; then
     $LOCATE -d $DLOCATEDB $IGNORE_CASE -- $PKGS
     result=$?
 
-else 
-    
+else
+
     for PKG in $PKGS; do
-    
+
         case "$OPTION" in
-        
+
             '-L')
-                if [ -s $DPKG_INFO/$PKG.list ] ; then 
+                if [ -s $DPKG_INFO/$PKG.list ] ; then
                     cat $DPKG_INFO/$PKG.list
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
@@ -225,7 +233,7 @@ else
                 ;;
 
             '-du')
-                if [ -s $DPKG_INFO/$PKG.list ] ; then 
+                if [ -s $DPKG_INFO/$PKG.list ] ; then
                     du -sck $(cat $DPKG_INFO/$PKG.list | xargs -r ls -1dF | grep -v "@$\|/$" )
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
@@ -233,7 +241,7 @@ else
                 ;;
 
             '-conf')
-                if [ -s $DPKG_INFO/$PKG.conffiles ] ; then 
+                if [ -s $DPKG_INFO/$PKG.conffiles ] ; then
                     cat $DPKG_INFO/$PKG.conffiles
                 else
                     echo Package $PKG not installed or has no conffiles. >&2
@@ -241,7 +249,7 @@ else
                 ;;
 
             '-lsconf')
-                if [ -s $DPKG_INFO/$PKG.conffiles ] ; then 
+                if [ -s $DPKG_INFO/$PKG.conffiles ] ; then
                     ls -ldF $(cat $DPKG_INFO/$PKG.conffiles)
                 else
                     echo Package $PKG not installed or has no conffiles. >&2
@@ -249,7 +257,7 @@ else
                 ;;
 
             '-md5sum')
-                if [ -s $DPKG_INFO/$PKG.md5sums ] ; then 
+                if [ -s $DPKG_INFO/$PKG.md5sums ] ; then
                     cat $DPKG_INFO/$PKG.md5sums
                 else
                     echo Package $PKG not installed or has no md5sums. >&2
@@ -257,16 +265,16 @@ else
                 ;;
 
             '-lsman')
-                if [ -s $DPKG_INFO/$PKG.list ] ; then 
+                if [ -s $DPKG_INFO/$PKG.list ] ; then
                     dlocate -L $PKG | \
-					  grep '/man.*/.*[0-9]/'
+                    grep '/man.*/.*[0-9]/'
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
-				;;
+;;
 
             '-man')
-                if [ -s $DPKG_INFO/$PKG.list ] ; then 
+                if [ -s $DPKG_INFO/$PKG.list ] ; then
                     dlocate -L $PKG | \
                         sed -n -e 's/\.gz$//' \
                                -e '/\/man.*\/.*[0-9]/s/^.*\/\([^\/]*\)\.\(.*\)/\2 \1/p'
@@ -276,24 +284,24 @@ else
                 ;;
 
             '-lsbin')
-                if [ -s $DPKG_INFO/$PKG.list ] ; then 
+                if [ -s $DPKG_INFO/$PKG.list ] ; then
                     dlocate -L $PKG | \
-					  xargs -r ls -lLd 2> /dev/null | \
-					  grep -v "^[^-]" | \
-					  egrep '^-.{2,8}[xs]' | \
-					  sed -e 's/.* \//\//' | \
-					  xargs -r ls -1
+                    xargs -r ls -lLd 2> /dev/null | \
+                    grep -v "^[^-]" | \
+                    egrep '^-.{2,8}[xs]' | \
+                    sed -e 's/.* \//\//' | \
+                    xargs -r ls -1
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
                 fi
-				;;
+;;
 
             '-md5check')
-                if [ -s $DPKG_INFO/$PKG.md5sums ] ; then 
-				    pushd / >/dev/null 2>&1
+                if [ -s $DPKG_INFO/$PKG.md5sums ] ; then
+                    pushd / >/dev/null 2>&1
                     cat $DPKG_INFO/$PKG.md5sums | \
                         md5sum -c -
-					popd >/dev/null 2>&1
+                    popd >/dev/null 2>&1
                 else
                     echo Package $PKG not installed or has no md5sums. >&2
                 fi
