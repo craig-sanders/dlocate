@@ -1,3 +1,12 @@
+dlocate (0.96.1) unstable; urgency=low
+
+  * version 0.95 introduced a dependancy on awk, which is an optional
+    package. the simple awk script has only been tested on my system
+    with gawk, but it doesn't do anything gawkish so should work with
+    mawk or original-awk. fixed Depends line.
+
+ -- Craig Sanders <cas@taz.net.au>  Fri, 27 Jun 2008 19:58:57 +1000
+
 dlocate (0.96) unstable; urgency=low
 
   * accidentally deleted cron.daily rather than updating it.  restored it.

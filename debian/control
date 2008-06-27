@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 5)
 
 Package: dlocate
 Architecture: all
-Depends: dctrl-tools | grep-dctrl (>= 0.11), dpkg (>= 1.8.0), locate | findutils (<< 4.2.31-2), ${perl:Depends}
+Depends: awk, dctrl-tools | grep-dctrl (>= 0.11), dpkg (>= 1.8.0), locate | findutils (<< 4.2.31-2), ${perl:Depends}
 Description: fast alternative to dpkg -L and dpkg -S 
  Uses GNU locate to greatly speed up finding out which package a file
  belongs to (i.e. a very fast dpkg -S). Many other uses, including

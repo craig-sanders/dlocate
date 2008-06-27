@@ -63,7 +63,7 @@ __EOF__
 function dlocate_version {
   #VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
   #  /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
-  VERSION_BANNER="0.96"
+  VERSION_BANNER="0.96.1"
   echo "dlocate version "$VERSION_BANNER
   exit
 }
