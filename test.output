@@ -135,7 +135,7 @@ Desired=Unknown/Install/Remove/Purge/Hold
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  dlocate                               0.94                                  fast alternative to dpkg -L and dpkg -S
+iF dlocate 0.96 fast alternative to dpkg -L and dpkg -S
 -------------------------------
 
 -------------------------------
@@ -145,18 +145,19 @@ Desired=Unknown/Install/Remove/Purge/Hold
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  bash                                  3.2-4                                 The GNU Bourne Again SHell
-ii  bash-builtins                         3.2-4                                 Bash loadable builtins - headers & examples
-ii  bash-completion                       20060301-4                            programmable completion for the bash shell
-ii  bash-doc                              3.2-4                                 Documentation and examples for the The GNU B
-pn  bash-minimal                          <none>                                (no description available)
-pn  bash-static                           <none>                                (no description available)
-pn  bash3                                 <none>                                (no description available)
-pn  bash3-doc                             <none>                                (no description available)
-pn  bashdb                                <none>                                (no description available)
-ii  biabam                                0.9.7-4                               bash attachment mailer
-rn  dotfile-bash                          <none>                                (no description available)
-ii  mybashburn                            1.0.2-1                               Burn data and create songs with interactive
+ii bash 3.2-4 The GNU Bourne Again SHell
+ii bash-builtins 3.2-4 Bash loadable builtins - headers & examples
+ii bash-completion 20060301-4 programmable completion for the bash shell
+ii bash-doc 3.2-4 Documentation and examples for the The GNU Bourne Again SHell
+pn bash-minimal <none> (no description available)
+pn bash-static <none> (no description available)
+pn bash3 <none> (no description available)
+pn bash3-doc <none> (no description available)
+pn bashdb <none> (no description available)
+ii biabam 0.9.7-4 bash attachment mailer
+rn dotfile-bash <none> (no description available)
+ii mybashburn 1.0.2-1 Burn data and create songs with interactive dialog box
+ii txt2regex 0.8-3 A Regular Expression "wizard", all written with bash2 builtins
 -------------------------------
 
 -------------------------------
@@ -166,27 +167,27 @@ Desired=Unknown/Install/Remove/Purge/Hold
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  apt                                   0.7.14                                Advanced front-end for dpkg
-ii  apt-dpkg-ref                          5.2                                   APT, Dpkg Quick Reference sheet
-ii  dlocate                               0.94                                  fast alternative to dpkg -L and dpkg -S
-ii  dpkg                                  1.14.20                               Debian package management system
-ii  dpkg-awk                              1.0.1.0.0.1                           Gawk script to parse /var/lib/dpkg/{status,a
-pn  dpkg-cross                            <none>                                (no description available)
-ii  dpkg-dev                              1.14.20                               Debian package development tools
-pn  dpkg-dev-el                           <none>                                (no description available)
-un  dpkg-disk2                            <none>                                (no description available)
-pn  dpkg-doc                              <none>                                (no description available)
-pn  dpkg-ftp                              <none>                                (no description available)
-pn  dpkg-iasearch                         <none>                                (no description available)
-pn  dpkg-multicd                          <none>                                (no description available)
-ii  dpkg-repack                           1.29                                  puts an unpacked .deb file back together
-pn  dpkg-ruby                             <none>                                (no description available)
-ii  dpkg-sig                              0.13.1                                create and verify signatures on .deb-files
-pn  dpkg-www                              <none>                                (no description available)
-pn  libdebian-dpkgcross-perl              <none>                                (no description available)
-pn  libdpkg-ruby1.6                       <none>                                (no description available)
-pn  libdpkg-ruby1.8                       <none>                                (no description available)
-ii  type-handling                         0.2.23                                dpkg architecture generation script
+ii apt 0.7.14 Advanced front-end for dpkg
+ii apt-dpkg-ref 5.2 APT, Dpkg Quick Reference sheet
+iF dlocate 0.96 fast alternative to dpkg -L and dpkg -S
+ii dpkg 1.14.20 Debian package management system
+ii dpkg-awk 1.0.1.0.0.1 Gawk script to parse /var/lib/dpkg/{status,available} and Packages
+pn dpkg-cross <none> (no description available)
+ii dpkg-dev 1.14.20 Debian package development tools
+pn dpkg-dev-el <none> (no description available)
+un dpkg-disk2 <none> (no description available)
+pn dpkg-doc <none> (no description available)
+pn dpkg-ftp <none> (no description available)
+pn dpkg-iasearch <none> (no description available)
+pn dpkg-multicd <none> (no description available)
+ii dpkg-repack 1.29 puts an unpacked .deb file back together
+pn dpkg-ruby <none> (no description available)
+ii dpkg-sig 0.13.1 create and verify signatures on .deb-files
+pn dpkg-www <none> (no description available)
+pn libdebian-dpkgcross-perl <none> (no description available)
+pn libdpkg-ruby1.6 <none> (no description available)
+pn libdpkg-ruby1.8 <none> (no description available)
+ii type-handling 0.2.23 dpkg architecture generation script
 -------------------------------
 
 -------------------------------
@@ -196,177 +197,179 @@ Desired=Unknown/Install/Remove/Purge/Hold
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  ale                                   0.9.0.1-1                             a synthetic capture engine and renderer
-ii  amrnb                                 7.0.0.2-0.0                           floating-point Adaptive Multi-Rate (AMR) spe
-ii  apt                                   0.7.14                                Advanced front-end for dpkg
-pn  apt-build                             <none>                                (no description available)
-pn  apt-cacher                            <none>                                (no description available)
-pn  apt-cacher-ng                         <none>                                (no description available)
-pn  apt-cross                             <none>                                (no description available)
-ii  apt-doc                               0.7.14                                Documentation for APT
-ii  apt-dpkg-ref                          5.2                                   APT, Dpkg Quick Reference sheet
-ii  apt-file                              2.1.3                                 APT package searching utility -- command-lin
-pn  apt-howto                             <none>                                (no description available)
-pn  apt-howto-ca                          <none>                                (no description available)
-ii  apt-howto-common                      2.0.2-3                               example-based guide to APT
-pn  apt-howto-de                          <none>                                (no description available)
-pn  apt-howto-el                          <none>                                (no description available)
-ii  apt-howto-en                          2.0.2-3                               example-based guide to APT (English)
-pn  apt-howto-es                          <none>                                (no description available)
-pn  apt-howto-fr                          <none>                                (no description available)
-pn  apt-howto-it                          <none>                                (no description available)
-pn  apt-howto-ja                          <none>                                (no description available)
-pn  apt-howto-ko                          <none>                                (no description available)
-pn  apt-howto-pl                          <none>                                (no description available)
-pn  apt-howto-pt-br                       <none>                                (no description available)
-pn  apt-howto-ru                          <none>                                (no description available)
-pn  apt-howto-tr                          <none>                                (no description available)
-pn  apt-howto-uk                          <none>                                (no description available)
-rn  apt-index-watcher                     <none>                                (no description available)
-pn  apt-listbugs                          <none>                                (no description available)
-pn  apt-listchanges                       <none>                                (no description available)
-pn  apt-localepurge                       <none>                                (no description available)
-ii  apt-mirror                            0.4.5-1                               APT sources mirroring tool
-pn  apt-move                              <none>                                (no description available)
-pn  apt-p2p                               <none>                                (no description available)
-pn  apt-proxy                             <none>                                (no description available)
-un  apt-proxy-v2                          <none>                                (no description available)
-ii  apt-rdepends                          1.3.0-1.1                             Recursively lists package dependencies
-un  apt-rpm-client                        <none>                                (no description available)
-pn  apt-rpm-repository                    <none>                                (no description available)
-ii  apt-show-source                       0.10                                  Shows source-package information
-ii  apt-show-versions                     0.13                                  lists available package versions with distri
-pn  apt-spy                               <none>                                (no description available)
-ii  apt-src                               0.25.1-0.1                            manage Debian source packages
-ii  apt-transport-debtorrent              0.2.1                                 an APT transport for communicating with DebT
-ii  apt-transport-https                   0.7.14                                APT https transport
-ii  apt-utils                             0.7.14                                APT utility programs
-rn  apt-watch                             <none>                                (no description available)
-pn  apt-watch-backend                     <none>                                (no description available)
-pn  apt-watch-gnome                       <none>                                (no description available)
-un  apt-watch-interface                   <none>                                (no description available)
-ii  apt-xapian-index                      0.9                                   Maintenance tools for a Xapian index of Debi
-pn  apt-zip                               <none>                                (no description available)
-pn  aptconf                               <none>                                (no description available)
-pn  aptfs                                 <none>                                (no description available)
-pn  apticron                              <none>                                (no description available)
-ii  aptitude                              0.4.11.4-1                            terminal-based package manager
-pn  aptitude-dbg                          <none>                                (no description available)
-un  aptitude-doc                          <none>                                (no description available)
-pn  aptitude-doc-cs                       <none>                                (no description available)
-ii  aptitude-doc-en                       0.4.11.4-1                            English manual for aptitude, a terminal-base
-pn  aptitude-doc-fi                       <none>                                (no description available)
-pn  aptitude-doc-fr                       <none>                                (no description available)
-pn  aptitude-doc-ja                       <none>                                (no description available)
-pn  aptlinex                              <none>                                (no description available)
-pn  aptoncd                               <none>                                (no description available)
-rn  aptsh                                 <none>                                (no description available)
-pn  auto-apt                              <none>                                (no description available)
-pn  axel-kapt                             <none>                                (no description available)
-pn  captain                               <none>                                (no description available)
-pn  captury                               <none>                                (no description available)
-ii  chaplin                               1.10-0.1                              DVD chapter extractor
-pn  cron-apt                              <none>                                (no description available)
-pn  education-laptop                      <none>                                (no description available)
-un  emboss-kaptain                        <none>                                (no description available)
-pn  gnome-apt                             <none>                                (no description available)
-pn  gsynaptic                             <none>                                (no description available)
-pn  gsynaptics                            <none>                                (no description available)
-pn  gui-apt-key                           <none>                                (no description available)
-ii  imaptool                              0.9-7                                 A tool for creating client-side image maps
-pn  kaptain                               <none>                                (no description available)
-pn  kernel-patch-2.2.19-adaptec           <none>                                (no description available)
-pn  kernel-patch-adaptec                  <none>                                (no description available)
-pn  kio-apt                               <none>                                (no description available)
-rn  klaptopdaemon                         <none>                                (no description available)
-ii  kraptor                               0.0.20040403-4                        Classic shoot 'em up scroller game
-ii  kraptor-data                          0.0.20040403-4                        Classic shoot 'em up scroller game - data fi
-pn  ksynaptics                            <none>                                (no description available)
-ii  laptop-detect                         0.13.6                                attempt to detect a laptop
-pn  laptop-mode-tools                     <none>                                (no description available)
-pn  laptop-net                            <none>                                (no description available)
-pn  laptop-net-doc                        <none>                                (no description available)
-pn  laptop-netconf                        <none>                                (no description available)
-ii  late                                  0.1.0-11                              A simple game of capturing balls
-pn  ldaptor-common                        <none>                                (no description available)
-ii  ldaptor-doc                           0.0.43-2                              Documentation for Ldaptor
-pn  ldaptor-utils                         <none>                                (no description available)
-pn  ldaptor-webui                         <none>                                (no description available)
-ii  libamrnb3                             7.0.0.2-0.0                           floating-point Adaptive Multi-Rate (AMR) spe
-ii  libamrwb3                             7.0.0.3-0.0                           Adaptive Multi-Rate - Wideband (AMR-WB) spee
-pn  libapt-front-dev                      <none>                                (no description available)
-un  libapt-inst-libc6.7-6-1.1             <none>                                (no description available)
-ii  libapt-pkg-dev                        0.7.14                                Development files for APT's libapt-pkg and l
-ii  libapt-pkg-doc                        0.7.14                                Documentation for APT development
-un  libapt-pkg-libc6.7-6-4.6              <none>                                (no description available)
-ii  libapt-pkg-perl                       0.1.22+b1                             Perl interface to libapt-pkg
-pn  libapt-rpm-pkg-dev                    <none>                                (no description available)
-pn  libapt-rpm-pkg-libc6.3-5-0            <none>                                (no description available)
-pn  libapt-rpm-pkg-libc6.3-6-0            <none>                                (no description available)
-pn  libapt-rpm-pkg-libc6.3-6-2            <none>                                (no description available)
-pn  libapt-rpm-pkg-libc6.6-6-2            <none>                                (no description available)
-pn  libapt-rpm-pkg-libc6.7-6-2            <none>                                (no description available)
-ii  libauthen-captcha-perl                1.023-5                               Extension for creating captcha's to verify t
-pn  libcache-apt-perl                     <none>                                (no description available)
-ii  libcaptcha-recaptcha-perl             0.92-1                                perl implementation of the reCAPTCHA API
-pn  libcaptury-dev                        <none>                                (no description available)
-pn  libcaptury0                           <none>                                (no description available)
-ii  libgd-securityimage-perl              1.66-1                                Security image (captcha) generator
-ii  libio-capture-perl                    0.05-2                                Abstract Base Class to build modules to capt
-ii  libmjpegtools-dev                     1:1.8.0-0.9                           MJPEG video capture/editting/playback MPEG e
-ii  libmjpegtools0                        1:1.8.0-0.9                           MJPEG video capture/editting/playback MPEG e
-ii  libpcap0.8                            0.9.8-5                               system interface for user-level packet captu
-un  libraptor-dev                         <none>                                (no description available)
-pn  libraptor0                            <none>                                (no description available)
-pn  libraptor0-dev                        <none>                                (no description available)
-ii  libraptor1                            1.4.17-1                              Raptor RDF parser and serializer library
-pn  libraptor1-dev                        <none>                                (no description available)
-pn  libraptor1-doc                        <none>                                (no description available)
-pn  libsynaptics-dev                      <none>                                (no description available)
-pn  libsynaptics0                         <none>                                (no description available)
-ii  libvideo-capture-v4l-perl             0.901-4+b1                            Perl interface to the Video4linux framegrabb
-pn  lrrd-plugin-apt                       <none>                                (no description available)
-ii  mjpegtools                            1:1.8.0-0.9                           MJPEG video capture/editting/playback MPEG e
-pn  netselect-apt                         <none>                                (no description available)
-ii  packit                                1.0-2                                 Network Injection and Capture
-pn  phpgroupware-eldaptir                 <none>                                (no description available)
-ii  python-apt                            0.7.6                                 Python interface to libapt-pkg
-pn  python-apt-dbg                        <none>                                (no description available)
-un  python-apt-p2p                        <none>                                (no description available)
-un  python-apt-p2p-khashmir               <none>                                (no description available)
-pn  python-ldaptor                        <none>                                (no description available)
-pn  python2.1-ldaptor                     <none>                                (no description available)
-pn  python2.2-ldaptor                     <none>                                (no description available)
-pn  python2.3-apt                         <none>                                (no description available)
-pn  python2.3-ldaptor                     <none>                                (no description available)
-pn  python2.4-apt                         <none>                                (no description available)
-pn  python2.4-ldaptor                     <none>                                (no description available)
-un  python2.5-apt                         <none>                                (no description available)
-un  python2.5-ldaptor                     <none>                                (no description available)
-pn  qsynaptics                            <none>                                (no description available)
-pn  r-cran-adapt                          <none>                                (no description available)
-ii  rafkill                               1.2.2-3.2                             vertical shoot'em-up similar to Raptor: Call
-ii  raptor-utils                          1.4.17-1                              Raptor RDF parser and serializer utilities
-ii  spl-curl                              1.0~pre4-1                            SPL Programming Language -- curl adapter
-ii  streamer                              3.95.dfsg.1-8                         television capture tool (images/movies)
-ii  synaptic                              0.62.1                                Graphical package manager
-pn  synaptic-debtags                      <none>                                (no description available)
-un  synaptics                             <none>                                (no description available)
-pn  uvccapture                            <none>                                (no description available)
-ii  xdtv                                  2.4.0.cvs20080514-0.0                 Video4Linux Stream Capture Viewer and Decode
-pn  xfree86-driver-synaptics              <none>                                (no description available)
-ii  xnc                                   5.0.4-2.1                             X Northern Captain nc/mc-like filemanager fo
-un  xorg-driver-synaptics                 <none>                                (no description available)
-pn  xserver-xorg-input-synaptics          <none>                                (no description available)
-ii  zaptel                                1:1.4.10.1~dfsg-1                     zapata telephony utilities
-un  zaptel-modules                        <none>                                (no description available)
-ii  zaptel-modules-2.6.24.3               1:1.4.9.2~dfsg-1+ganesh2.6.24.3       zaptel modules for Linux (kernel 2.6.24.3).
-ii  zaptel-modules-2.6.24.4               1:1.4.9.2~dfsg-1+ganesh2.6.24.4       zaptel modules for Linux (kernel 2.6.24.4).
-pn  zaptel-modules-2.6.25.2               <none>                                (no description available)
-ii  zaptel-modules-2.6.25.4               1:1.4.10.1~dfsg-1+ganesh2.6.25.4      zaptel modules for Linux (kernel 2.6.25.4).
-ii  zaptel-modules-2.6.25.6               1:1.4.10.1~dfsg-1+ganesh2.6.25.6      zaptel modules for Linux (kernel 2.6.25.6).
-ii  zaptel-modules-2.6.25.7               1:1.4.10.1~dfsg-1+ganesh2.6.25.7      zaptel modules for Linux (kernel 2.6.25.7).
-ii  zaptel-source                         1:1.4.10.1~dfsg-1                     Zapata telephony interface (source code for
+ii ale 0.9.0.1-1 a synthetic capture engine and renderer
+ii amrnb 7.0.0.2-0.0 floating-point Adaptive Multi-Rate (AMR) speech codec
+ii apt 0.7.14 Advanced front-end for dpkg
+pn apt-build <none> (no description available)
+pn apt-cacher <none> (no description available)
+pn apt-cacher-ng <none> (no description available)
+pn apt-cross <none> (no description available)
+ii apt-doc 0.7.14 Documentation for APT
+ii apt-dpkg-ref 5.2 APT, Dpkg Quick Reference sheet
+ii apt-file 2.1.3 APT package searching utility -- command-line interface
+pn apt-howto <none> (no description available)
+pn apt-howto-ca <none> (no description available)
+ii apt-howto-common 2.0.2-3 example-based guide to APT
+pn apt-howto-de <none> (no description available)
+pn apt-howto-el <none> (no description available)
+ii apt-howto-en 2.0.2-3 example-based guide to APT (English)
+pn apt-howto-es <none> (no description available)
+pn apt-howto-fr <none> (no description available)
+pn apt-howto-it <none> (no description available)
+pn apt-howto-ja <none> (no description available)
+pn apt-howto-ko <none> (no description available)
+pn apt-howto-pl <none> (no description available)
+pn apt-howto-pt-br <none> (no description available)
+pn apt-howto-ru <none> (no description available)
+pn apt-howto-tr <none> (no description available)
+pn apt-howto-uk <none> (no description available)
+rn apt-index-watcher <none> (no description available)
+pn apt-listbugs <none> (no description available)
+pn apt-listchanges <none> (no description available)
+pn apt-localepurge <none> (no description available)
+ii apt-mirror 0.4.5-1 APT sources mirroring tool
+pn apt-move <none> (no description available)
+pn apt-p2p <none> (no description available)
+pn apt-proxy <none> (no description available)
+un apt-proxy-v2 <none> (no description available)
+ii apt-rdepends 1.3.0-1.1 Recursively lists package dependencies
+un apt-rpm-client <none> (no description available)
+pn apt-rpm-repository <none> (no description available)
+ii apt-show-source 0.10 Shows source-package information
+ii apt-show-versions 0.13 lists available package versions with distribution
+pn apt-spy <none> (no description available)
+ii apt-src 0.25.1-0.1 manage Debian source packages
+ii apt-transport-debtorrent 0.2.1 an APT transport for communicating with DebTorrent
+ii apt-transport-https 0.7.14 APT https transport
+ii apt-utils 0.7.14 APT utility programs
+rn apt-watch <none> (no description available)
+pn apt-watch-backend <none> (no description available)
+pn apt-watch-gnome <none> (no description available)
+un apt-watch-interface <none> (no description available)
+ii apt-xapian-index 0.9 Maintenance tools for a Xapian index of Debian package information
+pn apt-zip <none> (no description available)
+pn aptconf <none> (no description available)
+pn aptfs <none> (no description available)
+pn apticron <none> (no description available)
+ii aptitude 0.4.11.4-1 terminal-based package manager
+pn aptitude-dbg <none> (no description available)
+un aptitude-doc <none> (no description available)
+pn aptitude-doc-cs <none> (no description available)
+ii aptitude-doc-en 0.4.11.4-1 English manual for aptitude, a terminal-based package manager
+pn aptitude-doc-fi <none> (no description available)
+pn aptitude-doc-fr <none> (no description available)
+pn aptitude-doc-ja <none> (no description available)
+pn aptlinex <none> (no description available)
+pn aptoncd <none> (no description available)
+rn aptsh <none> (no description available)
+pn auto-apt <none> (no description available)
+pn axel-kapt <none> (no description available)
+pn captain <none> (no description available)
+pn captury <none> (no description available)
+ii chaplin 1.10-0.1 DVD chapter extractor
+pn cron-apt <none> (no description available)
+pn education-laptop <none> (no description available)
+un emboss-kaptain <none> (no description available)
+pn gnome-apt <none> (no description available)
+pn gsynaptic <none> (no description available)
+pn gsynaptics <none> (no description available)
+pn gui-apt-key <none> (no description available)
+ii imaptool 0.9-7 A tool for creating client-side image maps
+pn kaptain <none> (no description available)
+pn kernel-patch-2.2.19-adaptec <none> (no description available)
+pn kernel-patch-adaptec <none> (no description available)
+pn kio-apt <none> (no description available)
+rn klaptopdaemon <none> (no description available)
+ii kraptor 0.0.20040403-4 Classic shoot 'em up scroller game
+ii kraptor-data 0.0.20040403-4 Classic shoot 'em up scroller game - data files
+pn ksynaptics <none> (no description available)
+ii laptop-detect 0.13.6 attempt to detect a laptop
+pn laptop-mode-tools <none> (no description available)
+pn laptop-net <none> (no description available)
+pn laptop-net-doc <none> (no description available)
+pn laptop-netconf <none> (no description available)
+ii late 0.1.0-11 A simple game of capturing balls
+pn ldaptor-common <none> (no description available)
+ii ldaptor-doc 0.0.43-2 Documentation for Ldaptor
+pn ldaptor-utils <none> (no description available)
+pn ldaptor-webui <none> (no description available)
+ii libamrnb3 7.0.0.2-0.0 floating-point Adaptive Multi-Rate (AMR) speech codec
+ii libamrwb3 7.0.0.3-0.0 Adaptive Multi-Rate - Wideband (AMR-WB) speech codec
+pn libapt-front-dev <none> (no description available)
+un libapt-inst-libc6.7-6-1.1 <none> (no description available)
+ii libapt-pkg-dev 0.7.14 Development files for APT's libapt-pkg and libapt-inst
+ii libapt-pkg-doc 0.7.14 Documentation for APT development
+un libapt-pkg-libc6.7-6-4.6 <none> (no description available)
+ii libapt-pkg-perl 0.1.22+b1 Perl interface to libapt-pkg
+pn libapt-rpm-pkg-dev <none> (no description available)
+pn libapt-rpm-pkg-libc6.3-5-0 <none> (no description available)
+pn libapt-rpm-pkg-libc6.3-6-0 <none> (no description available)
+pn libapt-rpm-pkg-libc6.3-6-2 <none> (no description available)
+pn libapt-rpm-pkg-libc6.6-6-2 <none> (no description available)
+pn libapt-rpm-pkg-libc6.7-6-2 <none> (no description available)
+ii libauthen-captcha-perl 1.023-5 Extension for creating captcha's to verify the human element in transactions
+pn libcache-apt-perl <none> (no description available)
+ii libcaptcha-recaptcha-perl 0.92-1 perl implementation of the reCAPTCHA API
+pn libcaptury-dev <none> (no description available)
+pn libcaptury0 <none> (no description available)
+ii libgd-securityimage-perl 1.66-1 Security image (captcha) generator
+ii libio-capture-perl 0.05-2 Abstract Base Class to build modules to capture output
+ii libmjpegtools-dev 1:1.8.0-0.9 MJPEG video capture/editting/playback MPEG encoding
+ii libmjpegtools0 1:1.8.0-0.9 MJPEG video capture/editting/playback MPEG encoding
+ii libpcap0.8 0.9.8-5 system interface for user-level packet capture
+un libraptor-dev <none> (no description available)
+pn libraptor0 <none> (no description available)
+pn libraptor0-dev <none> (no description available)
+ii libraptor1 1.4.17-1 Raptor RDF parser and serializer library
+pn libraptor1-dev <none> (no description available)
+pn libraptor1-doc <none> (no description available)
+pn libsynaptics-dev <none> (no description available)
+pn libsynaptics0 <none> (no description available)
+ii libvideo-capture-v4l-perl 0.901-4+b1 Perl interface to the Video4linux framegrabber interface
+pn lrrd-plugin-apt <none> (no description available)
+ii mjpegtools 1:1.8.0-0.9 MJPEG video capture/editting/playback MPEG encoding
+pn netselect-apt <none> (no description available)
+ii packit 1.0-2 Network Injection and Capture
+pn phpgroupware-eldaptir <none> (no description available)
+ii python-apt 0.7.6 Python interface to libapt-pkg
+pn python-apt-dbg <none> (no description available)
+un python-apt-p2p <none> (no description available)
+un python-apt-p2p-khashmir <none> (no description available)
+pn python-ldaptor <none> (no description available)
+pn python2.1-ldaptor <none> (no description available)
+pn python2.2-ldaptor <none> (no description available)
+pn python2.3-apt <none> (no description available)
+pn python2.3-ldaptor <none> (no description available)
+pn python2.4-apt <none> (no description available)
+pn python2.4-ldaptor <none> (no description available)
+un python2.5-apt <none> (no description available)
+un python2.5-ldaptor <none> (no description available)
+pn qsynaptics <none> (no description available)
+pn r-cran-adapt <none> (no description available)
+ii radeontool 1.5-5 utility to control ATI Radeon backlight functions on laptops
+ii rafkill 1.2.2-3.2 vertical shoot'em-up similar to Raptor: Call of the Shadows
+ii raptor-utils 1.4.17-1 Raptor RDF parser and serializer utilities
+ii spl-curl 1.0~pre4-1 SPL Programming Language -- curl adapter
+ii streamer 3.95.dfsg.1-8 television capture tool (images/movies)
+ii synaptic 0.62.1 Graphical package manager
+pn synaptic-debtags <none> (no description available)
+un synaptics <none> (no description available)
+pn uvccapture <none> (no description available)
+ii wakeonlan 0.41-10 Sends 'magic packets' to wake-on-LAN enabled ethernet adapters
+ii xdtv 2.4.0.cvs20080514-0.0 Video4Linux Stream Capture Viewer and Decoder
+pn xfree86-driver-synaptics <none> (no description available)
+ii xnc 5.0.4-2.1 X Northern Captain nc/mc-like filemanager for X
+un xorg-driver-synaptics <none> (no description available)
+pn xserver-xorg-input-synaptics <none> (no description available)
+ii zaptel 1:1.4.10.1~dfsg-1 zapata telephony utilities
+un zaptel-modules <none> (no description available)
+ii zaptel-modules-2.6.24.3 1:1.4.9.2~dfsg-1+ganesh2.6.24.3 zaptel modules for Linux (kernel 2.6.24.3).
+ii zaptel-modules-2.6.24.4 1:1.4.9.2~dfsg-1+ganesh2.6.24.4 zaptel modules for Linux (kernel 2.6.24.4).
+pn zaptel-modules-2.6.25.2 <none> (no description available)
+ii zaptel-modules-2.6.25.4 1:1.4.10.1~dfsg-1+ganesh2.6.25.4 zaptel modules for Linux (kernel 2.6.25.4).
+ii zaptel-modules-2.6.25.6 1:1.4.10.1~dfsg-1+ganesh2.6.25.6 zaptel modules for Linux (kernel 2.6.25.6).
+ii zaptel-modules-2.6.25.7 1:1.4.10.1~dfsg-1+ganesh2.6.25.7 zaptel modules for Linux (kernel 2.6.25.7).
+ii zaptel-source 1:1.4.10.1~dfsg-1 Zapata telephony interface (source code for kernel driver)
 -------------------------------
 
 -------------------------------
@@ -380,9 +383,9 @@ Desired=Unknown/Install/Remove/Purge/Hold
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-rn  xlibmesa-glu                          <none>                                (no description available)
-pn  xlibmesa-glu-dbg                      <none>                                (no description available)
-pn  xlibmesa-glu-dev                      <none>                                (no description available)
+rn xlibmesa-glu <none> (no description available)
+pn xlibmesa-glu-dbg <none> (no description available)
+pn xlibmesa-glu-dev <none> (no description available)
 -------------------------------
 
 -------------------------------
@@ -392,7 +395,7 @@ running: dlocate -l xlibmesa3-gl.list
 -------------------------------
 running: dlocate -du dlocate
 4	/etc/cron.daily/dlocate
-4	/etc/cron.daily/dlocate.dpkg-dist
+4	/etc/cron.daily/dlocate.dpkg-old
 12	/usr/bin/dlocate
 4	/usr/sbin/dpkg-hold
 4	/usr/sbin/dpkg-purge
@@ -863,7 +866,7 @@ Package xlibmesa3-gl.list not installed or has no conffiles.
 
 -------------------------------
 running: dlocate -lsconf dlocate
--rwxr-xr-x 1 root root 293 2007-11-22 21:11 /etc/cron.daily/dlocate*
+-rwxr-xr-x 1 root root 832 2008-06-27 18:34 /etc/cron.daily/dlocate*
 -------------------------------
 
 -------------------------------
@@ -906,21 +909,21 @@ Package xlibmesa3-gl.list not installed or has no conffiles.
 
 -------------------------------
 running: dlocate -md5sum dlocate
-ff3fb8d9d2b385943d431e2583a83610  usr/bin/dlocate
-c17a31be17caf9b45b07ab7af3d35788  usr/sbin/update-dlocatedb
-c6fd2cc6a2ed1e5c9aa42d04e219bad4  usr/sbin/dpkg-hold
+bd9422d77102818e893e6fdb4c7e8640  usr/bin/dlocate
 89088e7577f4e4dbfd1ff248e8b1f67d  usr/sbin/dpkg-unhold
-9e9f1afd4ea2002c3301bbdc041b0a95  usr/sbin/dpkg-remove
+e2a3694c13269489d319eb5395927f40  usr/sbin/update-dlocatedb
+c6fd2cc6a2ed1e5c9aa42d04e219bad4  usr/sbin/dpkg-hold
 1b2c9b3b9a8c8197bb71f326dd42d3b2  usr/sbin/dpkg-purge
+9e9f1afd4ea2002c3301bbdc041b0a95  usr/sbin/dpkg-remove
 df2b44f95ce2d2b721408d44abeb36ed  usr/share/doc/dlocate/README.Debian
+11553ae1cf310551c470a704bf23f810  usr/share/doc/dlocate/changelog.gz
 35de09b95ed44d2ed923c0ad132fb1cf  usr/share/doc/dlocate/copyright
-5219e96a4d9a1580cdd91cf05ef6a428  usr/share/doc/dlocate/changelog.gz
-f3d448a536f0f421c04676a771b1353d  usr/share/man/man1/dlocate.1.gz
-872833181bc6527eb8edc1c2ddf393ce  usr/share/man/man1/dpkg-hold.1.gz
-b920c552778eed6e67ab2683c6a273fd  usr/share/man/man1/dpkg-unhold.1.gz
-e8dfa6d36a1d75e2b440ed35b6279343  usr/share/man/man1/dpkg-remove.1.gz
-b572fed5f5b101e161138bf564023da2  usr/share/man/man1/dpkg-purge.1.gz
-18858afdd80ec9bbfe031d386cec9a18  usr/share/man/man8/update-dlocatedb.8.gz
+1f934839ccda0fa07e7397415353ae80  usr/share/man/man1/dlocate.1.gz
+3ee648fb180fe26b0216b75fb4bbf642  usr/share/man/man1/dpkg-hold.1.gz
+46a0e76b2ccbd075905555f076b5ea42  usr/share/man/man1/dpkg-remove.1.gz
+b7d3a3f0d6bb37b50c238c0458f45199  usr/share/man/man1/dpkg-unhold.1.gz
+89f0bb6c94db84e45d83c8f307441e10  usr/share/man/man1/dpkg-purge.1.gz
+ad11cad5be99f05452da33c6eda56a4a  usr/share/man/man8/update-dlocatedb.8.gz
 -------------------------------
 
 -------------------------------
@@ -1292,18 +1295,18 @@ Package xlibmesa3-gl.list not installed or has no md5sums.
 -------------------------------
 running: dlocate -md5check dlocate
 usr/bin/dlocate: OK
+usr/sbin/dpkg-unhold: OK
 usr/sbin/update-dlocatedb: OK
 usr/sbin/dpkg-hold: OK
-usr/sbin/dpkg-unhold: OK
-usr/sbin/dpkg-remove: OK
 usr/sbin/dpkg-purge: OK
+usr/sbin/dpkg-remove: OK
 usr/share/doc/dlocate/README.Debian: OK
-usr/share/doc/dlocate/copyright: OK
 usr/share/doc/dlocate/changelog.gz: OK
+usr/share/doc/dlocate/copyright: OK
 usr/share/man/man1/dlocate.1.gz: OK
 usr/share/man/man1/dpkg-hold.1.gz: OK
-usr/share/man/man1/dpkg-unhold.1.gz: OK
 usr/share/man/man1/dpkg-remove.1.gz: OK
+usr/share/man/man1/dpkg-unhold.1.gz: OK
 usr/share/man/man1/dpkg-purge.1.gz: OK
 usr/share/man/man8/update-dlocatedb.8.gz: OK
 -------------------------------
@@ -1678,8 +1681,8 @@ Package xlibmesa3-gl.list not installed or has no md5sums.
 running: dlocate -man dlocate
 1 dlocate
 1 dpkg-hold
-1 dpkg-unhold
 1 dpkg-remove
+1 dpkg-unhold
 1 dpkg-purge
 8 update-dlocatedb
 -------------------------------
@@ -1813,8 +1816,8 @@ Package xlibmesa3-gl.list not installed or xlibmesa3-gl.list.list is empty.
 running: dlocate -lsman dlocate
 /usr/share/man/man1/dlocate.1.gz
 /usr/share/man/man1/dpkg-hold.1.gz
-/usr/share/man/man1/dpkg-unhold.1.gz
 /usr/share/man/man1/dpkg-remove.1.gz
+/usr/share/man/man1/dpkg-unhold.1.gz
 /usr/share/man/man1/dpkg-purge.1.gz
 /usr/share/man/man8/update-dlocatedb.8.gz
 -------------------------------

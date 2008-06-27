@@ -27,7 +27,6 @@ test -x /usr/sbin/update-dlocatedb || exit 0
 /usr/sbin/update-dlocatedb >/dev/null
 
 # update 'dlocate -l' emulation
-#dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' >$DPKGLIST
 # use sed to convert first three spaces in $DPKGLIST to tab
 # characters so we can use that as a field-sep in awk for 'dlocate -l'
 dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' -e 's/ /\t/' -e 's/ /\t/' -e 's/ /\t/' >$DPKGLIST

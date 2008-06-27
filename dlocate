@@ -63,7 +63,7 @@ __EOF__
 function dlocate_version {
   #VERSION_BANNER=$(grep-dctrl -X -P dlocate -n -s Version -d \
   #  /var/lib/dpkg/status | sed -e '2s/.*/(&)/')
-  VERSION_BANNER="0.95"
+  VERSION_BANNER="0.96"
   echo "dlocate version "$VERSION_BANNER
   exit
 }
@@ -139,7 +139,7 @@ for p in "$@"; do
             ;;
 
         (*)
-            PKGS="$PKGS::::::::$p"
+            PKGS="$PKGS$SEPARATOR$p"
             ;;
       esac
 done

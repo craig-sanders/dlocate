@@ -1,3 +1,15 @@
+dlocate (0.96) unstable; urgency=low
+
+  * accidentally deleted cron.daily rather than updating it.  restored it.
+    (Closes: 488222)
+  * updated postinst to generate /var/lib/dlocate/dpkg.list with tab-
+    separated fields, the same way that /etc/cron.daily/dlocate does.
+    also removed COLUMNS=200 because the postinst doesn't need it any
+    more than the cron.daily does.
+  * updated man page for update-dlocatedb to note additional author
+
+ -- Craig Sanders <cas@taz.net.au>  Fri, 27 Jun 2008 18:46:38 +1000
+
 dlocate (0.95) unstable; urgency=low
 
   * changed cron.daily to not use ionice if kernel version <2.6.13
