@@ -22,10 +22,14 @@ set -e
 #     installation fails and the `postinst' is called with `abort-upgrade',
 #     `abort-remove' or `abort-deconfigure'.
 
+# remove old frcode dlocatedb if it exists
+[ -e /var/lib/dlocate/dlocatedb ] && rm -f /var/lib/dlocate/dlocatedb
+[ -e /var/lib/dlocate/dlocatedb.old ] && rm -f /var/lib/dlocate/dlocatedb.old
+
 case "$1" in
     configure)
 		# generate initial dlocate database
-		/usr/sbin/update-dlocatedb >/dev/null 2>&1 &
+		update-dlocatedb >/dev/null 2>&1 &
 		# generate initial 'dpkg -l' file
         dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' -e 's/ /\t/' -e 's/ /\t/' -e 's/ /\t/' > /var/lib/dlocate/dpkg-list
 

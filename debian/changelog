@@ -1,6 +1,41 @@
+dlocate (1.0) unstable; urgency=low
+
+  * no longer use frcode and locate, see discussion in 494673.  removed
+    dependency on locate package. (Closes: #505997, #494651, #494673)
+  * added support for several GNU grep options, -E, -F, -G, -P, and -w
+  * the extra grep options obsolete the request for shell glob patterns (Closes: #49922)
+  * checked for empty $PKGS (Closes: #523501)
+  * fixed '-man' option, so that it doesn't break on man directories with locales
+  * tired of people filing the same bug because they misunderstand the purpose of '-man'.  added 'sort -u'.  (Closes: #501870)
+  * updated and fixed dlocate.1 man page (Closes: #518309)
+  * corrected 'dlocate -l' example in man page (Closes: #466662)
+  * moved man pages for dpkg-hold, dpkg-unhold, dpkg-purge, dpkg-remove to section 8 (Closes: #512446)
+  * added --verbose option to aid in debugging dlocate
+  * fixed bug that broke support for multiple packages in most commands
+  * fixed '-s' command so that it only calls grep-dctrl once if there are multiple package names
+  * applied following 6 lintian fixes from era eriksson: (Closes: #513470)
+  * debian/control: revert dependency on awk; as per Lintian error,
+    it is in practice essential, and should not be declared
+  * debian/copyright: add copyright year; disambiguate license as GPL v2
+    (fix lintian warning)
+  * debian/rules: move binary-arch commands to binary-indep; do not ignore
+    errors from "make clean" (fix lintian warnings)
+  * debian/changelog: fix typo in 0.96.1 s/dancy/dency/ (fix lintian warning)
+  * debian/postinst: don't use explicit path for /usr/sbin (fix lintian warning)
+  * debian/postrm: add -e flag (fix lintian warning)
+
+ -- Craig Sanders <cas@taz.net.au>  Sat, 30 May 2009 16:53:51 +1000
+
+dlocate (0.96.2) unstable; urgency=low
+
+  * Added bash completion rules.  only one trivial change to the
+    patch provided by Danilo Piazzalunga (Closes: #223718)
+
+ -- Craig Sanders <cas@taz.net.au>  Fri, 27 Jun 2008 20:31:44 +1000
+
 dlocate (0.96.1) unstable; urgency=low
 
-  * version 0.95 introduced a dependancy on awk, which is an optional
+  * version 0.95 introduced a dependency on awk, which is an optional
     package. the simple awk script has only been tested on my system
     with gawk, but it doesn't do anything gawkish so should work with
     mawk or original-awk. fixed Depends line.

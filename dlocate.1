@@ -8,62 +8,59 @@ dlocate - program to view debian package information
 
 .SH SYNOPSIS
 .B dlocate
-[ option ] [
-.I package
+.RI [ OPTIONS ]
+.RI [ command ]
+.RB [ 
+.IR package .\|.\|.
 |
-.I string
-]
+.IR PATTERN .\|.\|.]
+.
 
 .SH "DESCRIPTION"
 .PP
 .B dlocate
 is a fast alternative to dpkg for queries like `dpkg -L' and `dpkg -S'
 
-.SH OPTIONS
+.SH COMMANDS
 .TP
-.B (none)
+.BR (none)
 List all records where either the package name or the filename matches
-.IR string .
+.IR PATTERN .
 
-Note that dlocate uses GNU locate for this search, so locate's caveats about
-metacharacters needs to be taken into account.
+Note that dlocate uses GNU grep, so normal regexp metacharacters need to be taken into account or avoided
+by using the '-F' (Fixed String) grep option.
 
-For example, to search for `/usr/bin/[', you need to type:
-
-\fBdlocate '*\\['\fP
+For example, to search for `/usr/bin/[', you might try:
+\fBdlocate '/usr/bin/\\['\fP
+or
+\fBdlocate -F '/usr/bin/['\fP
 .TP
-.B \-h
-Produces a short help message and exits.
-.TP
-.B \-h
-Display dlocate's version number and exits.
-.TP
-.B \-S
+.BR \-S
 list all records where only the filename matches
-.IR string .
+.IR PATTERN .
 
-Note that dlocate uses GNU locate for this search, so locate's caveats about
-metacharacters needs to be taken into account.
+Note that dlocate uses GNU grep, so normal regexp metacharacters need to be taken into account.
+Fixed String searches are incompatible with -S
 
 For example, to search for `/usr/bin/[', you need to type:
 
-\fBdlocate -S '*\\['\fP
+\fBdlocate  '/usr/bin/\\['\fP
 
 .TP
-.B \-l
-Simplistic emulation of `dpkg \-l'.  Shows all packages which match
+.BR \-l
+Regexp-enhanced emulation of `dpkg \-l'.  Shows all packages which match
 .IR package .
 
-Internally this uses egrep on a file containing the reformatted output
-of `dpkg \-l' (four fields separated by one space\-character: status,
-package\-name, installed version, description) so it will return
-packages whose tag\-line matches, too.
+Internally this uses grep on a file containing the reformatted
+output output of 'dpkg \-l' (four fields separated by tabs; status,
+package-name, installed version, short description) so it will return
+packages whose version or short description matches, too.
 
-Extended regular expression are allowed. For example,
+Regular expression are supported. For example,
 
-\fBdlocate \-l '^.. libc5'\fP
+\fB./dlocate \-l '^..[[:space:]]libc6'\fP
 
-will list all the package names starting with `libc5'.
+will list all the packages whose names start with `libc6'.
 
 Note that because of the difference between regular expressions and
 dpkg's shell\-style pattern matching, the output from \fBdlocate -l\fP
@@ -75,62 +72,107 @@ may require some knowledge of regular expressions to get the output you
 want.
 
 .TP
-.B \-L
+.BR \-L
 List all files in 
 .IR package .
 .TP
-.B \-s
+.BR \-s
 Print status of
 .IR package .
 .TP
-.B \-ls
+.BR \-ls
 `ls \-ldF' of all files in
 .IR package .
 .TP
-.B \-lsconf
+.BR \-lsconf
 `ls \-ldF' of conffiles in
 .IR package .
 .TP
-.B \-conf
+.BR \-conf
 List conffiles in
 .IR package .
 .TP
-.B \-du
+.BR \-du
 `du \-sck' of all files in
 .IR package .
 .TP
-.B \-md5sum
+.BR \-md5sum
 List md5sums (if any) of 
 .IR package .
 .TP
-.B \-md5check
+.BR \-md5check
 Check md5sums (if any) of 
 .IR package .
 .TP
-.B \-man
+.BR \-man
 List man pages (if any) in
 .IR package .
 .TP
-.B \-lsman
+.BR \-lsman
 List full path/filenames of man pages (if any) in
 .IR package .
 .TP
-.B \-lsbin
+.BR \-lsbin
 List full path/filenames of executable files (if any) in
 .IR package .
+
+.SH OPTIONS
+.TP
+.BR \-w ", " \-\^\-word\-regexp
+Select only those lines containing matches that form whole words.
+The test is that the matching substring must either be at the
+beginning of the line, or preceded by a non-word constituent
+character.
+Similarly, it must be either at the end of the line
+or followed by a non-word constituent character.
+Word-constituent characters are letters, digits, and the underscore.
+.TP
+.BR \-i ", " --ignore-case
+Ignore case distinctions in the PATTERN 
+.TP
+.BR \-E ", " \-\^\-extended\-regexp
+Interpret
+.I PATTERN
+as an extended regular expression.
+This is the default.
+.TP
+.BR \-F ", " \-\^\-fixed\-strings
+Interpret
+.I PATTERN
+as a list of fixed strings, separated by newlines,
+any of which is to be matched.
+.TP
+.BR \-G ", " \-\^\-basic\-regexp
+Interpret
+.I PATTERN
+as a basic regular expression.
+.TP
+.BR \-P ", " \-\^\-perl\-regexp
+Interpret
+.I PATTERN
+as a Perl regular expression.
+This is considered to be highly experimental within GNU grep and may warn of unimplemented features.
+.TP
+.BR \-h ", " \-H ", " \-\-help
+Produces a short help message and exits.
+.TP
+.BR \-V ", " \-\-version
+Display dlocate's version number and exit.
+.TP
+.BR \-v ", " \-\-verbose ", " \-\-debug
+Produce verbose debugging output
 .PP
 
 .SH ENVIRONMENT VARIABLES
 .TP
-.B COLUMNS
+.BR COLUMNS
 Sets the number of columns \fBdlocate\fP should use when displaying formatted
 text.  Currently only used by \-l. Values lower than 80 are ignored.
 
 .SH "SEE ALSO"
-\fBlocate\fP(1),
 \fBdpkg\fP(1),
 \fBupdate\-dlocatedb\fP(8),
-\fBegrep\fP(1)
+\fBgrep\fP(1)
 and
 \fBgrep\-dctrl\fP(1).
 

@@ -8,14 +8,18 @@
 # caching of .list timestamps and re-use of old locatedb data added by 
 # Pawel Chmielowski <prefiks@prefiks.org>, see Bug #457572
 
+# 2009-05-30   Craig Sanders <cas@taz.net.au>
+# - rewrote script to output a plain text listing rather than use frcode
+
 use strict;
 use File::Basename;
 
 my $program = basename($0);
 
-my $dbfile='/var/lib/dlocate/dlocatedb';
-my $stampsfile="$dbfile.stamps";
-my $frcode='/usr/lib/locate/frcode';
+my $dbfile='/var/lib/dlocate/dlocatedb.txt';
+my $stampsfile='/var/lib/dlocate/dlocatedb.stamps';
+#my $dbfile='/tmp/dlocate.txt';
+#my $stampsfile='/tmp/dlocate.stamps';
 my $infodir='/var/lib/dpkg/info';
 
 my (%old_stamps, %stamps);
@@ -29,7 +33,7 @@ if (open(STAMPS, '<', $stampsfile)) {
     close(STAMPS);
 }
 
-open(FRCODE,"|$frcode >$dbfile.new") or die "$program: couldn't open pipe to $frcode: $!\n";
+open(DBFILE,'>', "$dbfile.new") or die "$program: couldn't open $dbfile.new for write: $!\n";
 
 opendir(DIR, $infodir) or die "$program: can't open directory $infodir: $!\n";
 while (defined(my $pkg = readdir(DIR))) {
@@ -40,26 +44,19 @@ closedir DIR;
 
 my @new_pkgs;
 my %processed;
-my $locate = '/usr/bin/locate.findutils';
-
-if (not -x $locate) {
-    # slocate or mlocate diverts locate
-    $locate = `/usr/sbin/dpkg-divert --truename /usr/bin/locate`;
-    chomp $locate;
-}
 
 chdir $infodir;
-if (%old_stamps and open(DB, "$locate -d $dbfile '' 2>/dev/null |")) {
+if (%old_stamps and open(DB, '<', $dbfile)) {
     while (<DB>) {
         my ($pkg) = /^(\S+?):/;
         if (not exists $stamps{$pkg}) {
-            # skip packages which are not longer installed
+            # skip packages which are no longer installed
         } elsif (exists $old_stamps{$pkg} and $stamps{$pkg} == $old_stamps{$pkg}) {
-            print FRCODE $_;
+            print DBFILE $_;
         } elsif (not exists $processed{$pkg}) {
             open(FILE, "$pkg.list") or die "$program: can't open file $pkg.list: $!\n";
             foreach (<FILE>) {
-                print FRCODE "$pkg: $_";
+                print DBFILE "$pkg: $_";
             }
             close FILE;
         }
@@ -77,11 +74,11 @@ if (%old_stamps and open(DB, "$locate -d $dbfile '' 2>/dev/null |")) {
 foreach my $pkg (@new_pkgs) {
     open(FILE, '<', "$pkg.list") or die "$program: can't open file $pkg: $!\n";
     foreach (<FILE>) {
-        print FRCODE $pkg, ': ', $_;
+        print DBFILE $pkg, ': ', $_;
     }
     close FILE;
 }
-close FRCODE;
+close DBFILE;
 
 # Create a backup to the database before replacing it with the new database.
 # This is effectively two rename's done atomically.
@@ -96,6 +93,8 @@ open(STAMPS, '>', "$stampsfile.new") or die "$program: can't create stamps file 
 print STAMPS "$stamps{$_}:$_\n" for keys %stamps;
 close STAMPS;
 
-unlink($stampsfile);
+if (-e $stampsfile) {
+  unlink($stampsfile);
+};
 rename("$stampsfile.new", $stampsfile);
 

@@ -12,6 +12,7 @@ install:
 	install -m 755 dpkg-unhold $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-remove $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-purge $(DESTDIR)/usr/sbin/
+	install -m 644 dlocate-completion $(DESTDIR)/etc/bash_completion.d/
 	#install -m 755 update-dpkg-list $(DESTDIR)/usr/sbin/
 
 update-test:

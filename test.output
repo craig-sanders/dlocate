@@ -1,154 +1,209 @@
 -------------------------------
-running: dlocate   /usr/bin/dlocate
+running: ./dlocate   /usr/bin/dlocate
+PKGS: /usr/bin/dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/bin/dlocate
+RUNNING: grep -E /usr/bin/dlocate /var/lib/dlocate/dlocatedb.txt
 dlocate: /usr/bin/dlocate
 -------------------------------
 
 -------------------------------
-running: dlocate   /usr/sbin/cron
+running: ./dlocate   /usr/sbin/cron
+PKGS: /usr/sbin/cron
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/sbin/cron
+RUNNING: grep -E /usr/sbin/cron /var/lib/dlocate/dlocatedb.txt
 cron: /usr/sbin/cron
 cronolog: /usr/sbin/cronolog
 -------------------------------
 
 -------------------------------
-running: dlocate   /usr/bin/dpkg
+running: ./dlocate   /usr/bin/dpkg
+PKGS: /usr/bin/dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/bin/dpkg
+RUNNING: grep -E /usr/bin/dpkg /var/lib/dlocate/dlocatedb.txt
 dpkg-sig: /usr/bin/dpkg-sig
-dpkg-dev: /usr/bin/dpkg-checkbuilddeps
-dpkg-dev: /usr/bin/dpkg-shlibdeps
-dpkg-dev: /usr/bin/dpkg-scansources
-dpkg-dev: /usr/bin/dpkg-buildpackage
-dpkg-dev: /usr/bin/dpkg-genchanges
-dpkg-dev: /usr/bin/dpkg-source
-dpkg-dev: /usr/bin/dpkg-gencontrol
-dpkg-dev: /usr/bin/dpkg-parsechangelog
-dpkg-dev: /usr/bin/dpkg-gensymbols
-dpkg-dev: /usr/bin/dpkg-distaddfile
-dpkg-dev: /usr/bin/dpkg-name
-dpkg-dev: /usr/bin/dpkg-scanpackages
-dpkg-dev: /usr/bin/dpkg-architecture
+dpkg: /usr/bin/dpkg-trigger
+dpkg: /usr/bin/dpkg-deb
+dpkg: /usr/bin/dpkg
 dpkg: /usr/bin/dpkg-query
 dpkg: /usr/bin/dpkg-split
-dpkg: /usr/bin/dpkg-deb
-dpkg: /usr/bin/dpkg-trigger
-dpkg: /usr/bin/dpkg
-devscripts: /usr/bin/dpkg-depcheck
-devscripts: /usr/bin/dpkg-genbuilddeps
+dpkg: /usr/bin/dpkg-divert
+dpkg: /usr/bin/dpkg-statoverride
 dpkg-awk: /usr/bin/dpkg-awk
 dpkg-repack: /usr/bin/dpkg-repack
+dpkg-dev: /usr/bin/dpkg-name
+dpkg-dev: /usr/bin/dpkg-gencontrol
+dpkg-dev: /usr/bin/dpkg-vendor
+dpkg-dev: /usr/bin/dpkg-source
+dpkg-dev: /usr/bin/dpkg-checkbuilddeps
+dpkg-dev: /usr/bin/dpkg-parsechangelog
+dpkg-dev: /usr/bin/dpkg-genchanges
+dpkg-dev: /usr/bin/dpkg-architecture
+dpkg-dev: /usr/bin/dpkg-shlibdeps
+dpkg-dev: /usr/bin/dpkg-distaddfile
+dpkg-dev: /usr/bin/dpkg-scanpackages
+dpkg-dev: /usr/bin/dpkg-scansources
+dpkg-dev: /usr/bin/dpkg-buildpackage
+dpkg-dev: /usr/bin/dpkg-gensymbols
+devscripts: /usr/bin/dpkg-depcheck
+devscripts: /usr/bin/dpkg-genbuilddeps
 -------------------------------
 
 -------------------------------
-running: dlocate   /usr/bin/apt
-apt-show-source: /usr/bin/apt-show-source
-apt-file: /usr/bin/apt-file
-aptitude: /usr/bin/aptitude-create-state-bundle
-aptitude: /usr/bin/aptitude-run-state-bundle
-aptitude: /usr/bin/aptitude
-apt-howto-common: /usr/bin/apt-howto
-apt-src: /usr/bin/apt-src
-apt-show-versions: /usr/bin/apt-show-versions
-apt-utils: /usr/bin/apt-ftparchive
-apt-utils: /usr/bin/apt-sortpkgs
-apt-utils: /usr/bin/apt-extracttemplates
+running: ./dlocate   /usr/bin/apt
+PKGS: /usr/bin/apt
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/bin/apt
+RUNNING: grep -E /usr/bin/apt /var/lib/dlocate/dlocatedb.txt
 apt: /usr/bin/apt-get
 apt: /usr/bin/apt-mark
 apt: /usr/bin/apt-cdrom
 apt: /usr/bin/apt-cache
 apt: /usr/bin/apt-key
 apt: /usr/bin/apt-config
+apt-utils: /usr/bin/apt-ftparchive
+apt-utils: /usr/bin/apt-sortpkgs
+apt-utils: /usr/bin/apt-extracttemplates
+apt-src: /usr/bin/apt-src
 apt-rdepends: /usr/bin/apt-rdepends
+aptitude: /usr/bin/aptitude-run-state-bundle
+aptitude: /usr/bin/aptitude
+aptitude: /usr/bin/aptitude-create-state-bundle
+apt-show-versions: /usr/bin/apt-show-versions
+apt-show-source: /usr/bin/apt-show-source
 apt-mirror: /usr/bin/apt-mirror
+apt-file: /usr/bin/apt-file
+apt-listchanges: /usr/bin/apt-listchanges
 -------------------------------
 
 -------------------------------
-running: dlocate   /tmp/foo/bar/filedoesnotexist
+running: ./dlocate   /tmp/foo/bar/filedoesnotexist
+PKGS: /tmp/foo/bar/filedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: /tmp/foo/bar/filedoesnotexist
+RUNNING: grep -E /tmp/foo/bar/filedoesnotexist /var/lib/dlocate/dlocatedb.txt
 -------------------------------
 
 -------------------------------
-running: dlocate -S /usr/bin/dlocate
+running: ./dlocate -S /usr/bin/dlocate
+PKGS: /usr/bin/dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/bin/dlocate
+RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/bin/dlocate) /var/lib/dlocate/dlocatedb.txt
 dlocate: /usr/bin/dlocate
 -------------------------------
 
 -------------------------------
-running: dlocate -S /usr/sbin/cron
+running: ./dlocate -S /usr/sbin/cron
+PKGS: /usr/sbin/cron
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/sbin/cron
+RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/sbin/cron) /var/lib/dlocate/dlocatedb.txt
 cron: /usr/sbin/cron
 cronolog: /usr/sbin/cronolog
 -------------------------------
 
 -------------------------------
-running: dlocate -S /usr/bin/dpkg
+running: ./dlocate -S /usr/bin/dpkg
+PKGS: /usr/bin/dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/bin/dpkg
+RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/bin/dpkg) /var/lib/dlocate/dlocatedb.txt
 dpkg-sig: /usr/bin/dpkg-sig
-dpkg-dev: /usr/bin/dpkg-checkbuilddeps
-dpkg-dev: /usr/bin/dpkg-shlibdeps
-dpkg-dev: /usr/bin/dpkg-scansources
-dpkg-dev: /usr/bin/dpkg-buildpackage
-dpkg-dev: /usr/bin/dpkg-genchanges
-dpkg-dev: /usr/bin/dpkg-source
-dpkg-dev: /usr/bin/dpkg-gencontrol
-dpkg-dev: /usr/bin/dpkg-parsechangelog
-dpkg-dev: /usr/bin/dpkg-gensymbols
-dpkg-dev: /usr/bin/dpkg-distaddfile
-dpkg-dev: /usr/bin/dpkg-name
-dpkg-dev: /usr/bin/dpkg-scanpackages
-dpkg-dev: /usr/bin/dpkg-architecture
+dpkg: /usr/bin/dpkg-trigger
+dpkg: /usr/bin/dpkg-deb
+dpkg: /usr/bin/dpkg
 dpkg: /usr/bin/dpkg-query
 dpkg: /usr/bin/dpkg-split
-dpkg: /usr/bin/dpkg-deb
-dpkg: /usr/bin/dpkg-trigger
-dpkg: /usr/bin/dpkg
-devscripts: /usr/bin/dpkg-depcheck
-devscripts: /usr/bin/dpkg-genbuilddeps
+dpkg: /usr/bin/dpkg-divert
+dpkg: /usr/bin/dpkg-statoverride
 dpkg-awk: /usr/bin/dpkg-awk
 dpkg-repack: /usr/bin/dpkg-repack
+dpkg-dev: /usr/bin/dpkg-name
+dpkg-dev: /usr/bin/dpkg-gencontrol
+dpkg-dev: /usr/bin/dpkg-vendor
+dpkg-dev: /usr/bin/dpkg-source
+dpkg-dev: /usr/bin/dpkg-checkbuilddeps
+dpkg-dev: /usr/bin/dpkg-parsechangelog
+dpkg-dev: /usr/bin/dpkg-genchanges
+dpkg-dev: /usr/bin/dpkg-architecture
+dpkg-dev: /usr/bin/dpkg-shlibdeps
+dpkg-dev: /usr/bin/dpkg-distaddfile
+dpkg-dev: /usr/bin/dpkg-scanpackages
+dpkg-dev: /usr/bin/dpkg-scansources
+dpkg-dev: /usr/bin/dpkg-buildpackage
+dpkg-dev: /usr/bin/dpkg-gensymbols
+devscripts: /usr/bin/dpkg-depcheck
+devscripts: /usr/bin/dpkg-genbuilddeps
 -------------------------------
 
 -------------------------------
-running: dlocate -S /usr/bin/apt
-apt-show-source: /usr/bin/apt-show-source
-apt-file: /usr/bin/apt-file
-aptitude: /usr/bin/aptitude-create-state-bundle
-aptitude: /usr/bin/aptitude-run-state-bundle
-aptitude: /usr/bin/aptitude
-apt-howto-common: /usr/bin/apt-howto
-apt-src: /usr/bin/apt-src
-apt-show-versions: /usr/bin/apt-show-versions
-apt-utils: /usr/bin/apt-ftparchive
-apt-utils: /usr/bin/apt-sortpkgs
-apt-utils: /usr/bin/apt-extracttemplates
+running: ./dlocate -S /usr/bin/apt
+PKGS: /usr/bin/apt
+RE_SEPARATOR: |
+PKGS_REGEXP: /usr/bin/apt
+RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/bin/apt) /var/lib/dlocate/dlocatedb.txt
 apt: /usr/bin/apt-get
 apt: /usr/bin/apt-mark
 apt: /usr/bin/apt-cdrom
 apt: /usr/bin/apt-cache
 apt: /usr/bin/apt-key
 apt: /usr/bin/apt-config
+apt-utils: /usr/bin/apt-ftparchive
+apt-utils: /usr/bin/apt-sortpkgs
+apt-utils: /usr/bin/apt-extracttemplates
+apt-src: /usr/bin/apt-src
 apt-rdepends: /usr/bin/apt-rdepends
+aptitude: /usr/bin/aptitude-run-state-bundle
+aptitude: /usr/bin/aptitude
+aptitude: /usr/bin/aptitude-create-state-bundle
+apt-show-versions: /usr/bin/apt-show-versions
+apt-show-source: /usr/bin/apt-show-source
 apt-mirror: /usr/bin/apt-mirror
+apt-file: /usr/bin/apt-file
+apt-listchanges: /usr/bin/apt-listchanges
 -------------------------------
 
 -------------------------------
-running: dlocate -S /tmp/foo/bar/filedoesnotexist
+running: ./dlocate -S /tmp/foo/bar/filedoesnotexist
+PKGS: /tmp/foo/bar/filedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: /tmp/foo/bar/filedoesnotexist
+RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/tmp/foo/bar/filedoesnotexist) /var/lib/dlocate/dlocatedb.txt
 -------------------------------
 
 -------------------------------
-running: dlocate -l dlocate
+running: ./dlocate -l dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
+RUNNING: grep -E -- dlocate /var/lib/dlocate/dpkg-list
 Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  dlocate                               0.96                                  fast alternative to dpkg -L and dpkg -S
+ii  dlocate                               0.96.2                                fast alternative to dpkg -L and dpkg -S
 -------------------------------
 
 -------------------------------
-running: dlocate -l bash
+running: ./dlocate -l bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
+RUNNING: grep -E -- bash /var/lib/dlocate/dpkg-list
 Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  bash                                  3.2-4                                 The GNU Bourne Again SHell
-ii  bash-builtins                         3.2-4                                 Bash loadable builtins - headers & examples
-ii  bash-completion                       20060301-4                            programmable completion for the bash shell
-ii  bash-doc                              3.2-4                                 Documentation and examples for the The GNU B
+ii  bash                                  3.2-5                                 The GNU Bourne Again SHell
+ii  bash-builtins                         3.2-5                                 Bash loadable builtins - headers & examples
+ii  bash-completion                       1:1.0-2                               programmable completion for the bash shell
+un  bash-completion-lib                   <none>                                (no description available)
+ii  bash-doc                              3.2-5                                 Documentation and examples for the The GNU B
 pn  bash-minimal                          <none>                                (no description available)
 pn  bash-static                           <none>                                (no description available)
 pn  bash3                                 <none>                                (no description available)
@@ -160,26 +215,30 @@ ii  mybashburn                            1.0.2-1                               
 -------------------------------
 
 -------------------------------
-running: dlocate -l dpkg
+running: ./dlocate -l dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
+RUNNING: grep -E -- dpkg /var/lib/dlocate/dpkg-list
 Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  apt                                   0.7.14                                Advanced front-end for dpkg
-ii  apt-dpkg-ref                          5.2                                   APT, Dpkg Quick Reference sheet
-ii  dlocate                               0.96                                  fast alternative to dpkg -L and dpkg -S
-ii  dpkg                                  1.14.20                               Debian package management system
-ii  dpkg-awk                              1.0.1.0.0.1                           Gawk script to parse /var/lib/dpkg/{status,a
+ii  apt                                   0.7.21                                Advanced front-end for dpkg
+ii  apt-dpkg-ref                          5.3                                   APT, Dpkg Quick Reference sheet
+ii  dlocate                               0.96.2                                fast alternative to dpkg -L and dpkg -S
+ii  dpkg                                  1.15.2                                Debian package management system
+ii  dpkg-awk                              1.0.3                                 Gawk script to parse /var/lib/dpkg/{status,a
 pn  dpkg-cross                            <none>                                (no description available)
-ii  dpkg-dev                              1.14.20                               Debian package development tools
+ii  dpkg-dev                              1.15.2                                Debian package development tools
 pn  dpkg-dev-el                           <none>                                (no description available)
 un  dpkg-disk2                            <none>                                (no description available)
 pn  dpkg-doc                              <none>                                (no description available)
 pn  dpkg-ftp                              <none>                                (no description available)
 pn  dpkg-iasearch                         <none>                                (no description available)
 pn  dpkg-multicd                          <none>                                (no description available)
-ii  dpkg-repack                           1.29                                  puts an unpacked .deb file back together
+ii  dpkg-repack                           1.31                                  puts an unpacked .deb file back together
 pn  dpkg-ruby                             <none>                                (no description available)
 ii  dpkg-sig                              0.13.1                                create and verify signatures on .deb-files
 pn  dpkg-www                              <none>                                (no description available)
@@ -190,28 +249,36 @@ ii  type-handling                         0.2.23                                
 -------------------------------
 
 -------------------------------
-running: dlocate -l apt
+running: ./dlocate -l apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
+RUNNING: grep -E -- apt /var/lib/dlocate/dpkg-list
 Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  ale                                   0.9.0.1-1                             a synthetic capture engine and renderer
-ii  amrnb                                 7.0.0.2-0.0                           floating-point Adaptive Multi-Rate (AMR) spe
-ii  apt                                   0.7.14                                Advanced front-end for dpkg
+ii  ale                                   0.9.0.1-2+b2                          a synthetic capture engine and renderer
+ii  amrnb                                 7.0.0.2-0.1                           floating-point Adaptive Multi-Rate (AMR) spe
+ii  apt                                   0.7.21                                Advanced front-end for dpkg
 pn  apt-build                             <none>                                (no description available)
 pn  apt-cacher                            <none>                                (no description available)
 pn  apt-cacher-ng                         <none>                                (no description available)
 pn  apt-cross                             <none>                                (no description available)
-ii  apt-doc                               0.7.14                                Documentation for APT
-ii  apt-dpkg-ref                          5.2                                   APT, Dpkg Quick Reference sheet
-ii  apt-file                              2.1.3                                 APT package searching utility -- command-lin
+pn  apt-dater                             <none>                                (no description available)
+pn  apt-dater-dbg                         <none>                                (no description available)
+pn  apt-dater-host                        <none>                                (no description available)
+ii  apt-doc                               0.7.21                                Documentation for APT
+ii  apt-dpkg-ref                          5.3                                   APT, Dpkg Quick Reference sheet
+ii  apt-file                              2.2.2                                 search for files within Debian packages (com
+pn  apt-forktracer                        <none>                                (no description available)
 pn  apt-howto                             <none>                                (no description available)
 pn  apt-howto-ca                          <none>                                (no description available)
-ii  apt-howto-common                      2.0.2-3                               example-based guide to APT
+pn  apt-howto-common                      <none>                                (no description available)
 pn  apt-howto-de                          <none>                                (no description available)
 pn  apt-howto-el                          <none>                                (no description available)
-ii  apt-howto-en                          2.0.2-3                               example-based guide to APT (English)
+pn  apt-howto-en                          <none>                                (no description available)
 pn  apt-howto-es                          <none>                                (no description available)
 pn  apt-howto-fr                          <none>                                (no description available)
 pn  apt-howto-it                          <none>                                (no description available)
@@ -224,7 +291,7 @@ pn  apt-howto-tr                          <none>                                
 pn  apt-howto-uk                          <none>                                (no description available)
 rn  apt-index-watcher                     <none>                                (no description available)
 pn  apt-listbugs                          <none>                                (no description available)
-pn  apt-listchanges                       <none>                                (no description available)
+ii  apt-listchanges                       2.83                                  package change history notification tool
 pn  apt-localepurge                       <none>                                (no description available)
 ii  apt-mirror                            0.4.5-1                               APT sources mirroring tool
 pn  apt-move                              <none>                                (no description available)
@@ -235,29 +302,30 @@ ii  apt-rdepends                          1.3.0-1.1                             
 un  apt-rpm-client                        <none>                                (no description available)
 pn  apt-rpm-repository                    <none>                                (no description available)
 ii  apt-show-source                       0.10                                  Shows source-package information
-ii  apt-show-versions                     0.13                                  lists available package versions with distri
+ii  apt-show-versions                     0.15                                  lists available package versions with distri
 pn  apt-spy                               <none>                                (no description available)
 ii  apt-src                               0.25.1-0.1                            manage Debian source packages
-ii  apt-transport-debtorrent              0.2.1                                 an APT transport for communicating with DebT
-ii  apt-transport-https                   0.7.14                                APT https transport
-ii  apt-utils                             0.7.14                                APT utility programs
+ii  apt-transport-debtorrent              0.2.1+b1                              an APT transport for communicating with DebT
+ii  apt-transport-https                   0.7.21                                APT https transport
+ii  apt-utils                             0.7.21                                APT utility programs
 rn  apt-watch                             <none>                                (no description available)
 pn  apt-watch-backend                     <none>                                (no description available)
 pn  apt-watch-gnome                       <none>                                (no description available)
 un  apt-watch-interface                   <none>                                (no description available)
-ii  apt-xapian-index                      0.9                                   Maintenance tools for a Xapian index of Debi
+ii  apt-xapian-index                      0.20                                  maintenance tools for a Xapian index of Debi
 pn  apt-zip                               <none>                                (no description available)
 pn  aptconf                               <none>                                (no description available)
 pn  aptfs                                 <none>                                (no description available)
 pn  apticron                              <none>                                (no description available)
-ii  aptitude                              0.4.11.4-1                            terminal-based package manager
+ii  aptitude                              0.4.11.11-1+b1                        terminal-based package manager
 pn  aptitude-dbg                          <none>                                (no description available)
 un  aptitude-doc                          <none>                                (no description available)
 pn  aptitude-doc-cs                       <none>                                (no description available)
-ii  aptitude-doc-en                       0.4.11.4-1                            English manual for aptitude, a terminal-base
+ii  aptitude-doc-en                       0.4.11.11-1                           English manual for aptitude, a terminal-base
 pn  aptitude-doc-fi                       <none>                                (no description available)
 pn  aptitude-doc-fr                       <none>                                (no description available)
 pn  aptitude-doc-ja                       <none>                                (no description available)
+pn  aptitude-gtk                          <none>                                (no description available)
 pn  aptlinex                              <none>                                (no description available)
 pn  aptoncd                               <none>                                (no description available)
 rn  aptsh                                 <none>                                (no description available)
@@ -265,76 +333,88 @@ pn  auto-apt                              <none>                                
 pn  axel-kapt                             <none>                                (no description available)
 pn  captain                               <none>                                (no description available)
 pn  captury                               <none>                                (no description available)
-ii  chaplin                               1.10-0.1                              DVD chapter extractor
+ii  chaplin                               1.10-0.2                              DVD chapter extractor
 pn  cron-apt                              <none>                                (no description available)
+pn  daptup                                <none>                                (no description available)
 pn  education-laptop                      <none>                                (no description available)
 un  emboss-kaptain                        <none>                                (no description available)
+ii  etherboot                             5.4.3+dfsg-0.2                        Bootstrapping for various network adapters
+ii  etherboot-doc                         5.4.3+dfsg-0.2                        Bootstrapping for various network adapters (
 pn  gnome-apt                             <none>                                (no description available)
 pn  gsynaptic                             <none>                                (no description available)
 pn  gsynaptics                            <none>                                (no description available)
 pn  gui-apt-key                           <none>                                (no description available)
-ii  imaptool                              0.9-7                                 A tool for creating client-side image maps
+pn  ia32-apt-get                          <none>                                (no description available)
+ii  imaptool                              0.9-8                                 A tool for creating client-side image maps
 pn  kaptain                               <none>                                (no description available)
 pn  kernel-patch-2.2.19-adaptec           <none>                                (no description available)
 pn  kernel-patch-adaptec                  <none>                                (no description available)
 pn  kio-apt                               <none>                                (no description available)
 rn  klaptopdaemon                         <none>                                (no description available)
-ii  kraptor                               0.0.20040403-4                        Classic shoot 'em up scroller game
-ii  kraptor-data                          0.0.20040403-4                        Classic shoot 'em up scroller game - data fi
+ii  kraptor                               0.0.20040403-6                        Classic shoot 'em up scroller game
+ii  kraptor-data                          0.0.20040403-6                        Classic shoot 'em up scroller game - data fi
 pn  ksynaptics                            <none>                                (no description available)
-ii  laptop-detect                         0.13.6                                attempt to detect a laptop
+ii  laptop-detect                         0.13.7                                attempt to detect a laptop
 pn  laptop-mode-tools                     <none>                                (no description available)
 pn  laptop-net                            <none>                                (no description available)
 pn  laptop-net-doc                        <none>                                (no description available)
 pn  laptop-netconf                        <none>                                (no description available)
 ii  late                                  0.1.0-11                              A simple game of capturing balls
 pn  ldaptor-common                        <none>                                (no description available)
-ii  ldaptor-doc                           0.0.43-2                              Documentation for Ldaptor
+ii  ldaptor-doc                           0.0.43-3                              documentation for Ldaptor
 pn  ldaptor-utils                         <none>                                (no description available)
 pn  ldaptor-webui                         <none>                                (no description available)
-ii  libamrnb3                             7.0.0.2-0.0                           floating-point Adaptive Multi-Rate (AMR) spe
+ii  libamrnb3                             7.0.0.2-0.1                           floating-point Adaptive Multi-Rate (AMR) spe
 ii  libamrwb3                             7.0.0.3-0.0                           Adaptive Multi-Rate - Wideband (AMR-WB) spee
 pn  libapt-front-dev                      <none>                                (no description available)
-un  libapt-inst-libc6.7-6-1.1             <none>                                (no description available)
-ii  libapt-pkg-dev                        0.7.14                                Development files for APT's libapt-pkg and l
-ii  libapt-pkg-doc                        0.7.14                                Documentation for APT development
+un  libapt-inst-libc6.9-6-1.1             <none>                                (no description available)
+ii  libapt-pkg-dev                        0.7.21                                Development files for APT's libapt-pkg and l
+ii  libapt-pkg-doc                        0.7.21                                Documentation for APT development
 un  libapt-pkg-libc6.7-6-4.6              <none>                                (no description available)
-ii  libapt-pkg-perl                       0.1.22+b1                             Perl interface to libapt-pkg
+un  libapt-pkg-libc6.9-6-4.7              <none>                                (no description available)
+ii  libapt-pkg-perl                       0.1.23                                Perl interface to libapt-pkg
 pn  libapt-rpm-pkg-dev                    <none>                                (no description available)
 pn  libapt-rpm-pkg-libc6.3-5-0            <none>                                (no description available)
 pn  libapt-rpm-pkg-libc6.3-6-0            <none>                                (no description available)
 pn  libapt-rpm-pkg-libc6.3-6-2            <none>                                (no description available)
 pn  libapt-rpm-pkg-libc6.6-6-2            <none>                                (no description available)
 pn  libapt-rpm-pkg-libc6.7-6-2            <none>                                (no description available)
+pn  libapt-rpm-pkg2                       <none>                                (no description available)
 ii  libauthen-captcha-perl                1.023-5                               Extension for creating captcha's to verify t
 pn  libcache-apt-perl                     <none>                                (no description available)
 ii  libcaptcha-recaptcha-perl             0.92-1                                perl implementation of the reCAPTCHA API
+un  libcapture-tiny-perl                  <none>                                (no description available)
 pn  libcaptury-dev                        <none>                                (no description available)
 pn  libcaptury0                           <none>                                (no description available)
-ii  libgd-securityimage-perl              1.66-1                                Security image (captcha) generator
+ii  libclass-adapter-perl                 1.05-1                                Perl implementation of the "Adapter" Design
+ii  libgd-securityimage-perl              1.68-1                                Security image (captcha) generator
 ii  libio-capture-perl                    0.05-2                                Abstract Base Class to build modules to capt
-ii  libmjpegtools-dev                     1:1.8.0-0.9                           MJPEG video capture/editting/playback MPEG e
+ii  libmail-imaptalk-perl                 1.03-1                                IMAP client interface with lots of features
+ii  libmjpegtools-1.9                     1:1.9.0-0.3                           MJPEG video capture/editting/playback MPEG e
+ii  libmjpegtools-dev                     1:1.9.0-0.3                           MJPEG video capture/editting/playback MPEG e
 ii  libmjpegtools0                        1:1.8.0-0.9                           MJPEG video capture/editting/playback MPEG e
-ii  libpcap0.8                            0.9.8-5                               system interface for user-level packet captu
+ii  libnet-pcap-perl                      0.16-2                                Perl binding to the LBL pcap packet capture
+ii  libpcap0.8                            1.0.0-1                               system interface for user-level packet captu
 un  libraptor-dev                         <none>                                (no description available)
 pn  libraptor0                            <none>                                (no description available)
 pn  libraptor0-dev                        <none>                                (no description available)
-ii  libraptor1                            1.4.17-1                              Raptor RDF parser and serializer library
+ii  libraptor1                            1.4.18-3                              Raptor RDF parser and serializer library
 pn  libraptor1-dev                        <none>                                (no description available)
 pn  libraptor1-doc                        <none>                                (no description available)
 pn  libsynaptics-dev                      <none>                                (no description available)
 pn  libsynaptics0                         <none>                                (no description available)
-ii  libvideo-capture-v4l-perl             0.901-4+b1                            Perl interface to the Video4linux framegrabb
+ii  libvideo-capture-v4l-perl             0.902-1                               Perl interface to the Video4linux framegrabb
 pn  lrrd-plugin-apt                       <none>                                (no description available)
-ii  mjpegtools                            1:1.8.0-0.9                           MJPEG video capture/editting/playback MPEG e
+ii  mjpegtools                            1:1.9.0-0.3                           MJPEG video capture/editting/playback MPEG e
 pn  netselect-apt                         <none>                                (no description available)
 ii  packit                                1.0-2                                 Network Injection and Capture
 pn  phpgroupware-eldaptir                 <none>                                (no description available)
-ii  python-apt                            0.7.6                                 Python interface to libapt-pkg
+ii  python-apt                            0.7.10.3+b1                           Python interface to libapt-pkg
 pn  python-apt-dbg                        <none>                                (no description available)
 un  python-apt-p2p                        <none>                                (no description available)
 un  python-apt-p2p-khashmir               <none>                                (no description available)
 pn  python-ldaptor                        <none>                                (no description available)
+pn  python-recaptcha                      <none>                                (no description available)
 pn  python2.1-ldaptor                     <none>                                (no description available)
 pn  python2.2-ldaptor                     <none>                                (no description available)
 pn  python2.3-apt                         <none>                                (no description available)
@@ -346,51 +426,101 @@ un  python2.5-ldaptor                     <none>                                
 pn  qsynaptics                            <none>                                (no description available)
 pn  r-cran-adapt                          <none>                                (no description available)
 ii  rafkill                               1.2.2-3.2                             vertical shoot'em-up similar to Raptor: Call
-ii  raptor-utils                          1.4.17-1                              Raptor RDF parser and serializer utilities
-ii  spl-curl                              1.0~pre4-1                            SPL Programming Language -- curl adapter
-ii  streamer                              3.95.dfsg.1-8                         television capture tool (images/movies)
-ii  synaptic                              0.62.1                                Graphical package manager
+ii  raptor-utils                          1.4.18-3                              Raptor RDF parser and serializer utilities
+ii  spl-curl                              1.0~pre5-2                            SPL Programming Language -- curl adapter
+ii  streamer                              3.95.dfsg.1-8.1                       television capture tool (images/movies)
+ii  synaptic                              0.62.5+b1                             Graphical package manager
 pn  synaptic-debtags                      <none>                                (no description available)
 un  synaptics                             <none>                                (no description available)
 pn  uvccapture                            <none>                                (no description available)
-ii  xdtv                                  2.4.0.cvs20080514-0.0                 Video4Linux Stream Capture Viewer and Decode
+ii  xdtv                                  2.4.0.cvs20080514-0.2                 Video4Linux Stream Capture Viewer and Decode
 pn  xfree86-driver-synaptics              <none>                                (no description available)
-ii  xnc                                   5.0.4-2.1                             X Northern Captain nc/mc-like filemanager fo
+ii  xnc                                   5.0.4-3                               X Northern Captain nc/mc-like filemanager fo
 un  xorg-driver-synaptics                 <none>                                (no description available)
 pn  xserver-xorg-input-synaptics          <none>                                (no description available)
-ii  zaptel                                1:1.4.10.1~dfsg-1                     zapata telephony utilities
+hi  zaptel                                1:1.4.11~dfsg-3                       zapata telephony utilities
 un  zaptel-modules                        <none>                                (no description available)
-ii  zaptel-modules-2.6.24.3               1:1.4.9.2~dfsg-1+ganesh2.6.24.3       zaptel modules for Linux (kernel 2.6.24.3).
-ii  zaptel-modules-2.6.24.4               1:1.4.9.2~dfsg-1+ganesh2.6.24.4       zaptel modules for Linux (kernel 2.6.24.4).
+pn  zaptel-modules-2.6.24.3               <none>                                (no description available)
+pn  zaptel-modules-2.6.24.4               <none>                                (no description available)
+pn  zaptel-modules-2.6.25.10              <none>                                (no description available)
+pn  zaptel-modules-2.6.25.14              <none>                                (no description available)
 pn  zaptel-modules-2.6.25.2               <none>                                (no description available)
-ii  zaptel-modules-2.6.25.4               1:1.4.10.1~dfsg-1+ganesh2.6.25.4      zaptel modules for Linux (kernel 2.6.25.4).
-ii  zaptel-modules-2.6.25.6               1:1.4.10.1~dfsg-1+ganesh2.6.25.6      zaptel modules for Linux (kernel 2.6.25.6).
-ii  zaptel-modules-2.6.25.7               1:1.4.10.1~dfsg-1+ganesh2.6.25.7      zaptel modules for Linux (kernel 2.6.25.7).
-ii  zaptel-source                         1:1.4.10.1~dfsg-1                     Zapata telephony interface (source code for
+pn  zaptel-modules-2.6.25.4               <none>                                (no description available)
+pn  zaptel-modules-2.6.25.6               <none>                                (no description available)
+pn  zaptel-modules-2.6.25.7               <none>                                (no description available)
+pn  zaptel-modules-2.6.27                 <none>                                (no description available)
+rc  zaptel-modules-2.6.27.2               1:1.4.11~dfsg-2+ganesh2.6.27.2        zaptel modules for Linux (kernel 2.6.27.2).
+rc  zaptel-modules-2.6.27.8               1:1.4.11~dfsg-3+ganesh2.6.27.8        zaptel modules for Linux (kernel 2.6.27.8).
+ii  zaptel-source                         1:1.4.11~dfsg-3                       Zapata telephony interface (source code for
 -------------------------------
 
 -------------------------------
-running: dlocate -l packagedoesnotexist
+running: ./dlocate -l packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
+RUNNING: grep -E -- packagedoesnotexist /var/lib/dlocate/dpkg-list
 -------------------------------
 
 -------------------------------
-running: dlocate -l xlibmesa-glu
+running: ./dlocate -l xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+RUNNING: grep -E -- xmp /var/lib/dlocate/dpkg-list
 Desired=Unknown/Install/Remove/Purge/Hold
 | Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-rn  xlibmesa-glu                          <none>                                (no description available)
-pn  xlibmesa-glu-dbg                      <none>                                (no description available)
-pn  xlibmesa-glu-dev                      <none>                                (no description available)
+pn  irssi-plugin-xmpp                     <none>                                (no description available)
+ii  libjinglexmpp0.3-0                    0.3.11-5                              Libjingle XMPP library
+pn  libjinglexmpp0.3-dev                  <none>                                (no description available)
+ii  libnet-xmpp-perl                      1.02-1                                XMPP Perl library
+rn  libxmp2                               <none>                                (no description available)
+un  libxmpi                               <none>                                (no description available)
+un  libxmpi-dev                           <none>                                (no description available)
+pn  libxmpi3                              <none>                                (no description available)
+pn  libxmpi3-dev                          <none>                                (no description available)
+pn  libxmpi4                              <none>                                (no description available)
+pn  libxmpi4-dev                          <none>                                (no description available)
+pn  libxmpp-php                           <none>                                (no description available)
+pn  libxmpp4r-ruby                        <none>                                (no description available)
+pn  libxmpp4r-ruby-doc                    <none>                                (no description available)
+pn  libxmpp4r-ruby1.8                     <none>                                (no description available)
+pn  libxmpp4r-ruby1.8-dev                 <none>                                (no description available)
+pn  openser-xmpp-module                   <none>                                (no description available)
+pn  python-pyxmpp                         <none>                                (no description available)
+pn  python-pyxmpp-doc                     <none>                                (no description available)
+pn  python-xmpp                           <none>                                (no description available)
+pn  python2.1-xmpp                        <none>                                (no description available)
+pn  python2.2-xmpp                        <none>                                (no description available)
+pn  python2.3-pyxmpp                      <none>                                (no description available)
+pn  python2.3-xmpp                        <none>                                (no description available)
+pn  python2.4-pyxmpp                      <none>                                (no description available)
+pn  python2.4-xmpp                        <none>                                (no description available)
+un  python2.5-pyxmpp                      <none>                                (no description available)
+pn  sendxmpp                              <none>                                (no description available)
+rc  xmp                                   2.5.0-1                               A module player supporting AWE32, GUS, and s
+pn  xmp-alsa                              <none>                                (no description available)
+pn  xmp-audacious                         <none>                                (no description available)
+ii  xmp-common                            2.5.1-1                               Common files for xmp and the xmp Audacious p
+pn  xmp-esd                               <none>                                (no description available)
+un  xmp-player                            <none>                                (no description available)
+pn  xmp-x11                               <none>                                (no description available)
+pn  xmp-xmms                              <none>                                (no description available)
+pn  xmpi                                  <none>                                (no description available)
+un  xmpi-dev                              <none>                                (no description available)
+un  xmpi1-runtime                         <none>                                (no description available)
+pn  xmpuzzles                             <none>                                (no description available)
 -------------------------------
 
 -------------------------------
-running: dlocate -l xlibmesa3-gl.list
--------------------------------
-
--------------------------------
-running: dlocate -du dlocate
+running: ./dlocate -du dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
+4	/etc/bash_completion.d/dlocate-completion
 4	/etc/cron.daily/dlocate
 4	/etc/cron.daily/dlocate.dpkg-old
 12	/usr/bin/dlocate
@@ -408,22 +538,24 @@ running: dlocate -du dlocate
 4	/usr/share/man/man1/dpkg-remove.1.gz
 4	/usr/share/man/man1/dpkg-unhold.1.gz
 4	/usr/share/man/man8/update-dlocatedb.8.gz
-80	total
+84	total
 -------------------------------
 
 -------------------------------
-running: dlocate -du bash
-784	/bin/bash
+running: ./dlocate -du bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
+812	/bin/bash
 4	/etc/bash.bashrc
-216	/etc/bash_completion
 4	/etc/skel/.bash_logout
 4	/etc/skel/.bash_profile
 4	/etc/skel/.bashrc
 4	/etc/skel/.profile
 8	/usr/bin/bashbug
-8	/usr/bin/clear_console
+12	/usr/bin/clear_console
 28	/usr/share/doc/bash/changelog.Debian.gz
-72	/usr/share/doc/bash/CHANGES.gz
+68	/usr/share/doc/bash/CHANGES.gz
 8	/usr/share/doc/bash/COMPAT.gz
 20	/usr/share/doc/bash/copyright
 4	/usr/share/doc/bash/FAQ
@@ -438,23 +570,25 @@ running: dlocate -du bash
 32	/usr/share/locale/en@quot/LC_MESSAGES/bash.mo
 12	/usr/share/locale/ru/LC_MESSAGES/bash.mo
 12	/usr/share/locale/sv/LC_MESSAGES/bash.mo
-76	/usr/share/man/man1/bash.1.gz
+72	/usr/share/man/man1/bash.1.gz
 4	/usr/share/man/man1/bashbug.1.gz
 4	/usr/share/man/man1/clear_console.1.gz
 4	/usr/share/man/man1/rbash.1.gz
 4	/usr/share/man/man7/bash-builtins.7.gz
 4	/usr/share/menu/bash
-1396	total
+1204	total
 -------------------------------
 
 -------------------------------
-running: dlocate -du dpkg
+running: ./dlocate -du dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
 4	/etc/alternatives/README
 4	/etc/dpkg/dpkg.cfg
-4	/etc/dpkg/origins/debian
 4	/etc/logrotate.d/dpkg
-24	/sbin/start-stop-daemon
-388	/usr/bin/dpkg
+28	/sbin/start-stop-daemon
+392	/usr/bin/dpkg
 8	/usr/bin/dpkg-architecture
 4	/usr/bin/dpkg-awk
 16	/usr/bin/dpkg-buildpackage
@@ -462,34 +596,36 @@ running: dlocate -du dpkg
 248	/usr/bin/dpkg-deb
 20	/usr/bin/dpkg-depcheck
 4	/usr/bin/dpkg-distaddfile
+12	/usr/bin/dpkg-divert
 4	/usr/bin/dpkg-genbuilddeps
 20	/usr/bin/dpkg-genchanges
 12	/usr/bin/dpkg-gencontrol
-8	/usr/bin/dpkg-gensymbols
+12	/usr/bin/dpkg-gensymbols
 8	/usr/bin/dpkg-name
 4	/usr/bin/dpkg-parsechangelog
-112	/usr/bin/dpkg-query
+108	/usr/bin/dpkg-query
 12	/usr/bin/dpkg-repack
 12	/usr/bin/dpkg-scanpackages
 16	/usr/bin/dpkg-scansources
 28	/usr/bin/dpkg-shlibdeps
-60	/usr/bin/dpkg-sig
+56	/usr/bin/dpkg-sig
 16	/usr/bin/dpkg-source
-48	/usr/bin/dpkg-split
-96	/usr/bin/dpkg-trigger
+44	/usr/bin/dpkg-split
+8	/usr/bin/dpkg-statoverride
+92	/usr/bin/dpkg-trigger
+4	/usr/bin/dpkg-vendor
 248	/usr/bin/dpkg-deb
-112	/usr/bin/dpkg-query
-48	/usr/bin/dpkg-split
-96	/usr/bin/dpkg-trigger
+12	/usr/bin/dpkg-divert
+108	/usr/bin/dpkg-query
+44	/usr/bin/dpkg-split
+8	/usr/bin/dpkg-statoverride
+92	/usr/bin/dpkg-trigger
+36	/usr/bin/update-alternatives
 4	/usr/lib/dpkg/mksplit
-8	/usr/sbin/cleanup-info
-12	/usr/sbin/dpkg-divert
-8	/usr/sbin/dpkg-statoverride
 16	/usr/sbin/install-info
-24	/usr/sbin/update-alternatives
 4	/usr/share/doc/dpkg/AUTHORS
-92	/usr/share/doc/dpkg/changelog.Debian.gz
-156	/usr/share/doc/dpkg/changelog.gz
+100	/usr/share/doc/dpkg/changelog.Debian.gz
+24	/usr/share/doc/dpkg/changelog.gz
 4	/usr/share/doc/dpkg/copyright
 4	/usr/share/doc/dpkg/README.api
 4	/usr/share/doc/dpkg/README.feature-removal-schedule
@@ -501,73 +637,74 @@ running: dlocate -du dpkg
 4	/usr/share/dpkg/ostable
 4	/usr/share/dpkg/triplettable
 4	/usr/share/lintian/overrides/dpkg
+144	/usr/share/locale/ast/LC_MESSAGES/dpkg.mo
 4	/usr/share/locale/bs/LC_MESSAGES/dpkg.mo
-124	/usr/share/locale/ca/LC_MESSAGES/dpkg.mo
-148	/usr/share/locale/cs/LC_MESSAGES/dpkg.mo
-120	/usr/share/locale/da/LC_MESSAGES/dpkg.mo
-152	/usr/share/locale/de/LC_MESSAGES/dpkg.mo
-220	/usr/share/locale/dz/LC_MESSAGES/dpkg.mo
-104	/usr/share/locale/el/LC_MESSAGES/dpkg.mo
-124	/usr/share/locale/es/LC_MESSAGES/dpkg.mo
-64	/usr/share/locale/et/LC_MESSAGES/dpkg.mo
+128	/usr/share/locale/ca/LC_MESSAGES/dpkg.mo
+124	/usr/share/locale/cs/LC_MESSAGES/dpkg.mo
+96	/usr/share/locale/da/LC_MESSAGES/dpkg.mo
+144	/usr/share/locale/de/LC_MESSAGES/dpkg.mo
+180	/usr/share/locale/dz/LC_MESSAGES/dpkg.mo
+164	/usr/share/locale/el/LC_MESSAGES/dpkg.mo
+140	/usr/share/locale/eo/LC_MESSAGES/dpkg.mo
+128	/usr/share/locale/es/LC_MESSAGES/dpkg.mo
+52	/usr/share/locale/et/LC_MESSAGES/dpkg.mo
 144	/usr/share/locale/eu/LC_MESSAGES/dpkg.mo
-164	/usr/share/locale/fr/LC_MESSAGES/dpkg.mo
-152	/usr/share/locale/gl/LC_MESSAGES/dpkg.mo
-108	/usr/share/locale/hu/LC_MESSAGES/dpkg.mo
-80	/usr/share/locale/id/LC_MESSAGES/dpkg.mo
-120	/usr/share/locale/it/LC_MESSAGES/dpkg.mo
-140	/usr/share/locale/ja/LC_MESSAGES/dpkg.mo
-184	/usr/share/locale/km/LC_MESSAGES/dpkg.mo
-140	/usr/share/locale/ko/LC_MESSAGES/dpkg.mo
+156	/usr/share/locale/fr/LC_MESSAGES/dpkg.mo
+124	/usr/share/locale/gl/LC_MESSAGES/dpkg.mo
+92	/usr/share/locale/hu/LC_MESSAGES/dpkg.mo
+68	/usr/share/locale/id/LC_MESSAGES/dpkg.mo
+100	/usr/share/locale/it/LC_MESSAGES/dpkg.mo
+144	/usr/share/locale/ja/LC_MESSAGES/dpkg.mo
+152	/usr/share/locale/km/LC_MESSAGES/dpkg.mo
+136	/usr/share/locale/ko/LC_MESSAGES/dpkg.mo
 12	/usr/share/locale/ku/LC_MESSAGES/dpkg.mo
-168	/usr/share/locale/mr/LC_MESSAGES/dpkg.mo
-144	/usr/share/locale/nb/LC_MESSAGES/dpkg.mo
-172	/usr/share/locale/ne/LC_MESSAGES/dpkg.mo
-120	/usr/share/locale/nl/LC_MESSAGES/dpkg.mo
-80	/usr/share/locale/nn/LC_MESSAGES/dpkg.mo
-32	/usr/share/locale/pa/LC_MESSAGES/dpkg.mo
-152	/usr/share/locale/pl/LC_MESSAGES/dpkg.mo
-152	/usr/share/locale/pt_BR/LC_MESSAGES/dpkg.mo
-152	/usr/share/locale/pt/LC_MESSAGES/dpkg.mo
+68	/usr/share/locale/lt/LC_MESSAGES/dpkg.mo
+136	/usr/share/locale/mr/LC_MESSAGES/dpkg.mo
+120	/usr/share/locale/nb/LC_MESSAGES/dpkg.mo
+144	/usr/share/locale/ne/LC_MESSAGES/dpkg.mo
+96	/usr/share/locale/nl/LC_MESSAGES/dpkg.mo
+64	/usr/share/locale/nn/LC_MESSAGES/dpkg.mo
+28	/usr/share/locale/pa/LC_MESSAGES/dpkg.mo
+124	/usr/share/locale/pl/LC_MESSAGES/dpkg.mo
+128	/usr/share/locale/pt_BR/LC_MESSAGES/dpkg.mo
+124	/usr/share/locale/pt/LC_MESSAGES/dpkg.mo
 132	/usr/share/locale/ro/LC_MESSAGES/dpkg.mo
-192	/usr/share/locale/ru/LC_MESSAGES/dpkg.mo
+188	/usr/share/locale/ru/LC_MESSAGES/dpkg.mo
 148	/usr/share/locale/sk/LC_MESSAGES/dpkg.mo
-144	/usr/share/locale/sv/LC_MESSAGES/dpkg.mo
+140	/usr/share/locale/sv/LC_MESSAGES/dpkg.mo
 180	/usr/share/locale/th/LC_MESSAGES/dpkg.mo
-80	/usr/share/locale/tl/LC_MESSAGES/dpkg.mo
-168	/usr/share/locale/vi/LC_MESSAGES/dpkg.mo
-148	/usr/share/locale/zh_CN/LC_MESSAGES/dpkg.mo
-116	/usr/share/locale/zh_TW/LC_MESSAGES/dpkg.mo
+68	/usr/share/locale/tl/LC_MESSAGES/dpkg.mo
+140	/usr/share/locale/vi/LC_MESSAGES/dpkg.mo
+124	/usr/share/locale/zh_CN/LC_MESSAGES/dpkg.mo
+120	/usr/share/locale/zh_TW/LC_MESSAGES/dpkg.mo
 12	/usr/share/man/de/man1/dpkg.1.gz
 4	/usr/share/man/de/man1/dpkg-deb.1.gz
 4	/usr/share/man/de/man1/dpkg-query.1.gz
 4	/usr/share/man/de/man1/dpkg-split.1.gz
 4	/usr/share/man/de/man1/dpkg-trigger.1.gz
 4	/usr/share/man/de/man5/dpkg.cfg.5.gz
-4	/usr/share/man/de/man8/cleanup-info.8.gz
 4	/usr/share/man/de/man8/dpkg-divert.8.gz
 4	/usr/share/man/de/man8/dpkg-statoverride.8.gz
 8	/usr/share/man/de/man8/install-info.8.gz
 4	/usr/share/man/de/man8/start-stop-daemon.8.gz
 8	/usr/share/man/de/man8/update-alternatives.8.gz
+12	/usr/share/man/fr/man1/dpkg.1.gz
 4	/usr/share/man/fr/man1/dpkg-deb.1.gz
 4	/usr/share/man/fr/man1/dpkg-query.1.gz
 4	/usr/share/man/fr/man1/dpkg-split.1.gz
+4	/usr/share/man/fr/man1/dpkg-trigger.1.gz
 4	/usr/share/man/fr/man5/dpkg.cfg.5.gz
-4	/usr/share/man/fr/man8/cleanup-info.8.gz
 4	/usr/share/man/fr/man8/dpkg-divert.8.gz
 4	/usr/share/man/fr/man8/dpkg-statoverride.8.gz
 4	/usr/share/man/fr/man8/install-info.8.gz
-8	/usr/share/man/fr/man8/update-alternatives.8.gz
+4	/usr/share/man/fr/man8/start-stop-daemon.8.gz
 4	/usr/share/man/hu/man5/dpkg.cfg.5.gz
-8	/usr/share/man/ja/man8/update-alternatives.8.gz
 8	/usr/share/man/man1/dpkg.1.gz
 4	/usr/share/man/man1/dpkg-deb.1.gz
 4	/usr/share/man/man1/dpkg-query.1.gz
 4	/usr/share/man/man1/dpkg-split.1.gz
 4	/usr/share/man/man1/dpkg-trigger.1.gz
 4	/usr/share/man/man5/dpkg.cfg.5.gz
-4	/usr/share/man/man8/cleanup-info.8.gz
 4	/usr/share/man/man8/dpkg-divert.8.gz
 4	/usr/share/man/man8/dpkg-statoverride.8.gz
 4	/usr/share/man/man8/install-info.8.gz
@@ -579,19 +716,16 @@ running: dlocate -du dpkg
 4	/usr/share/man/pl/man1/dpkg-split.1.gz
 4	/usr/share/man/pl/man1/dpkg-trigger.1.gz
 4	/usr/share/man/pl/man5/dpkg.cfg.5.gz
-4	/usr/share/man/pl/man8/cleanup-info.8.gz
 4	/usr/share/man/pl/man8/dpkg-divert.8.gz
 4	/usr/share/man/pl/man8/dpkg-statoverride.8.gz
 4	/usr/share/man/pl/man8/install-info.8.gz
 4	/usr/share/man/pl/man8/start-stop-daemon.8.gz
-8	/usr/share/man/pl/man8/update-alternatives.8.gz
 12	/usr/share/man/sv/man1/dpkg.1.gz
 4	/usr/share/man/sv/man1/dpkg-deb.1.gz
 4	/usr/share/man/sv/man1/dpkg-query.1.gz
 4	/usr/share/man/sv/man1/dpkg-split.1.gz
 4	/usr/share/man/sv/man1/dpkg-trigger.1.gz
 4	/usr/share/man/sv/man5/dpkg.cfg.5.gz
-4	/usr/share/man/sv/man8/cleanup-info.8.gz
 4	/usr/share/man/sv/man8/dpkg-divert.8.gz
 4	/usr/share/man/sv/man8/dpkg-statoverride.8.gz
 4	/usr/share/man/sv/man8/install-info.8.gz
@@ -599,31 +733,34 @@ running: dlocate -du dpkg
 8	/usr/share/man/sv/man8/update-alternatives.8.gz
 4	/usr/share/perl5/Dpkg/Gettext.pm
 4	/usr/share/perl5/Dpkg.pm
-7156	total
+6936	total
 -------------------------------
 
 -------------------------------
-running: dlocate -du apt
+running: ./dlocate -du apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 4	/etc/apt/apt.conf.d/01autoremove
 8	/etc/cron.daily/apt
 4	/etc/cron.daily/aptitude
 4	/etc/cron.daily/apt-show-versions
 4	/etc/logrotate.d/apt
-72	/usr/bin/apt-cache
-24	/usr/bin/apt-cdrom
+64	/usr/bin/apt-cache
+20	/usr/bin/apt-cdrom
 12	/usr/bin/apt-config
-152	/usr/bin/apt-get
+116	/usr/bin/apt-get
 8	/usr/bin/apt-key
 4	/usr/bin/apt-mark
 20	/usr/lib/apt/methods/bzip2
 24	/usr/lib/apt/methods/cdrom
 16	/usr/lib/apt/methods/copy
 16	/usr/lib/apt/methods/file
-60	/usr/lib/apt/methods/ftp
-32	/usr/lib/apt/methods/gpgv
+52	/usr/lib/apt/methods/ftp
+36	/usr/lib/apt/methods/gpgv
 20	/usr/lib/apt/methods/gzip
 56	/usr/lib/apt/methods/http
-28	/usr/lib/apt/methods/https
+32	/usr/lib/apt/methods/https
 20	/usr/lib/apt/methods/lzma
 20	/usr/lib/apt/methods/rred
 28	/usr/lib/apt/methods/rsh
@@ -633,140 +770,142 @@ running: dlocate -du apt
 4	/usr/lib/dpkg/methods/apt/names
 8	/usr/lib/dpkg/methods/apt/setup
 4	/usr/lib/dpkg/methods/apt/update
-832	/usr/lib/libapt-pkg-libc6.7-6.so.4.6.0
+772	/usr/lib/libapt-pkg-libc6.9-6.so.4.7.0
 4	/usr/share/apt/debian-archive.gpg
 4	/usr/share/bug/apt/script
-40	/usr/share/doc/apt/changelog.gz
-8	/usr/share/doc/apt/copyright
+48	/usr/share/doc/apt/changelog.gz
+4	/usr/share/doc/apt/copyright
 4	/usr/share/doc/apt/examples/apt.conf
+4	/usr/share/doc/apt/examples/apt-https-method-example.conf.gz
 4	/usr/share/doc/apt/examples/configure-index.gz
 4	/usr/share/doc/apt/examples/sources.list
+4	/usr/share/lintian/overrides/apt
 20	/usr/share/locale/ar/LC_MESSAGES/apt.mo
 4	/usr/share/locale/ar/LC_MESSAGES/libapt-inst1.1.mo
-12	/usr/share/locale/ar/LC_MESSAGES/libapt-pkg4.6.mo
-48	/usr/share/locale/bg/LC_MESSAGES/apt.mo
+12	/usr/share/locale/ar/LC_MESSAGES/libapt-pkg4.7.mo
+44	/usr/share/locale/bg/LC_MESSAGES/apt.mo
 12	/usr/share/locale/bg/LC_MESSAGES/libapt-inst1.1.mo
-36	/usr/share/locale/bg/LC_MESSAGES/libapt-pkg4.6.mo
+36	/usr/share/locale/bg/LC_MESSAGES/libapt-pkg4.7.mo
 8	/usr/share/locale/bs/LC_MESSAGES/apt.mo
 4	/usr/share/locale/bs/LC_MESSAGES/libapt-inst1.1.mo
-4	/usr/share/locale/bs/LC_MESSAGES/libapt-pkg4.6.mo
+4	/usr/share/locale/bs/LC_MESSAGES/libapt-pkg4.7.mo
 32	/usr/share/locale/ca/LC_MESSAGES/apt.mo
 8	/usr/share/locale/ca/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/ca/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/cs/LC_MESSAGES/apt.mo
+28	/usr/share/locale/ca/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/cs/LC_MESSAGES/apt.mo
 8	/usr/share/locale/cs/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/cs/LC_MESSAGES/libapt-pkg4.6.mo
+28	/usr/share/locale/cs/LC_MESSAGES/libapt-pkg4.7.mo
 16	/usr/share/locale/cy/LC_MESSAGES/apt.mo
 8	/usr/share/locale/cy/LC_MESSAGES/libapt-inst1.1.mo
-16	/usr/share/locale/cy/LC_MESSAGES/libapt-pkg4.6.mo
-32	/usr/share/locale/da/LC_MESSAGES/apt.mo
+16	/usr/share/locale/cy/LC_MESSAGES/libapt-pkg4.7.mo
+28	/usr/share/locale/da/LC_MESSAGES/apt.mo
 8	/usr/share/locale/da/LC_MESSAGES/libapt-inst1.1.mo
-24	/usr/share/locale/da/LC_MESSAGES/libapt-pkg4.6.mo
-40	/usr/share/locale/de/LC_MESSAGES/apt.mo
+24	/usr/share/locale/da/LC_MESSAGES/libapt-pkg4.7.mo
+36	/usr/share/locale/de/LC_MESSAGES/apt.mo
 8	/usr/share/locale/de/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/de/LC_MESSAGES/libapt-pkg4.6.mo
-68	/usr/share/locale/dz/LC_MESSAGES/apt.mo
+28	/usr/share/locale/de/LC_MESSAGES/libapt-pkg4.7.mo
+56	/usr/share/locale/dz/LC_MESSAGES/apt.mo
 12	/usr/share/locale/dz/LC_MESSAGES/libapt-inst1.1.mo
-48	/usr/share/locale/dz/LC_MESSAGES/libapt-pkg4.6.mo
+48	/usr/share/locale/dz/LC_MESSAGES/libapt-pkg4.7.mo
 40	/usr/share/locale/el/LC_MESSAGES/apt.mo
-8	/usr/share/locale/el/LC_MESSAGES/libapt-inst1.1.mo
-32	/usr/share/locale/el/LC_MESSAGES/libapt-pkg4.6.mo
+12	/usr/share/locale/el/LC_MESSAGES/libapt-inst1.1.mo
+36	/usr/share/locale/el/LC_MESSAGES/libapt-pkg4.7.mo
 32	/usr/share/locale/en_GB/LC_MESSAGES/apt.mo
 8	/usr/share/locale/en_GB/LC_MESSAGES/libapt-inst1.1.mo
-24	/usr/share/locale/en_GB/LC_MESSAGES/libapt-pkg4.6.mo
+24	/usr/share/locale/en_GB/LC_MESSAGES/libapt-pkg4.7.mo
 32	/usr/share/locale/es/LC_MESSAGES/apt.mo
 8	/usr/share/locale/es/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/es/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/eu/LC_MESSAGES/apt.mo
+28	/usr/share/locale/es/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/eu/LC_MESSAGES/apt.mo
 8	/usr/share/locale/eu/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/eu/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/fi/LC_MESSAGES/apt.mo
+28	/usr/share/locale/eu/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/fi/LC_MESSAGES/apt.mo
 8	/usr/share/locale/fi/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/fi/LC_MESSAGES/libapt-pkg4.6.mo
-40	/usr/share/locale/fr/LC_MESSAGES/apt.mo
+28	/usr/share/locale/fi/LC_MESSAGES/libapt-pkg4.7.mo
+36	/usr/share/locale/fr/LC_MESSAGES/apt.mo
 8	/usr/share/locale/fr/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/fr/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/gl/LC_MESSAGES/apt.mo
+28	/usr/share/locale/fr/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/gl/LC_MESSAGES/apt.mo
 8	/usr/share/locale/gl/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/gl/LC_MESSAGES/libapt-pkg4.6.mo
+28	/usr/share/locale/gl/LC_MESSAGES/libapt-pkg4.7.mo
 8	/usr/share/locale/he/LC_MESSAGES/apt.mo
 4	/usr/share/locale/he/LC_MESSAGES/libapt-inst1.1.mo
-4	/usr/share/locale/he/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/hu/LC_MESSAGES/apt.mo
+4	/usr/share/locale/he/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/hu/LC_MESSAGES/apt.mo
 8	/usr/share/locale/hu/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/hu/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/it/LC_MESSAGES/apt.mo
+28	/usr/share/locale/hu/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/it/LC_MESSAGES/apt.mo
 8	/usr/share/locale/it/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/it/LC_MESSAGES/libapt-pkg4.6.mo
-44	/usr/share/locale/ja/LC_MESSAGES/apt.mo
+28	/usr/share/locale/it/LC_MESSAGES/libapt-pkg4.7.mo
+40	/usr/share/locale/ja/LC_MESSAGES/apt.mo
 8	/usr/share/locale/ja/LC_MESSAGES/libapt-inst1.1.mo
-32	/usr/share/locale/ja/LC_MESSAGES/libapt-pkg4.6.mo
-56	/usr/share/locale/km/LC_MESSAGES/apt.mo
+32	/usr/share/locale/ja/LC_MESSAGES/libapt-pkg4.7.mo
+48	/usr/share/locale/km/LC_MESSAGES/apt.mo
 12	/usr/share/locale/km/LC_MESSAGES/libapt-inst1.1.mo
-44	/usr/share/locale/km/LC_MESSAGES/libapt-pkg4.6.mo
-40	/usr/share/locale/ko/LC_MESSAGES/apt.mo
+44	/usr/share/locale/km/LC_MESSAGES/libapt-pkg4.7.mo
+36	/usr/share/locale/ko/LC_MESSAGES/apt.mo
 8	/usr/share/locale/ko/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/ko/LC_MESSAGES/libapt-pkg4.6.mo
+28	/usr/share/locale/ko/LC_MESSAGES/libapt-pkg4.7.mo
 8	/usr/share/locale/ku/LC_MESSAGES/apt.mo
 4	/usr/share/locale/ku/LC_MESSAGES/libapt-inst1.1.mo
-8	/usr/share/locale/ku/LC_MESSAGES/libapt-pkg4.6.mo
-44	/usr/share/locale/mr/LC_MESSAGES/apt.mo
+8	/usr/share/locale/ku/LC_MESSAGES/libapt-pkg4.7.mo
+52	/usr/share/locale/mr/LC_MESSAGES/apt.mo
 12	/usr/share/locale/mr/LC_MESSAGES/libapt-inst1.1.mo
-36	/usr/share/locale/mr/LC_MESSAGES/libapt-pkg4.6.mo
+44	/usr/share/locale/mr/LC_MESSAGES/libapt-pkg4.7.mo
 32	/usr/share/locale/nb/LC_MESSAGES/apt.mo
 8	/usr/share/locale/nb/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/nb/LC_MESSAGES/libapt-pkg4.6.mo
-48	/usr/share/locale/ne/LC_MESSAGES/apt.mo
+28	/usr/share/locale/nb/LC_MESSAGES/libapt-pkg4.7.mo
+40	/usr/share/locale/ne/LC_MESSAGES/apt.mo
 12	/usr/share/locale/ne/LC_MESSAGES/libapt-inst1.1.mo
-36	/usr/share/locale/ne/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/nl/LC_MESSAGES/apt.mo
+36	/usr/share/locale/ne/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/nl/LC_MESSAGES/apt.mo
 8	/usr/share/locale/nl/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/nl/LC_MESSAGES/libapt-pkg4.6.mo
+28	/usr/share/locale/nl/LC_MESSAGES/libapt-pkg4.7.mo
 24	/usr/share/locale/nn/LC_MESSAGES/apt.mo
 8	/usr/share/locale/nn/LC_MESSAGES/libapt-inst1.1.mo
-24	/usr/share/locale/nn/LC_MESSAGES/libapt-pkg4.6.mo
+24	/usr/share/locale/nn/LC_MESSAGES/libapt-pkg4.7.mo
 36	/usr/share/locale/pl/LC_MESSAGES/apt.mo
 8	/usr/share/locale/pl/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/pl/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/pt_BR/LC_MESSAGES/apt.mo
+28	/usr/share/locale/pl/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/pt_BR/LC_MESSAGES/apt.mo
 8	/usr/share/locale/pt_BR/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/pt_BR/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/pt/LC_MESSAGES/apt.mo
+28	/usr/share/locale/pt_BR/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/pt/LC_MESSAGES/apt.mo
 8	/usr/share/locale/pt/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/pt/LC_MESSAGES/libapt-pkg4.6.mo
+28	/usr/share/locale/pt/LC_MESSAGES/libapt-pkg4.7.mo
 32	/usr/share/locale/ro/LC_MESSAGES/apt.mo
 8	/usr/share/locale/ro/LC_MESSAGES/libapt-inst1.1.mo
-24	/usr/share/locale/ro/LC_MESSAGES/libapt-pkg4.6.mo
-48	/usr/share/locale/ru/LC_MESSAGES/apt.mo
+28	/usr/share/locale/ro/LC_MESSAGES/libapt-pkg4.7.mo
+44	/usr/share/locale/ru/LC_MESSAGES/apt.mo
 8	/usr/share/locale/ru/LC_MESSAGES/libapt-inst1.1.mo
-36	/usr/share/locale/ru/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/sk/LC_MESSAGES/apt.mo
+36	/usr/share/locale/ru/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/sk/LC_MESSAGES/apt.mo
 8	/usr/share/locale/sk/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/sk/LC_MESSAGES/libapt-pkg4.6.mo
+28	/usr/share/locale/sk/LC_MESSAGES/libapt-pkg4.7.mo
 24	/usr/share/locale/sl/LC_MESSAGES/apt.mo
 8	/usr/share/locale/sl/LC_MESSAGES/libapt-inst1.1.mo
-24	/usr/share/locale/sl/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/sv/LC_MESSAGES/apt.mo
+24	/usr/share/locale/sl/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/sv/LC_MESSAGES/apt.mo
 8	/usr/share/locale/sv/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/sv/LC_MESSAGES/libapt-pkg4.6.mo
-60	/usr/share/locale/th/LC_MESSAGES/apt.mo
+28	/usr/share/locale/sv/LC_MESSAGES/libapt-pkg4.7.mo
+44	/usr/share/locale/th/LC_MESSAGES/apt.mo
 12	/usr/share/locale/th/LC_MESSAGES/libapt-inst1.1.mo
-40	/usr/share/locale/th/LC_MESSAGES/libapt-pkg4.6.mo
-32	/usr/share/locale/tl/LC_MESSAGES/apt.mo
+40	/usr/share/locale/th/LC_MESSAGES/libapt-pkg4.7.mo
+28	/usr/share/locale/tl/LC_MESSAGES/apt.mo
 8	/usr/share/locale/tl/LC_MESSAGES/libapt-inst1.1.mo
-24	/usr/share/locale/tl/LC_MESSAGES/libapt-pkg4.6.mo
-40	/usr/share/locale/uk/LC_MESSAGES/apt.mo
+24	/usr/share/locale/tl/LC_MESSAGES/libapt-pkg4.7.mo
+36	/usr/share/locale/uk/LC_MESSAGES/apt.mo
 8	/usr/share/locale/uk/LC_MESSAGES/libapt-inst1.1.mo
-32	/usr/share/locale/uk/LC_MESSAGES/libapt-pkg4.6.mo
-40	/usr/share/locale/vi/LC_MESSAGES/apt.mo
+32	/usr/share/locale/uk/LC_MESSAGES/libapt-pkg4.7.mo
+36	/usr/share/locale/vi/LC_MESSAGES/apt.mo
 8	/usr/share/locale/vi/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/vi/LC_MESSAGES/libapt-pkg4.6.mo
-36	/usr/share/locale/zh_CN/LC_MESSAGES/apt.mo
+32	/usr/share/locale/vi/LC_MESSAGES/libapt-pkg4.7.mo
+32	/usr/share/locale/zh_CN/LC_MESSAGES/apt.mo
 8	/usr/share/locale/zh_CN/LC_MESSAGES/libapt-inst1.1.mo
-28	/usr/share/locale/zh_CN/LC_MESSAGES/libapt-pkg4.6.mo
+28	/usr/share/locale/zh_CN/LC_MESSAGES/libapt-pkg4.7.mo
 32	/usr/share/locale/zh_TW/LC_MESSAGES/apt.mo
 8	/usr/share/locale/zh_TW/LC_MESSAGES/libapt-inst1.1.mo
-24	/usr/share/locale/zh_TW/LC_MESSAGES/libapt-pkg4.6.mo
+24	/usr/share/locale/zh_TW/LC_MESSAGES/libapt-pkg4.7.mo
 4	/usr/share/man/de/man8/apt.8.gz
 8	/usr/share/man/es/man5/apt.conf.5.gz
 8	/usr/share/man/es/man5/apt_preferences.5.gz
@@ -800,74 +939,95 @@ running: dlocate -du apt
 4	/usr/share/man/man8/apt-mark.8.gz
 4	/usr/share/man/man8/apt-secure.8.gz
 8	/usr/share/man/pt_BR/man5/apt_preferences.5.gz
-4760	total
+4564	total
 -------------------------------
 
 -------------------------------
-running: dlocate -du packagedoesnotexist
+running: ./dlocate -du packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or packagedoesnotexist.list is empty.
 -------------------------------
 
 -------------------------------
-running: dlocate -du xlibmesa-glu
-Package xlibmesa-glu not installed or xlibmesa-glu.list is empty.
+running: ./dlocate -du xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or xmp.list is empty.
 -------------------------------
 
 -------------------------------
-running: dlocate -du xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or xlibmesa3-gl.list.list is empty.
--------------------------------
-
--------------------------------
-running: dlocate -conf dlocate
+running: ./dlocate -conf dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
+/etc/bash_completion.d/dlocate-completion
 /etc/cron.daily/dlocate
 -------------------------------
 
 -------------------------------
-running: dlocate -conf bash
+running: ./dlocate -conf bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
 /etc/skel/.bashrc
-/etc/skel/.profile
 /etc/skel/.bash_logout
+/etc/skel/.profile
 /etc/bash.bashrc
 -------------------------------
 
 -------------------------------
-running: dlocate -conf dpkg
+running: ./dlocate -conf dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
+/etc/dpkg/dpkg.cfg
 /etc/alternatives/README
 /etc/logrotate.d/dpkg
-/etc/dpkg/origins/debian
-/etc/dpkg/dpkg.cfg
 -------------------------------
 
 -------------------------------
-running: dlocate -conf apt
+running: ./dlocate -conf apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 /etc/apt/apt.conf.d/01autoremove
 /etc/logrotate.d/apt
 /etc/cron.daily/apt
 -------------------------------
 
 -------------------------------
-running: dlocate -conf packagedoesnotexist
+running: ./dlocate -conf packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or has no conffiles.
 -------------------------------
 
 -------------------------------
-running: dlocate -conf xlibmesa-glu
-Package xlibmesa-glu not installed or has no conffiles.
+running: ./dlocate -conf xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or has no conffiles.
 -------------------------------
 
 -------------------------------
-running: dlocate -conf xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or has no conffiles.
--------------------------------
-
--------------------------------
-running: dlocate -lsconf dlocate
+running: ./dlocate -lsconf dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
+-rwxr-xr-x 1 root root 567 2008-06-27 20:38 /etc/bash_completion.d/dlocate-completion*
 -rwxr-xr-x 1 root root 832 2008-06-27 18:34 /etc/cron.daily/dlocate*
 -------------------------------
 
 -------------------------------
-running: dlocate -lsconf bash
+running: ./dlocate -lsconf bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
 -rw-r--r-- 1 root root  508 2004-05-09 02:43 /etc/bash.bashrc
 -rw-r--r-- 1 root root  220 2006-03-04 12:02 /etc/skel/.bash_logout
 -rw-r--r-- 1 root root 1301 2005-06-04 09:41 /etc/skel/.bashrc
@@ -875,45 +1035,54 @@ running: dlocate -lsconf bash
 -------------------------------
 
 -------------------------------
-running: dlocate -lsconf dpkg
+running: ./dlocate -lsconf dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
 -rw-r--r-- 1 root root 100 2004-07-20 05:01 /etc/alternatives/README
 -rw-r--r-- 1 root root 477 2005-06-17 12:42 /etc/dpkg/dpkg.cfg
--rw-r--r-- 1 root root  82 2005-06-13 01:28 /etc/dpkg/origins/debian
--rw-r--r-- 1 root root 111 2005-06-13 01:28 /etc/logrotate.d/dpkg
+-rw-r--r-- 1 root root 112 2009-05-21 14:57 /etc/logrotate.d/dpkg
 -------------------------------
 
 -------------------------------
-running: dlocate -lsconf apt
+running: ./dlocate -lsconf apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 -rw-r--r-- 1 root root   92 2007-06-11 08:37 /etc/apt/apt.conf.d/01autoremove
--rwxr-xr-x 1 root root 6823 2008-05-29 00:09 /etc/cron.daily/apt*
+-rwxr-xr-x 1 root root 7482 2009-04-16 07:34 /etc/cron.daily/apt*
 -rw-r--r-- 1 root root   84 2007-10-27 06:27 /etc/logrotate.d/apt
 -------------------------------
 
 -------------------------------
-running: dlocate -lsconf packagedoesnotexist
+running: ./dlocate -lsconf packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or has no conffiles.
 -------------------------------
 
 -------------------------------
-running: dlocate -lsconf xlibmesa-glu
-Package xlibmesa-glu not installed or has no conffiles.
+running: ./dlocate -lsconf xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or has no conffiles.
 -------------------------------
 
 -------------------------------
-running: dlocate -lsconf xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or has no conffiles.
--------------------------------
-
--------------------------------
-running: dlocate -md5sum dlocate
-bd9422d77102818e893e6fdb4c7e8640  usr/bin/dlocate
+running: ./dlocate -md5sum dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
+c274b2df17fd49dcdf9fe3583dea0105  usr/bin/dlocate
 89088e7577f4e4dbfd1ff248e8b1f67d  usr/sbin/dpkg-unhold
 e2a3694c13269489d319eb5395927f40  usr/sbin/update-dlocatedb
 c6fd2cc6a2ed1e5c9aa42d04e219bad4  usr/sbin/dpkg-hold
 1b2c9b3b9a8c8197bb71f326dd42d3b2  usr/sbin/dpkg-purge
 9e9f1afd4ea2002c3301bbdc041b0a95  usr/sbin/dpkg-remove
 df2b44f95ce2d2b721408d44abeb36ed  usr/share/doc/dlocate/README.Debian
-90c83fdda72588567680b80b00e4df47  usr/share/doc/dlocate/changelog.gz
+ebafc214ace26c08a26a26e7c0cb2c46  usr/share/doc/dlocate/changelog.gz
 35de09b95ed44d2ed923c0ad132fb1cf  usr/share/doc/dlocate/copyright
 1f934839ccda0fa07e7397415353ae80  usr/share/man/man1/dlocate.1.gz
 3ee648fb180fe26b0216b75fb4bbf642  usr/share/man/man1/dpkg-hold.1.gz
@@ -924,337 +1093,345 @@ ad11cad5be99f05452da33c6eda56a4a  usr/share/man/man8/update-dlocatedb.8.gz
 -------------------------------
 
 -------------------------------
-running: dlocate -md5sum bash
-23f5429412b98a704b888704b7504b7b  bin/bash
-a6c4e5b4d8d56803cd483f6ada4446c9  usr/share/doc/bash/CHANGES.gz
-ea8fb25a93385b46ad66cdcaa057bde8  usr/share/doc/bash/NEWS.gz
-ab78b78be766692463cb112b88d5a74f  usr/share/doc/bash/INTRO.gz
-dfcc49f0e3837d98dc125211351516ee  usr/share/doc/bash/POSIX.gz
-6af13dd93e583bf22cce9b1b823df551  usr/share/doc/bash/README.Debian.gz
-007dea9b8141f038c602b23f78509e34  usr/share/doc/bash/README.commands.gz
-5dac7b9b6332d9845e315cf8fd50ea89  usr/share/doc/bash/README.abs-guide
-244319c9dd88c980910aacd76477b8d9  usr/share/doc/bash/inputrc.arrows
+running: ./dlocate -md5sum bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
 0debba3e2c7918ea747f3a40f85a6a4a  usr/share/doc/bash/copyright
-c453aaeb329812b3d5f1d0ef232276ea  usr/share/doc/bash/FAQ
-3a04f121ffab9004a1613c8dd476e191  usr/share/doc/bash/changelog.Debian.gz
 a65eafed24ab52f049eb7aeedd240925  usr/share/doc/bash/COMPAT.gz
-3ae61a6661b2a378e704c3a92a74331c  usr/share/man/man1/bash.1.gz
-1a5f1f96f1bbd5f2a55eee9524cd4eb3  usr/share/man/man1/rbash.1.gz
-ab8320c478c9d17caaa4d86e113cf0a2  usr/share/man/man1/bashbug.1.gz
-0c912132bdbce02861669392deb3f84c  usr/share/man/man1/clear_console.1.gz
-b2fb88f251700c29d638d9202e89a693  usr/share/man/man7/bash-builtins.7.gz
+ab78b78be766692463cb112b88d5a74f  usr/share/doc/bash/INTRO.gz
+ea8fb25a93385b46ad66cdcaa057bde8  usr/share/doc/bash/NEWS.gz
+244319c9dd88c980910aacd76477b8d9  usr/share/doc/bash/inputrc.arrows
+dfcc49f0e3837d98dc125211351516ee  usr/share/doc/bash/POSIX.gz
+c453aaeb329812b3d5f1d0ef232276ea  usr/share/doc/bash/FAQ
+a6c4e5b4d8d56803cd483f6ada4446c9  usr/share/doc/bash/CHANGES.gz
+007dea9b8141f038c602b23f78509e34  usr/share/doc/bash/README.commands.gz
+3618e90b0d1bc853b8b79fb0d5ed9693  usr/share/doc/bash/README.Debian.gz
+5d395cbbc9c38591e08efb8c33c01427  usr/share/doc/bash/changelog.Debian.gz
+5dac7b9b6332d9845e315cf8fd50ea89  usr/share/doc/bash/README.abs-guide
+0c05a14279f95fdb4618a4ccaa469681  usr/share/menu/bash
+3418a53d173a948ee8470b617486d30f  usr/share/locale/sv/LC_MESSAGES/bash.mo
 17ade1e3f296e8c51c7e7346d8c3ff7f  usr/share/locale/en@quot/LC_MESSAGES/bash.mo
 cf9b4261d354d45adcb91538773eb8be  usr/share/locale/en@boldquot/LC_MESSAGES/bash.mo
 a5342dd2c32a16d416bc4787e88c8de3  usr/share/locale/ru/LC_MESSAGES/bash.mo
-3418a53d173a948ee8470b617486d30f  usr/share/locale/sv/LC_MESSAGES/bash.mo
-0c05a14279f95fdb4618a4ccaa469681  usr/share/menu/bash
-ac327599a8693a3ef694b9406d5bd5cb  usr/bin/bashbug
-3221084df6feac37857826c766072589  usr/bin/clear_console
+b2fb88f251700c29d638d9202e89a693  usr/share/man/man7/bash-builtins.7.gz
+3ae61a6661b2a378e704c3a92a74331c  usr/share/man/man1/bash.1.gz
+0c912132bdbce02861669392deb3f84c  usr/share/man/man1/clear_console.1.gz
+ab8320c478c9d17caaa4d86e113cf0a2  usr/share/man/man1/bashbug.1.gz
+1a5f1f96f1bbd5f2a55eee9524cd4eb3  usr/share/man/man1/rbash.1.gz
+1beeef0c3aa1a0b2ac2835b68275540a  usr/bin/clear_console
+b58b2e8920283ee70dd1f0fd7a6dcf8a  usr/bin/bashbug
+2822c7320ddd0155e685db3e1987038b  bin/bash
 -------------------------------
 
 -------------------------------
-running: dlocate -md5sum dpkg
-7a38dbe5ac68c076b604583399ffa4ed  usr/share/perl5/Dpkg.pm
-10ad0ef60a1b3173edf77080cbf7aff3  usr/share/perl5/Dpkg/Gettext.pm
-ea66c15ba30ee08847c8aba6038fb8c3  usr/share/doc/dpkg/usertags.gz
-1445d1b9fc5564e748276ac1c140a3be  usr/share/doc/dpkg/changelog.gz
-2adb70353aff4de43fb3282db00b6c7d  usr/share/doc/dpkg/copyright
-5efad9eca57b1077a4163be77215cc0c  usr/share/doc/dpkg/THANKS.gz
-de20eb31ed90ecd2747e552b2b7eb4ba  usr/share/doc/dpkg/AUTHORS
-cb4c2f4f649e05bec4809e0a4caddb70  usr/share/doc/dpkg/README.feature-removal-schedule
+running: ./dlocate -md5sum dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
+3915a1811585ae4529e9b9f9b1171c4b  usr/share/locale/sv/LC_MESSAGES/dpkg.mo
+e4851047b6ebc253a98b9943d9d8de14  usr/share/locale/it/LC_MESSAGES/dpkg.mo
+75924e62000d3465eb87f7d998cbc287  usr/share/locale/el/LC_MESSAGES/dpkg.mo
+57c56ded6837ab0645ec223d967ae201  usr/share/locale/mr/LC_MESSAGES/dpkg.mo
+a6a09d533c13c2857d5bf8974a6eae4b  usr/share/locale/de/LC_MESSAGES/dpkg.mo
+063f447c6ab5603ee37a0faa3524aeff  usr/share/locale/ne/LC_MESSAGES/dpkg.mo
+6c927f97ceeb97576c089e04729ae100  usr/share/locale/eu/LC_MESSAGES/dpkg.mo
+f55c9629e07b6f6bd509392cb8549d8a  usr/share/locale/es/LC_MESSAGES/dpkg.mo
+a116a567fbfd68900e2310843011b944  usr/share/locale/dz/LC_MESSAGES/dpkg.mo
+92d1ef8d0a29ff7d09f6b7195cd9bae9  usr/share/locale/tl/LC_MESSAGES/dpkg.mo
+a933cdf388c28ff5651ef30abd6e7390  usr/share/locale/sk/LC_MESSAGES/dpkg.mo
+7ef129a5f3c85d53de1d70026ae20011  usr/share/locale/ko/LC_MESSAGES/dpkg.mo
+df889d44b8c4bee46a586807f7858816  usr/share/locale/ast/LC_MESSAGES/dpkg.mo
+b2f4725bb5b6bda4f0a9463ce68e8048  usr/share/locale/nb/LC_MESSAGES/dpkg.mo
+ecdc7b8b913a0ea287c1697c8b271d46  usr/share/locale/pt/LC_MESSAGES/dpkg.mo
+ac15ad8a7d9d9e0015d7b0cee2381a71  usr/share/locale/lt/LC_MESSAGES/dpkg.mo
+81f46100031c3beed25fa86eea11050a  usr/share/locale/zh_CN/LC_MESSAGES/dpkg.mo
+cba03065625663d07033f15039be0530  usr/share/locale/nn/LC_MESSAGES/dpkg.mo
+8f6c0945ba15d74dc6cc87462fcad2b3  usr/share/locale/ja/LC_MESSAGES/dpkg.mo
+ab6ee981e0c5158e7472c9ffdee5c030  usr/share/locale/ku/LC_MESSAGES/dpkg.mo
+3a7feaadda24b89608d224853707189a  usr/share/locale/ca/LC_MESSAGES/dpkg.mo
+b73697b60172a500a17f1b13daaddd60  usr/share/locale/fr/LC_MESSAGES/dpkg.mo
+0f6731e21c479da38b1a1664e6c463e8  usr/share/locale/pa/LC_MESSAGES/dpkg.mo
+1439165f95b2fbe03510387249804bb1  usr/share/locale/da/LC_MESSAGES/dpkg.mo
+e608cba3f229cef24c8e1815e310ae18  usr/share/locale/ro/LC_MESSAGES/dpkg.mo
+e3479893904df628db0e25dd2ab102d8  usr/share/locale/hu/LC_MESSAGES/dpkg.mo
+911dfe130af6ec0d4ac4e4f60004922b  usr/share/locale/pl/LC_MESSAGES/dpkg.mo
+a81c91fd29f604c8fe4bd3c54f22aab1  usr/share/locale/vi/LC_MESSAGES/dpkg.mo
+2af752cd0154b10d15a9959862af5bed  usr/share/locale/th/LC_MESSAGES/dpkg.mo
+96e1d9fb7a383e78cf0b832d80653af6  usr/share/locale/km/LC_MESSAGES/dpkg.mo
+2689a28f1b782cdb2f1e1a30b7fcc38e  usr/share/locale/bs/LC_MESSAGES/dpkg.mo
+3444450d46bb55b79df58078bd9a85fb  usr/share/locale/eo/LC_MESSAGES/dpkg.mo
+5c6c97a907f8d783b62f099c2cae88b0  usr/share/locale/ru/LC_MESSAGES/dpkg.mo
+9989bd2d188cdb56c00562912bb9bb0a  usr/share/locale/nl/LC_MESSAGES/dpkg.mo
+652621ed5d866fa5a3de2e1ad0bcc4be  usr/share/locale/zh_TW/LC_MESSAGES/dpkg.mo
+107432ed01586797331bddca8d2efd04  usr/share/locale/pt_BR/LC_MESSAGES/dpkg.mo
+986aa864f95d49cda966d150c02f3c13  usr/share/locale/gl/LC_MESSAGES/dpkg.mo
+67b4e173bd5b1d2524cff07236e7dca5  usr/share/locale/et/LC_MESSAGES/dpkg.mo
+ed08632bfd354e14d10252c4f7528817  usr/share/locale/cs/LC_MESSAGES/dpkg.mo
+27396acd0d09683ea4925d437b167349  usr/share/locale/id/LC_MESSAGES/dpkg.mo
+8d8b42fbbd7aac2e6ac4c7fec846e934  usr/share/dpkg/cputable
+a99e98d356d44ba4e4be7d341e50f9dc  usr/share/dpkg/ostable
+3b5d445b2df56c104e85499a079b4d4b  usr/share/dpkg/triplettable
+a6e5a8b3880f8ebd42759ed535714d31  usr/share/dpkg/archtable
+b5c6e624d5af38fc2f23cf777a4b4494  usr/share/doc/dpkg/changelog.gz
 8855d08bb12dca54cdee63855750c116  usr/share/doc/dpkg/README.api
 2f261a1ff918704c24f6c2d2265933a2  usr/share/doc/dpkg/triggers.txt.gz
-bd36a785a77dffdc75b4237a100aa9b2  usr/share/doc/dpkg/changelog.Debian.gz
-77958a836a21dd6653a3a7c1b467158b  usr/share/dpkg/cputable
-308cd54e159526d941d68f8c7ecd4918  usr/share/dpkg/archtable
-52712e5e15ce3fcb94cbb2bbb603e16e  usr/share/dpkg/ostable
-a2704263d4032b0f162305afbfcf5d91  usr/share/dpkg/triplettable
-a34b3bb2d9c8002537691b6f85027424  usr/share/locale/th/LC_MESSAGES/dpkg.mo
-d09215ee70f039fcc61d7100d983aca6  usr/share/locale/km/LC_MESSAGES/dpkg.mo
-c13b22896a133d4621825c465554032a  usr/share/locale/et/LC_MESSAGES/dpkg.mo
-f942428f1c41999bb4c0033cc34cb8fa  usr/share/locale/zh_TW/LC_MESSAGES/dpkg.mo
-64eeee09f022943f0223eaa884453a27  usr/share/locale/bs/LC_MESSAGES/dpkg.mo
-dd16a4cf42e1896a72492b0f87f658c3  usr/share/locale/sv/LC_MESSAGES/dpkg.mo
-456a21311ef8b39cb2c6eaa1fae27445  usr/share/locale/dz/LC_MESSAGES/dpkg.mo
-f4df7d87b462c5f242fa6fb194fd0e7f  usr/share/locale/mr/LC_MESSAGES/dpkg.mo
-dbfdfcd00e81dc42a7dbaf604834caec  usr/share/locale/hu/LC_MESSAGES/dpkg.mo
-652e9951edd2359afac616d3dfe69e2e  usr/share/locale/nb/LC_MESSAGES/dpkg.mo
-2f362e827362989056ee8460252ddf8d  usr/share/locale/pt/LC_MESSAGES/dpkg.mo
-7381078688a7c0474cf8de0e9d085139  usr/share/locale/el/LC_MESSAGES/dpkg.mo
-90a9291221c6f49d5fc493dd843fca07  usr/share/locale/zh_CN/LC_MESSAGES/dpkg.mo
-d1af633949f47cbb5f0d2745fd42dadc  usr/share/locale/es/LC_MESSAGES/dpkg.mo
-0f307e7699a7e93b5a0b17df53b6ae2b  usr/share/locale/pl/LC_MESSAGES/dpkg.mo
-305e850723c981b15af5ec0fd5882a41  usr/share/locale/de/LC_MESSAGES/dpkg.mo
-d5a802e65948851239959543b8c6f66b  usr/share/locale/ne/LC_MESSAGES/dpkg.mo
-0b7b60d03866fa8d2bea8d019c00961e  usr/share/locale/tl/LC_MESSAGES/dpkg.mo
-680a7e61e626762aa214aaf6f9cd037e  usr/share/locale/ja/LC_MESSAGES/dpkg.mo
-94d28eba61be08ef661cc042e1c7acca  usr/share/locale/it/LC_MESSAGES/dpkg.mo
-6f84010ea14b56f0f9c48ef710c82469  usr/share/locale/fr/LC_MESSAGES/dpkg.mo
-73ecb03c59b5c4f6cfbfb2af3da8f6f4  usr/share/locale/gl/LC_MESSAGES/dpkg.mo
-5f2c20b0bd510be19b4b3766f78b27ac  usr/share/locale/ru/LC_MESSAGES/dpkg.mo
-4fd85c81aa531809ade670b4ee6b3280  usr/share/locale/eu/LC_MESSAGES/dpkg.mo
-806ce01347bb3ada11f317e51c5f3be3  usr/share/locale/nl/LC_MESSAGES/dpkg.mo
-4363125fe89755facde19bf774a8e8a7  usr/share/locale/pt_BR/LC_MESSAGES/dpkg.mo
-c83709422b56384c93176ceb171c80bf  usr/share/locale/nn/LC_MESSAGES/dpkg.mo
-bb6f6ec2c0fab1cdb18825e48b4dd7fe  usr/share/locale/ku/LC_MESSAGES/dpkg.mo
-d1ce6ac31d8576ffe11fd7e6a5afb6ab  usr/share/locale/ko/LC_MESSAGES/dpkg.mo
-1dfa44b2e0d5fa7f5ecf5e7d4aba8686  usr/share/locale/ca/LC_MESSAGES/dpkg.mo
-108271974df5386d0ecf8a1dbe85c483  usr/share/locale/vi/LC_MESSAGES/dpkg.mo
-8d5c6c59c34a2109399dbd14b9de8826  usr/share/locale/ro/LC_MESSAGES/dpkg.mo
-6ac81c55cfeeb84f7288d0995aa7e15f  usr/share/locale/da/LC_MESSAGES/dpkg.mo
-c05994fcc58ce838218c84c581fc92aa  usr/share/locale/id/LC_MESSAGES/dpkg.mo
-4c78f04d669898c5bf28886c16c678df  usr/share/locale/cs/LC_MESSAGES/dpkg.mo
-aa0a783bfbadcecbe61d452cf4731de8  usr/share/locale/sk/LC_MESSAGES/dpkg.mo
-4b99fa1ca1e133c1f7e148f1c8d6e211  usr/share/locale/pa/LC_MESSAGES/dpkg.mo
-27fe58a7b7f4bb850785414beafd912d  usr/share/lintian/overrides/dpkg
-bb3792c21f8d745adb590de0f8606374  usr/share/man/sv/man1/dpkg-query.1.gz
-f65b243cd0fa51ca85ec97414e367850  usr/share/man/sv/man1/dpkg.1.gz
-18b027734dace1576017ab063c8601fe  usr/share/man/sv/man1/dpkg-trigger.1.gz
-400426936b64b35cc9a265054de700c8  usr/share/man/sv/man1/dpkg-deb.1.gz
-585be8a504f9bc5a6b24012e81177afd  usr/share/man/sv/man1/dpkg-split.1.gz
-50b426b5bc24103e983152e5491bcee5  usr/share/man/sv/man5/dpkg.cfg.5.gz
-bb07c4340f210c727769ac8b9b7a4324  usr/share/man/sv/man8/dpkg-divert.8.gz
-39035441f7d2db7d0c6fb157f32dac68  usr/share/man/sv/man8/update-alternatives.8.gz
-cfeee89162e654f60afc444a012bea22  usr/share/man/sv/man8/install-info.8.gz
-16b86f6a2c9046ba255d9b11339dd928  usr/share/man/sv/man8/cleanup-info.8.gz
-b1d643179114ef2358922f626644b5eb  usr/share/man/sv/man8/start-stop-daemon.8.gz
-cdbd294c9f1e34adc87fa4a589074571  usr/share/man/sv/man8/dpkg-statoverride.8.gz
-aa3099a9393f1f74ae657080491ee176  usr/share/man/hu/man5/dpkg.cfg.5.gz
-c184a6b18066488359703733363fd31d  usr/share/man/man1/dpkg-query.1.gz
-37268bb271017784cfa38a7b516e208d  usr/share/man/man1/dpkg.1.gz
-447bb7876577336349a3e7bc8a74d964  usr/share/man/man1/dpkg-trigger.1.gz
-28215086be0b274abc35af75a5ca5b30  usr/share/man/man1/dpkg-deb.1.gz
-6eb31cd0fcebd130b406e5523b4d7d80  usr/share/man/man1/dpkg-split.1.gz
-508215cf077e7b691fc3b8986dd22be4  usr/share/man/pl/man1/dpkg-query.1.gz
-85b66b112318e9c9b9340ec9d0f76d37  usr/share/man/pl/man1/dpkg.1.gz
-2c10d21ee325aabe4b71776d69b5d35c  usr/share/man/pl/man1/dpkg-trigger.1.gz
-d5818bbd2385b639335797c86fd76d34  usr/share/man/pl/man1/dpkg-deb.1.gz
-7c79df1ba7091b1701a8d228182bbc03  usr/share/man/pl/man1/dpkg-split.1.gz
-5ac1fbd9045c8a562184408ad8a413ce  usr/share/man/pl/man5/dpkg.cfg.5.gz
-0f0413850290d0c6932a05b293d12eba  usr/share/man/pl/man8/dpkg-divert.8.gz
-4f71f053f4aab9020dd61897d20f3e02  usr/share/man/pl/man8/update-alternatives.8.gz
-9f14842c73ebd4a84bd5d455bc5929e0  usr/share/man/pl/man8/install-info.8.gz
-9fff8df2c4df9d4044b7df381b5d9a1d  usr/share/man/pl/man8/cleanup-info.8.gz
-9674811b756dd74e0c154ddaa24a4fd8  usr/share/man/pl/man8/start-stop-daemon.8.gz
-f8c8402850b7a0b7e22316e7177b42c6  usr/share/man/pl/man8/dpkg-statoverride.8.gz
+94970ef2d1a92c63a5fe021b6d6152b3  usr/share/doc/dpkg/README.feature-removal-schedule
+de20eb31ed90ecd2747e552b2b7eb4ba  usr/share/doc/dpkg/AUTHORS
+6777d5fa19056d18848df83c6e91fe3b  usr/share/doc/dpkg/changelog.Debian.gz
+8ad528bb4b8eed518c87c290919c86b2  usr/share/doc/dpkg/THANKS.gz
+d16c834fdd5753e145107e947d58c5a4  usr/share/doc/dpkg/usertags.gz
+2adb70353aff4de43fb3282db00b6c7d  usr/share/doc/dpkg/copyright
+b0598062280986b5d976f550301bc9a8  usr/share/lintian/overrides/dpkg
+c683300c77fb6c70a8307fdf47c2c261  usr/share/man/sv/man5/dpkg.cfg.5.gz
+2e06e2fc6a928f7538540ff3d47f4c90  usr/share/man/sv/man8/update-alternatives.8.gz
+f352269c98ed0cb13d7443ace96305f5  usr/share/man/sv/man8/dpkg-divert.8.gz
+bf974ca3f2fad17c3688064a25bfd5fd  usr/share/man/sv/man8/install-info.8.gz
+d7bcd06be76ed42e8fa0ad0547245223  usr/share/man/sv/man8/dpkg-statoverride.8.gz
+b2670b14dee5388684a3916d92220744  usr/share/man/sv/man8/start-stop-daemon.8.gz
+64a55eeae9bdb286202aad9001f3db67  usr/share/man/sv/man1/dpkg-query.1.gz
+b50423f4c42f271e54e77e5cbf56b172  usr/share/man/sv/man1/dpkg-deb.1.gz
+7f3b559aeb9f7bb9732f329e43c10878  usr/share/man/sv/man1/dpkg.1.gz
+cbf31cce454b0d29a032759e4959f3b3  usr/share/man/sv/man1/dpkg-split.1.gz
+53bc8d273b9c08e5d7736b191d19f34d  usr/share/man/sv/man1/dpkg-trigger.1.gz
+4e08ea7055183b08526a5e771bdcc792  usr/share/man/de/man5/dpkg.cfg.5.gz
+c3dab0bb075a518b8bdce0680bbbb06e  usr/share/man/de/man8/update-alternatives.8.gz
+6c3ef8ba331017a9d5ac3d95a5559d4a  usr/share/man/de/man8/dpkg-divert.8.gz
+c964a3fc56017b3032cd0d282bdf766b  usr/share/man/de/man8/install-info.8.gz
+b7e7df3a5343aed3d0218edd485e88de  usr/share/man/de/man8/dpkg-statoverride.8.gz
+0d709c7c4c6a357da294447ea207d8fe  usr/share/man/de/man8/start-stop-daemon.8.gz
+5c9bf4bbb85d724b336270c4fc817c2a  usr/share/man/de/man1/dpkg-query.1.gz
+1bd1c4f266af4664ba078d007e41d552  usr/share/man/de/man1/dpkg-deb.1.gz
+072a088e75bc82afa344bb1ab84214b4  usr/share/man/de/man1/dpkg.1.gz
+5cf7c57ba644f7b1c61c44b0d6780a6f  usr/share/man/de/man1/dpkg-split.1.gz
+ee58933ae2ad075fb0c2628229925250  usr/share/man/de/man1/dpkg-trigger.1.gz
 71d0e13d14a2d4f63a790e6a9b7ac906  usr/share/man/man5/dpkg.cfg.5.gz
-b8aedc22450eb4f108b5ae1fdacb9d60  usr/share/man/de/man1/dpkg-query.1.gz
-68d9be6fb92835f58d0708cc12381ec3  usr/share/man/de/man1/dpkg.1.gz
-a333a2aa279293a1df398f1f2612ba3a  usr/share/man/de/man1/dpkg-trigger.1.gz
-fa287919b06644ce3cbe1183854310ef  usr/share/man/de/man1/dpkg-deb.1.gz
-f113218a9b8114a8d3bbc5a021fba7e6  usr/share/man/de/man1/dpkg-split.1.gz
-1a094755b26b2435c08a253893bba29c  usr/share/man/de/man5/dpkg.cfg.5.gz
-a139b23361757a851e786eb2fff3dbc0  usr/share/man/de/man8/dpkg-divert.8.gz
-21adcd9d540264acce2c74c7ce218685  usr/share/man/de/man8/update-alternatives.8.gz
-97e1bb65db23aca97641b2131c63ca1d  usr/share/man/de/man8/install-info.8.gz
-228f96c68f7cf2693a16fe2b2d2ad6df  usr/share/man/de/man8/cleanup-info.8.gz
-f34e1c12e571d2060fef43d4dc21a483  usr/share/man/de/man8/start-stop-daemon.8.gz
-1d9b1994986f04bc59ec1bb5c63b19e5  usr/share/man/de/man8/dpkg-statoverride.8.gz
-16a2b8f8d6af27fa493525e8eb772c57  usr/share/man/man8/dpkg-divert.8.gz
-925abad98959030cd6c04796d4fe95b9  usr/share/man/man8/update-alternatives.8.gz
-be646d7b0a1b8b3204cfa388c55846a9  usr/share/man/man8/install-info.8.gz
-3a1507bb5253c1488c803a422e3969f9  usr/share/man/man8/cleanup-info.8.gz
-6fd6f12cbac9a13a380d90424eeeeee4  usr/share/man/man8/start-stop-daemon.8.gz
-cc4bc9d50c0e80b05fd38ca436be24fd  usr/share/man/man8/dpkg-statoverride.8.gz
-5374726c80670144fa5215e88ef54e4b  usr/share/man/ja/man8/update-alternatives.8.gz
-c05f7b88ff9e9e97e303be4aea5ad1d4  usr/share/man/fr/man1/dpkg-query.1.gz
-2119ee092d7ad01fbd945159209cc0fe  usr/share/man/fr/man1/dpkg-deb.1.gz
-a2910da7b908a8dfa0f006add5d92177  usr/share/man/fr/man1/dpkg-split.1.gz
-8e8ec945ac0aeded7fb4cb9f7ddcaa25  usr/share/man/fr/man5/dpkg.cfg.5.gz
-6c6eca6acbe28c977cb3da2b4d7ee98a  usr/share/man/fr/man8/dpkg-divert.8.gz
-eb14d0e4e5e65a604fd962b2f7fa1417  usr/share/man/fr/man8/update-alternatives.8.gz
-ebc40a72606cc94c2692c464d9a1e6dd  usr/share/man/fr/man8/install-info.8.gz
-c09637d7a7af28a2172d2f4d8ba055b0  usr/share/man/fr/man8/cleanup-info.8.gz
-58ca094921325e93379d78b0a6fcf69e  usr/share/man/fr/man8/dpkg-statoverride.8.gz
+14e3dcb58e7ebf61b9a97f54d411c5e3  usr/share/man/fr/man5/dpkg.cfg.5.gz
+d271ac24df420f0d227f4e5f1297cfee  usr/share/man/fr/man8/dpkg-divert.8.gz
+5e90ac1ee2eb0266beef62cb175bf965  usr/share/man/fr/man8/install-info.8.gz
+2d20006a963ebb6d718dceb68c4ad42c  usr/share/man/fr/man8/dpkg-statoverride.8.gz
+ac956417cf922500094e309e0db99980  usr/share/man/fr/man8/start-stop-daemon.8.gz
+d9663f82f50a0fe58dfde4040de098d3  usr/share/man/fr/man1/dpkg-query.1.gz
+7040044788000482697ed0d1ec740556  usr/share/man/fr/man1/dpkg-deb.1.gz
+df843e075b449d85aa058ac94f4aedd3  usr/share/man/fr/man1/dpkg.1.gz
+f22327af1fb534a950ad4a3f36b844cd  usr/share/man/fr/man1/dpkg-split.1.gz
+2d0e8928188f89169ead24dc6518937c  usr/share/man/fr/man1/dpkg-trigger.1.gz
+aa3099a9393f1f74ae657080491ee176  usr/share/man/hu/man5/dpkg.cfg.5.gz
+5ac1fbd9045c8a562184408ad8a413ce  usr/share/man/pl/man5/dpkg.cfg.5.gz
+918e8eb5bfaf7afa305219deddaee7e6  usr/share/man/pl/man8/dpkg-divert.8.gz
+164e37c51ec3c4537d874831861fca19  usr/share/man/pl/man8/install-info.8.gz
+17863c0575e4295bb26d06e0ac56a176  usr/share/man/pl/man8/dpkg-statoverride.8.gz
+87473d7f3e1b80931fe91e17430dee96  usr/share/man/pl/man8/start-stop-daemon.8.gz
+db6b9a4f42de7f7b9cb7428fc8a827ce  usr/share/man/pl/man1/dpkg-query.1.gz
+1414fcff04d1ac40ce010dd4408ee405  usr/share/man/pl/man1/dpkg-deb.1.gz
+87f590d877afaeb65a1f5f8fb503a1e0  usr/share/man/pl/man1/dpkg.1.gz
+13f7ffe6394c5c2757733158b6820acb  usr/share/man/pl/man1/dpkg-split.1.gz
+cd5d4b54f4e1721bab458a87d9af9c2f  usr/share/man/pl/man1/dpkg-trigger.1.gz
+4f5ca6f009d05e6f78c2505034510eba  usr/share/man/man8/update-alternatives.8.gz
+43c8d439be64de7e024afcf0502f806c  usr/share/man/man8/dpkg-divert.8.gz
+cd0025f7b3d74dc82d31552835f56f91  usr/share/man/man8/install-info.8.gz
+61d313c3aa3477bee7dfb086aff5e90f  usr/share/man/man8/dpkg-statoverride.8.gz
+15937c6d63fb0073fa6bd9966558f977  usr/share/man/man8/start-stop-daemon.8.gz
+58f854c560566fdb6e9a0d309492beba  usr/share/man/man1/dpkg-query.1.gz
+caa4b2b9cf9551048f723c536a1ee4ba  usr/share/man/man1/dpkg-deb.1.gz
+738320d32e8bd721836c98207ae814b0  usr/share/man/man1/dpkg.1.gz
+7a182c483cbbfe5c55879ea837b43b2c  usr/share/man/man1/dpkg-split.1.gz
+8d380a37268cf4cc2ae1ac64b79d7a91  usr/share/man/man1/dpkg-trigger.1.gz
+10ad0ef60a1b3173edf77080cbf7aff3  usr/share/perl5/Dpkg/Gettext.pm
+0c749e2784e7d2ab6b44d087ab6fb71c  usr/share/perl5/Dpkg.pm
+673202b7e9265ab30257246b498d8293  usr/bin/dpkg-trigger
+644df805299310d4c82c6bec7790840b  usr/bin/dpkg-deb
+311d9090ee8a84c56ca194df255129fe  usr/bin/dpkg
+e790042216db6a789af4534a445ae72c  usr/bin/dpkg-query
+67306e88e2f656802d6eaf17bb089bc7  usr/bin/dpkg-split
+369c2b5dcb245d787d80459d1c279373  usr/bin/dpkg-divert
+39afcf8bf618142fca30e498f8e33779  usr/bin/update-alternatives
+2022c065fbbca66d1374f9c7333f7c25  usr/bin/dpkg-statoverride
+51ce37d5dd5e3d5b8c20e3d49fe98c34  usr/sbin/install-info
 ca77a5577f7f1f15996ecaa0d0b1913f  usr/lib/dpkg/mksplit
-09070cdd9fc90a8c4cbf4158fc3e8e21  usr/bin/dpkg-query
-38f615ed49f2cb683ae5fe2862f84dd7  usr/bin/dpkg-split
-04bb3d46b1fad4b7d4b6faee03ac879f  usr/bin/dpkg-deb
-a427914ee5617fa6a77572403d87ae10  usr/bin/dpkg-trigger
-e89c32c4062f61996e11471150eefc6d  usr/bin/dpkg
-55ca95c11df1a6a9812581d2f369f42d  usr/sbin/cleanup-info
-fb876b60902810ae07d9e72f084a2aba  usr/sbin/install-info
-d3bba62a3589538acb015b52657ea2a7  usr/sbin/update-alternatives
-f5277d1426f8e1fd186dfa3122504edc  usr/sbin/dpkg-statoverride
-4f5233e27ee0c7b669040cac751bca53  usr/sbin/dpkg-divert
-2fbca359d7517f5b74ff7a9769b754d3  sbin/start-stop-daemon
+b176278397f2fa80512a9800f62caf81  sbin/start-stop-daemon
 -------------------------------
 
 -------------------------------
-running: dlocate -md5sum apt
+running: ./dlocate -md5sum apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 aeb7cf111691d8a1e22fef9686e314cd  usr/lib/dpkg/methods/apt/update
 5c20df19d9e2659aa6a6c64276c5764c  usr/lib/dpkg/methods/apt/desc.apt
 fe255f7b248114d4b6a5bf6058f8b42e  usr/lib/dpkg/methods/apt/setup
 2662778ba9613ced00bb069711f43bf4  usr/lib/dpkg/methods/apt/names
 2a1a5e6fcc94a19e1648e6e9d542c339  usr/lib/dpkg/methods/apt/install
-fe53045ae5e03a83ea3a77de1a064614  usr/lib/libapt-pkg-libc6.7-6.so.4.6.0
-784d3a2f57f521819fa31551a9685466  usr/lib/apt/methods/cdrom
-988feea45d3404b54965586c0ab75047  usr/lib/apt/methods/copy
-e0e8bac7cfad530c63d03354a787e440  usr/lib/apt/methods/gpgv
-f18fadc2bb63934f1a42179d0ef04102  usr/lib/apt/methods/ftp
-049422f12aafdd8165fc6121af7dc420  usr/lib/apt/methods/bzip2
-1213d7d338b7442670424e784e367fcd  usr/lib/apt/methods/ssh
-476e09a048bbcb540d434b6c96318458  usr/lib/apt/methods/http
-049422f12aafdd8165fc6121af7dc420  usr/lib/apt/methods/gzip
-1213d7d338b7442670424e784e367fcd  usr/lib/apt/methods/rsh
-3a52b1ef6b53908fa32614bf1f6e6bbe  usr/lib/apt/methods/file
-c158e6427c0aacbf5f1d5afaf9c8cd22  usr/lib/apt/methods/rred
-049422f12aafdd8165fc6121af7dc420  usr/lib/apt/methods/lzma
-82f7edaa970b5933b1c566ebd336a1ce  usr/bin/apt-get
+78ea89a0365dcfe369d4a3fca2da4c60  usr/lib/apt/methods/cdrom
+71d03ad9736673ce3a12c76857f40d00  usr/lib/apt/methods/copy
+0b85052f148e284ead9b3476fb63eefc  usr/lib/apt/methods/gpgv
+034ba14e47ecec6a53d0a052c4055f49  usr/lib/apt/methods/ftp
+d42f50a2b54cb84ab2e29541a7c6a526  usr/lib/apt/methods/bzip2
+71aabce61bd84605eac5b43b5c30a8f5  usr/lib/apt/methods/ssh
+61dc26535418aa2a9c2390139cf702c1  usr/lib/apt/methods/http
+d42f50a2b54cb84ab2e29541a7c6a526  usr/lib/apt/methods/gzip
+71aabce61bd84605eac5b43b5c30a8f5  usr/lib/apt/methods/rsh
+9a0bdde8f83cd45d8b165a72e701a218  usr/lib/apt/methods/file
+14c6b05856f3650361af6de9fcf0a8cb  usr/lib/apt/methods/rred
+d42f50a2b54cb84ab2e29541a7c6a526  usr/lib/apt/methods/lzma
+19a556b5e8f19e2f6ccdbbeacc2e1cda  usr/lib/libapt-pkg-libc6.9-6.so.4.7.0
+b57bc46db51ea2b14051c01bd97ff6b3  usr/bin/apt-get
 1506ad3ad94d8dc4809bc86452f9182c  usr/bin/apt-mark
-7b55e5cf87ec3f3530d531fe7ff9ccdb  usr/bin/apt-cdrom
-4550550a026cb8fea97ca819ffa30f32  usr/bin/apt-cache
-710abf0392b775adc019074e81a3aff0  usr/bin/apt-key
-45a5b9e6873bcd1acc0e328478de2f66  usr/bin/apt-config
+e4729f979abdd0074a3b92dbede8ffca  usr/bin/apt-cdrom
+3453931e52b84b02d692cfb82b57227e  usr/bin/apt-cache
+443e8e7b551597ec66e5ba87b6f61e08  usr/bin/apt-key
+c6e8ffab5d21a4d9599be5be9129d868  usr/bin/apt-config
 3b3b762a36c16ca9e1ab2ea0d7c1e20c  usr/share/bug/apt/script
-9547db1f17bd6e11d48ded137ef23800  usr/share/doc/apt/copyright
-6c8018d89d59fa8b3caba623f2666a75  usr/share/doc/apt/examples/configure-index.gz
+ca04f7e2ce253ac1e11df60e9e1d3f12  usr/share/lintian/overrides/apt
+ea6eb0a5e9a4178379103bb80ce48495  usr/share/doc/apt/copyright
+ecfb0cd6991fefd2d316736a80dd8bdb  usr/share/doc/apt/examples/apt-https-method-example.conf.gz
+624113ed5b5b80a5a5901d2bd6089e19  usr/share/doc/apt/examples/configure-index.gz
 53ee5804464a6585a3b9eba690d7c65a  usr/share/doc/apt/examples/apt.conf
-4edbd7b67465168d127b3a7e6f9db012  usr/share/doc/apt/examples/sources.list
-8cd2658012859a3c0da890cba264769d  usr/share/doc/apt/changelog.gz
+ca74468ac6a02728dcea06f119e03679  usr/share/doc/apt/examples/sources.list
+726ddc5e3afe182bfb6a31fd1a27ff44  usr/share/doc/apt/changelog.gz
 b2132f2d78ae5392dffa4e124e44c185  usr/share/apt/debian-archive.gpg
-2afef45bc214ae35ddfec5377429d070  usr/share/locale/ru/LC_MESSAGES/libapt-pkg4.6.mo
-3eb4e7f5e6b99b3468e1c3e50797c138  usr/share/locale/ru/LC_MESSAGES/libapt-inst1.1.mo
-7c54241ed4e68c4590c305633de67b64  usr/share/locale/ru/LC_MESSAGES/apt.mo
-1d72ace1d74a4eb2860bed5cfb568363  usr/share/locale/ca/LC_MESSAGES/libapt-pkg4.6.mo
-7ab09838cf3cd60c0fcd3eea8f5b118e  usr/share/locale/ca/LC_MESSAGES/libapt-inst1.1.mo
-73d495033d7baa93b10457e9d67d5abf  usr/share/locale/ca/LC_MESSAGES/apt.mo
-bc2efd39eb29a879da521d88ba072cb6  usr/share/locale/bg/LC_MESSAGES/libapt-pkg4.6.mo
-cc63305cf877d2a02113de0c4522c46f  usr/share/locale/bg/LC_MESSAGES/libapt-inst1.1.mo
-cb8ec77c2fd81a350737448f0b952050  usr/share/locale/bg/LC_MESSAGES/apt.mo
-01c1c9ae5ad7c0b1eed03a5502c8d52d  usr/share/locale/cs/LC_MESSAGES/libapt-pkg4.6.mo
-9751d7ed42d3d81153f3976e0b4f8cfa  usr/share/locale/cs/LC_MESSAGES/libapt-inst1.1.mo
-bb5dddf0a40318815ac87f7424c95e4c  usr/share/locale/cs/LC_MESSAGES/apt.mo
-1bae03d908bb990a34c16b6b821022b6  usr/share/locale/es/LC_MESSAGES/libapt-pkg4.6.mo
-48a778ca5da508562b196818be27e5e7  usr/share/locale/es/LC_MESSAGES/libapt-inst1.1.mo
-38621a403e30a74c478e2a6348ad7246  usr/share/locale/es/LC_MESSAGES/apt.mo
-105ac396e2baf63ca8f8266dbb2e192e  usr/share/locale/zh_TW/LC_MESSAGES/libapt-pkg4.6.mo
-a8093469cd6a1b18b22c7c9f216aec3f  usr/share/locale/zh_TW/LC_MESSAGES/libapt-inst1.1.mo
-9ec5f7594da1edf1f0de98895b62b688  usr/share/locale/zh_TW/LC_MESSAGES/apt.mo
-79776ece1d06508af7462c405ae5c1e3  usr/share/locale/km/LC_MESSAGES/libapt-pkg4.6.mo
-c50f813dbc8b747e27be7dfd3e562ada  usr/share/locale/km/LC_MESSAGES/libapt-inst1.1.mo
-7af8d87643b4d72d12ccaa3d0d9ad38f  usr/share/locale/km/LC_MESSAGES/apt.mo
-3893dd114dda8e3c8a90f9ead10b0f2e  usr/share/locale/nn/LC_MESSAGES/libapt-pkg4.6.mo
-4acdc37ed6ce97cae2f8df188092c6a2  usr/share/locale/nn/LC_MESSAGES/libapt-inst1.1.mo
-2d91a39a5c0ee185ea29888706fc9452  usr/share/locale/nn/LC_MESSAGES/apt.mo
-df34d01b23dcd54ea3633237fb48ab16  usr/share/locale/he/LC_MESSAGES/libapt-pkg4.6.mo
-ecb4b7e770d37d98c262520917ca1fbc  usr/share/locale/he/LC_MESSAGES/libapt-inst1.1.mo
-f782751683d64c87610658061b963741  usr/share/locale/he/LC_MESSAGES/apt.mo
-72e07ff8860c0bae139d953444472821  usr/share/locale/cy/LC_MESSAGES/libapt-pkg4.6.mo
-c553b5f806714a4daef738fdf632bc33  usr/share/locale/cy/LC_MESSAGES/libapt-inst1.1.mo
-a1c28aa24da8d37f6afe94b5bf113e18  usr/share/locale/cy/LC_MESSAGES/apt.mo
-27071aebe65ce939ff791a180021a40f  usr/share/locale/it/LC_MESSAGES/libapt-pkg4.6.mo
-557566d45a37d07753d877cacadc3f62  usr/share/locale/it/LC_MESSAGES/libapt-inst1.1.mo
-13ac4a716921c834ab06b5ed275b687f  usr/share/locale/it/LC_MESSAGES/apt.mo
-49584f0ea94cb94b5fdaf7c44f04da6d  usr/share/locale/uk/LC_MESSAGES/libapt-pkg4.6.mo
-2f0bfbfba99ba88b680c25316543d236  usr/share/locale/uk/LC_MESSAGES/libapt-inst1.1.mo
-f1820d74d172fb72569cc6e34a87aee9  usr/share/locale/uk/LC_MESSAGES/apt.mo
-29eb0b920aca4f092dac3455d2d7fcc0  usr/share/locale/pl/LC_MESSAGES/libapt-pkg4.6.mo
-d1febe9a0dd133b60f05124f6913b264  usr/share/locale/pl/LC_MESSAGES/libapt-inst1.1.mo
-f50c60675b86c5f261a276737945e867  usr/share/locale/pl/LC_MESSAGES/apt.mo
-6d7fd71131cec849c6cfedb709eb0c88  usr/share/locale/sv/LC_MESSAGES/libapt-pkg4.6.mo
-a199bf1a76479093790405bed4a22be4  usr/share/locale/sv/LC_MESSAGES/libapt-inst1.1.mo
-1f1efe26f54e1cec539c57b7e966c304  usr/share/locale/sv/LC_MESSAGES/apt.mo
-c6446a5ebbddd2c46f1d863836a6a496  usr/share/locale/gl/LC_MESSAGES/libapt-pkg4.6.mo
-088385d30676d4858fa74bd8d4b817be  usr/share/locale/gl/LC_MESSAGES/libapt-inst1.1.mo
-d3aac5f7fdbeda74cfdeb5f1e00a4596  usr/share/locale/gl/LC_MESSAGES/apt.mo
-571ee6db7940efdfad0075eca5c3755c  usr/share/locale/da/LC_MESSAGES/libapt-pkg4.6.mo
-601e8c9e844dd0d9b96280e09a4ddbff  usr/share/locale/da/LC_MESSAGES/libapt-inst1.1.mo
-d21839ddc5b44e15ad686d780f6b44ac  usr/share/locale/da/LC_MESSAGES/apt.mo
-796aa50b2f39b5ddbebec59bb51cced5  usr/share/locale/hu/LC_MESSAGES/libapt-pkg4.6.mo
-1600d61fbcb0d4a8b4ce62cbb58d04fa  usr/share/locale/hu/LC_MESSAGES/libapt-inst1.1.mo
-d0fb475a327c872de3388e9dfd065998  usr/share/locale/hu/LC_MESSAGES/apt.mo
-e36c9286cf6920944c27a01b2c255129  usr/share/locale/bs/LC_MESSAGES/libapt-pkg4.6.mo
-dc1d450bcfe1c64e80e944ef229cbb08  usr/share/locale/bs/LC_MESSAGES/libapt-inst1.1.mo
-98bb4883f40e00ce78ed186d3cbd95f5  usr/share/locale/bs/LC_MESSAGES/apt.mo
-3e2e8b3c39f71713b9f8cfd8f5feb323  usr/share/locale/dz/LC_MESSAGES/libapt-pkg4.6.mo
-709ae6ba6bb554bf20a480e64821d511  usr/share/locale/dz/LC_MESSAGES/libapt-inst1.1.mo
-f5ad5c559f6e002603913925fed95e3f  usr/share/locale/dz/LC_MESSAGES/apt.mo
-5378f3b257dfd896d02c01f524fbd13d  usr/share/locale/sk/LC_MESSAGES/libapt-pkg4.6.mo
-27371fbcea99bf84cd4427a29d12c33f  usr/share/locale/sk/LC_MESSAGES/libapt-inst1.1.mo
-ce2314fd19b7070f4b796858370b4c91  usr/share/locale/sk/LC_MESSAGES/apt.mo
-f813840a9d94cf943d4d78f768727db5  usr/share/locale/nl/LC_MESSAGES/libapt-pkg4.6.mo
-2fb46d23d1d58b9ccfc388b56952f4bf  usr/share/locale/nl/LC_MESSAGES/libapt-inst1.1.mo
-090db8aa0254a6111e5475daee3bb2f4  usr/share/locale/nl/LC_MESSAGES/apt.mo
-4bb9dca4ea6b41b6b5113980795a682b  usr/share/locale/th/LC_MESSAGES/libapt-pkg4.6.mo
-b421708f8da5c16184ab8cdc034e4947  usr/share/locale/th/LC_MESSAGES/libapt-inst1.1.mo
-128e03563ace2a8c77a6d03aa0e525c5  usr/share/locale/th/LC_MESSAGES/apt.mo
-28b1a88c87192c71d7788d3170ea32ba  usr/share/locale/fr/LC_MESSAGES/libapt-pkg4.6.mo
-c6afb242dc6862a61e17b2bbbd56c31a  usr/share/locale/fr/LC_MESSAGES/libapt-inst1.1.mo
-798be483c7b67220c5c9046f13815b23  usr/share/locale/fr/LC_MESSAGES/apt.mo
-884c9418321588c259692e6e7d9fd662  usr/share/locale/nb/LC_MESSAGES/libapt-pkg4.6.mo
-9f2090e4440bebecaf7e6d39451852a2  usr/share/locale/nb/LC_MESSAGES/libapt-inst1.1.mo
-815d9f91bd7a6779b0c8e8ba19f3309e  usr/share/locale/nb/LC_MESSAGES/apt.mo
-25c9b7c1da1fb1f625c2d2b3616377a6  usr/share/locale/en_GB/LC_MESSAGES/libapt-pkg4.6.mo
-f1d3247f449b632d7a8488b1ce3572f5  usr/share/locale/en_GB/LC_MESSAGES/libapt-inst1.1.mo
-faa511c3da655d69b013de4d75b5befb  usr/share/locale/en_GB/LC_MESSAGES/apt.mo
-f7330acac25dd82b199d42ec642fb767  usr/share/locale/ne/LC_MESSAGES/libapt-pkg4.6.mo
-2bee97e5d5241d2566644ce4f31ebb78  usr/share/locale/ne/LC_MESSAGES/libapt-inst1.1.mo
-1c0637708f7be0b53fab5a08f234a4f3  usr/share/locale/ne/LC_MESSAGES/apt.mo
-d0679f1f25c4ef63874efbe62aa9b0a4  usr/share/locale/eu/LC_MESSAGES/libapt-pkg4.6.mo
-1d3c328f80965a57b759faf652fbc24d  usr/share/locale/eu/LC_MESSAGES/libapt-inst1.1.mo
-d7a5e6e4593a781389b3b7389375b49b  usr/share/locale/eu/LC_MESSAGES/apt.mo
-7d7aa5c32d8618976da84d29ecfb4968  usr/share/locale/ko/LC_MESSAGES/libapt-pkg4.6.mo
-fa8993256fdf121a9730c5b585acceee  usr/share/locale/ko/LC_MESSAGES/libapt-inst1.1.mo
-908450a5e594a1a195b479fc37c17055  usr/share/locale/ko/LC_MESSAGES/apt.mo
-f0e5b5b2c928c6618d04ef27a54486f5  usr/share/locale/zh_CN/LC_MESSAGES/libapt-pkg4.6.mo
-7b8eb28613b7593117b8503520ef0ad3  usr/share/locale/zh_CN/LC_MESSAGES/libapt-inst1.1.mo
-78abece0ccb408ab22303f1aaf50068b  usr/share/locale/zh_CN/LC_MESSAGES/apt.mo
-9f1ea0f5e3524acc06239f8f345b972b  usr/share/locale/vi/LC_MESSAGES/libapt-pkg4.6.mo
-8c0189e298c0a4ec4c471f2f84df3d47  usr/share/locale/vi/LC_MESSAGES/libapt-inst1.1.mo
-d21a401a7370eb7c5828f1a74d90afaa  usr/share/locale/vi/LC_MESSAGES/apt.mo
-fc6981749a4bfcc3d0e52fb3a8744aee  usr/share/locale/tl/LC_MESSAGES/libapt-pkg4.6.mo
-58d8aa6085e493b732a332a32096bf9b  usr/share/locale/tl/LC_MESSAGES/libapt-inst1.1.mo
-56c1190e874c3521c597b1632e4f2df7  usr/share/locale/tl/LC_MESSAGES/apt.mo
-2f42e0b3317368e1f0f3d4b1a2d27ee8  usr/share/locale/pt/LC_MESSAGES/libapt-pkg4.6.mo
-24c7ac2b82a3c59f68d8f9c0f1efe73d  usr/share/locale/pt/LC_MESSAGES/libapt-inst1.1.mo
-c5843f1693c3c0b8f1a0bf696500c0f7  usr/share/locale/pt/LC_MESSAGES/apt.mo
-95fa380ea84da5a81f5355ceebe2b3ec  usr/share/locale/pt_BR/LC_MESSAGES/libapt-pkg4.6.mo
-f89fac5f395ab49220f0785a6fcc9f86  usr/share/locale/pt_BR/LC_MESSAGES/libapt-inst1.1.mo
-6cfb5f73fd6c3c1ac6af1c0c0fe3cba3  usr/share/locale/pt_BR/LC_MESSAGES/apt.mo
-df6a705334c3032687b8e34b2ca3a997  usr/share/locale/ja/LC_MESSAGES/libapt-pkg4.6.mo
-5b193e0f0f18a10a352f59d0c029f76d  usr/share/locale/ja/LC_MESSAGES/libapt-inst1.1.mo
-e32abae3d654882698a3e89d5135a59d  usr/share/locale/ja/LC_MESSAGES/apt.mo
-091726555fc1af7c90263f5d2bc9e097  usr/share/locale/ar/LC_MESSAGES/libapt-pkg4.6.mo
-99d3aaf4d73b0b3f5166446ba343a7c9  usr/share/locale/ar/LC_MESSAGES/libapt-inst1.1.mo
-944fe90a1b05d57498d902ad72cdf57e  usr/share/locale/ar/LC_MESSAGES/apt.mo
-f92b5e10fe9f8fc60702eb20ca9479fb  usr/share/locale/sl/LC_MESSAGES/libapt-pkg4.6.mo
-9bb1d60baeb0ef0b5296276302d459d3  usr/share/locale/sl/LC_MESSAGES/libapt-inst1.1.mo
-ada233acaa3b67f913da511ec5cabdc5  usr/share/locale/sl/LC_MESSAGES/apt.mo
-73fff55615fed6b9ffad52a250b7e6d7  usr/share/locale/fi/LC_MESSAGES/libapt-pkg4.6.mo
-2e56d3df94214eb6923758f7ecb2dbb5  usr/share/locale/fi/LC_MESSAGES/libapt-inst1.1.mo
-08885d2b09fffdd1063fc8e0e68786c3  usr/share/locale/fi/LC_MESSAGES/apt.mo
-c0546f4d299d93bd4d54157150642728  usr/share/locale/ku/LC_MESSAGES/libapt-pkg4.6.mo
-290f5e46a896182bce4c53126d609c8b  usr/share/locale/ku/LC_MESSAGES/libapt-inst1.1.mo
-7c3fc1509cf34d7251a4fb3627d991fe  usr/share/locale/ku/LC_MESSAGES/apt.mo
-aa15b8f08668fd6c615d31dd1d854bc1  usr/share/locale/el/LC_MESSAGES/libapt-pkg4.6.mo
-12f75949716488e0e4761f33aaaf3cbf  usr/share/locale/el/LC_MESSAGES/libapt-inst1.1.mo
-a484b3f1582face986cc2e7cf89a3ed1  usr/share/locale/el/LC_MESSAGES/apt.mo
-8da963c5d70fe3f0297f5800121ad5a3  usr/share/locale/de/LC_MESSAGES/libapt-pkg4.6.mo
-6d918b3faa4e8d2cb675d1330133eb9d  usr/share/locale/de/LC_MESSAGES/libapt-inst1.1.mo
-cdabbe59498b51b72d734e3d9a7639a5  usr/share/locale/de/LC_MESSAGES/apt.mo
-8fe58df8b07d6dd3eb8093816df81947  usr/share/locale/mr/LC_MESSAGES/libapt-pkg4.6.mo
-7afb73156da55070e8bfcf41df59920f  usr/share/locale/mr/LC_MESSAGES/libapt-inst1.1.mo
-d6be0a2984d958ef2aa54d7b02a88250  usr/share/locale/mr/LC_MESSAGES/apt.mo
-48d9fa626fcf203915cd9bb722632b47  usr/share/locale/ro/LC_MESSAGES/libapt-pkg4.6.mo
-801a0b7143ff489e01d44960a3162a3b  usr/share/locale/ro/LC_MESSAGES/libapt-inst1.1.mo
-f34b0a95230ba500895927942e600df8  usr/share/locale/ro/LC_MESSAGES/apt.mo
-982d08047e885c6e2653e505d2a069d3  usr/share/man/es/man8/apt-cache.8.gz
-f816eef1c69684c7bd3cc58a88c7cebe  usr/share/man/es/man8/apt-get.8.gz
+f91f6a91425e60e16763c2741893a8ee  usr/share/locale/ru/LC_MESSAGES/libapt-inst1.1.mo
+0fe520e415ba2b66d8194503c1dbc8f8  usr/share/locale/ru/LC_MESSAGES/libapt-pkg4.7.mo
+e3fa4cacc62d58173594d8e74333ffda  usr/share/locale/ru/LC_MESSAGES/apt.mo
+5a8d0ce2c13eaff9df68cbb449743062  usr/share/locale/ca/LC_MESSAGES/libapt-inst1.1.mo
+2099405ead5cf21cdc216aedbc667263  usr/share/locale/ca/LC_MESSAGES/libapt-pkg4.7.mo
+3f603bb90609e566a91825e451b2e401  usr/share/locale/ca/LC_MESSAGES/apt.mo
+977d144ac75d6765d849df85a7ae7d0b  usr/share/locale/bg/LC_MESSAGES/libapt-inst1.1.mo
+9b6867c9aad59685fce1329a638e6e2d  usr/share/locale/bg/LC_MESSAGES/libapt-pkg4.7.mo
+aa6916bbd568a26a56baa9be6a062680  usr/share/locale/bg/LC_MESSAGES/apt.mo
+b61242c02f1d702ba299daa494e8f298  usr/share/locale/cs/LC_MESSAGES/libapt-inst1.1.mo
+b2504aaf05f029394b2e6ff726f7e76e  usr/share/locale/cs/LC_MESSAGES/libapt-pkg4.7.mo
+87b718e41c99b8995441f1014ddb19b5  usr/share/locale/cs/LC_MESSAGES/apt.mo
+8d081515ab6fe4e006c31a2049c27564  usr/share/locale/es/LC_MESSAGES/libapt-inst1.1.mo
+48be58de478e62ed678d6e0c1df6c3d1  usr/share/locale/es/LC_MESSAGES/libapt-pkg4.7.mo
+b71a871348b2e464ec727d16e2ebfa94  usr/share/locale/es/LC_MESSAGES/apt.mo
+a20f800a3273946c0d022c4c04c00683  usr/share/locale/zh_TW/LC_MESSAGES/libapt-inst1.1.mo
+538bdbab1210d83ad4715d0840412f45  usr/share/locale/zh_TW/LC_MESSAGES/libapt-pkg4.7.mo
+7bb8fe591c3d87b80f94acbde088660c  usr/share/locale/zh_TW/LC_MESSAGES/apt.mo
+18644620df3d7f79ba835ccb25c42b13  usr/share/locale/km/LC_MESSAGES/libapt-inst1.1.mo
+ba96c10c3bdabe7296d759b6a8d8331e  usr/share/locale/km/LC_MESSAGES/libapt-pkg4.7.mo
+b42d3eab867c16b94e9bcad7759ab28b  usr/share/locale/km/LC_MESSAGES/apt.mo
+ec431b1c1ca249b49fda79fbee917661  usr/share/locale/nn/LC_MESSAGES/libapt-inst1.1.mo
+f6c5fd1e26c951e77509f8bd2972cbec  usr/share/locale/nn/LC_MESSAGES/libapt-pkg4.7.mo
+47d7ee759f27b63a20f1b7ff4dd03d07  usr/share/locale/nn/LC_MESSAGES/apt.mo
+4974253cd309c30b33ffc60fdaa9d438  usr/share/locale/he/LC_MESSAGES/libapt-inst1.1.mo
+8bbfeb478224ac3a7657b47f6cdcbf42  usr/share/locale/he/LC_MESSAGES/libapt-pkg4.7.mo
+56fd162af575960a4c862ecb88192d41  usr/share/locale/he/LC_MESSAGES/apt.mo
+7d472ed3d9827ae840be7ff7c51c06d9  usr/share/locale/cy/LC_MESSAGES/libapt-inst1.1.mo
+8221b58e76ee247d72e2d73cb004154c  usr/share/locale/cy/LC_MESSAGES/libapt-pkg4.7.mo
+88a5552a8dd04f37216b7bf31b4389b3  usr/share/locale/cy/LC_MESSAGES/apt.mo
+fb7aec641359bdb7b69c3de443d5c0cc  usr/share/locale/it/LC_MESSAGES/libapt-inst1.1.mo
+499f2316a6035fce9b5f49f49abbc870  usr/share/locale/it/LC_MESSAGES/libapt-pkg4.7.mo
+9946b62a5f503c1566942025147a63a8  usr/share/locale/it/LC_MESSAGES/apt.mo
+d2c41646247863d11eadafc8d7d35996  usr/share/locale/uk/LC_MESSAGES/libapt-inst1.1.mo
+907868c45aec3c6e5b08fcabbb6f51ca  usr/share/locale/uk/LC_MESSAGES/libapt-pkg4.7.mo
+d18f0a3d0e556a0d4045ae57f9ae8add  usr/share/locale/uk/LC_MESSAGES/apt.mo
+3494cf38f3b55bf2ce014b46257a5f1c  usr/share/locale/pl/LC_MESSAGES/libapt-inst1.1.mo
+929d1bd99bf7eb7858d6bbae7871d4fe  usr/share/locale/pl/LC_MESSAGES/libapt-pkg4.7.mo
+f44019ee7d6183ec72b1c75c964cb35c  usr/share/locale/pl/LC_MESSAGES/apt.mo
+b714c3074709546afd414e0ef39d36c2  usr/share/locale/sv/LC_MESSAGES/libapt-inst1.1.mo
+b67afae7c51e375b04c17b6d3b0d4df4  usr/share/locale/sv/LC_MESSAGES/libapt-pkg4.7.mo
+6752ff9bdf8d817db4f90b3b6cca4c1d  usr/share/locale/sv/LC_MESSAGES/apt.mo
+a049c28317623e33a8fcc8e56a9ccf23  usr/share/locale/gl/LC_MESSAGES/libapt-inst1.1.mo
+a5ba28866049818eeb12dd9daaa4166a  usr/share/locale/gl/LC_MESSAGES/libapt-pkg4.7.mo
+6f405a4bc15bcde263c1b225baa00dd1  usr/share/locale/gl/LC_MESSAGES/apt.mo
+ac87d5f3b497c261367d43215fd8e9bb  usr/share/locale/da/LC_MESSAGES/libapt-inst1.1.mo
+8cb58195e6e38d9020798f2c30a4a4ad  usr/share/locale/da/LC_MESSAGES/libapt-pkg4.7.mo
+6b76ce08db1e22ecbcaf0c9175cfd188  usr/share/locale/da/LC_MESSAGES/apt.mo
+034d3bb0fe5747785f57ba83fc57784b  usr/share/locale/hu/LC_MESSAGES/libapt-inst1.1.mo
+55be692074db70a86e5823aaefedcfb4  usr/share/locale/hu/LC_MESSAGES/libapt-pkg4.7.mo
+3b0118330d858994be3058c9b1c96cb1  usr/share/locale/hu/LC_MESSAGES/apt.mo
+f51d74761d135481cb7acc1a1fce1b69  usr/share/locale/bs/LC_MESSAGES/libapt-inst1.1.mo
+26e3467ee515a15f696e38e341bd9244  usr/share/locale/bs/LC_MESSAGES/libapt-pkg4.7.mo
+e3b850f9d27fcdcf07a10a53921fdc71  usr/share/locale/bs/LC_MESSAGES/apt.mo
+11f4577ea71c2e7824dee2197f2791a7  usr/share/locale/dz/LC_MESSAGES/libapt-inst1.1.mo
+2ab5ae8921909f1d949ce862b045f495  usr/share/locale/dz/LC_MESSAGES/libapt-pkg4.7.mo
+3f269cd54331a8854c19660f11ce69ac  usr/share/locale/dz/LC_MESSAGES/apt.mo
+531760c638da78a3660354ee728e1496  usr/share/locale/sk/LC_MESSAGES/libapt-inst1.1.mo
+00ec2245c97c8d3e68aee2d793e52ce1  usr/share/locale/sk/LC_MESSAGES/libapt-pkg4.7.mo
+c5701ac6f2627bc2fda678b4dbda7dcb  usr/share/locale/sk/LC_MESSAGES/apt.mo
+a15eb07a0792a1c7c3a133f8a960b57b  usr/share/locale/nl/LC_MESSAGES/libapt-inst1.1.mo
+d05a328845a879f36b73a4270ee1868d  usr/share/locale/nl/LC_MESSAGES/libapt-pkg4.7.mo
+731fc61e8aedeaff789999d4957dbce9  usr/share/locale/nl/LC_MESSAGES/apt.mo
+1aede97a0d9e7c3595a76b26dd02a9eb  usr/share/locale/th/LC_MESSAGES/libapt-inst1.1.mo
+92b1e1e9d4a5f5ba43293b3717de1d8e  usr/share/locale/th/LC_MESSAGES/libapt-pkg4.7.mo
+05a87c3cc206ffc4def1d657627938f9  usr/share/locale/th/LC_MESSAGES/apt.mo
+793a16d5295c67c53e1e2a21aa098ef9  usr/share/locale/fr/LC_MESSAGES/libapt-inst1.1.mo
+1b76a3af974f826fe335e6f6c87ce049  usr/share/locale/fr/LC_MESSAGES/libapt-pkg4.7.mo
+8100bf566aa01e2ea33ef50ee38f771f  usr/share/locale/fr/LC_MESSAGES/apt.mo
+6ecb104aa24078606a0cae603966d063  usr/share/locale/nb/LC_MESSAGES/libapt-inst1.1.mo
+0551b0e2a30d79c0986f7de29b0aa991  usr/share/locale/nb/LC_MESSAGES/libapt-pkg4.7.mo
+ccd858bcbe068eb063b096d22c26551b  usr/share/locale/nb/LC_MESSAGES/apt.mo
+4beb53d9aff92be0cbe719b1ea567fa0  usr/share/locale/en_GB/LC_MESSAGES/libapt-inst1.1.mo
+8a8dcf54090262e333c374f6461c9acb  usr/share/locale/en_GB/LC_MESSAGES/libapt-pkg4.7.mo
+a958568164603daa9720640d9830034c  usr/share/locale/en_GB/LC_MESSAGES/apt.mo
+7d6f7261a6bf7e18c4f850226a44fbff  usr/share/locale/ne/LC_MESSAGES/libapt-inst1.1.mo
+59dda01079832c1810eed1c7b9f902c7  usr/share/locale/ne/LC_MESSAGES/libapt-pkg4.7.mo
+20892a7693f4c5ea0acbe40c5ca057b0  usr/share/locale/ne/LC_MESSAGES/apt.mo
+0bfc69996c1fbae1fa016d19d209228b  usr/share/locale/eu/LC_MESSAGES/libapt-inst1.1.mo
+bc6ada4beb897608d5b016a5906e5f31  usr/share/locale/eu/LC_MESSAGES/libapt-pkg4.7.mo
+b891e54a4ae024a64e9d80ffe443ac1e  usr/share/locale/eu/LC_MESSAGES/apt.mo
+7254544a5dc86316e0cd4f0900441ed3  usr/share/locale/ko/LC_MESSAGES/libapt-inst1.1.mo
+401843d73adfa251f73a4326f4cf0870  usr/share/locale/ko/LC_MESSAGES/libapt-pkg4.7.mo
+7e7bf29c8cbbf1be53ea0892b246c999  usr/share/locale/ko/LC_MESSAGES/apt.mo
+8508495333652594cf8ba370c2e0b92b  usr/share/locale/zh_CN/LC_MESSAGES/libapt-inst1.1.mo
+733cfb7000fbe28e0242c580b238800f  usr/share/locale/zh_CN/LC_MESSAGES/libapt-pkg4.7.mo
+765e6e36213f107bf70e07ddd87b898e  usr/share/locale/zh_CN/LC_MESSAGES/apt.mo
+942ff19872fa21f4c899a16f37203a23  usr/share/locale/vi/LC_MESSAGES/libapt-inst1.1.mo
+5484196ee0460ac316c545ad089593ef  usr/share/locale/vi/LC_MESSAGES/libapt-pkg4.7.mo
+a66f057c2e44a07282c93e8b781a3806  usr/share/locale/vi/LC_MESSAGES/apt.mo
+8cfc4ca22d8438794f03530567da5b77  usr/share/locale/tl/LC_MESSAGES/libapt-inst1.1.mo
+04d894415835998b69ebb201a96c08cd  usr/share/locale/tl/LC_MESSAGES/libapt-pkg4.7.mo
+b4a9d6054ea22337ee7a7a352e898303  usr/share/locale/tl/LC_MESSAGES/apt.mo
+4f991288a5e82ef19a1340c9e6de040a  usr/share/locale/pt/LC_MESSAGES/libapt-inst1.1.mo
+c30a7c985039bf6209a551086c7f758c  usr/share/locale/pt/LC_MESSAGES/libapt-pkg4.7.mo
+22f2263ac80bf99fbeae782e2affb90f  usr/share/locale/pt/LC_MESSAGES/apt.mo
+ec5824e3d1c2a4dc6e866ae4b8a143f4  usr/share/locale/pt_BR/LC_MESSAGES/libapt-inst1.1.mo
+948de558190c5f1cff0e71f93c310aa0  usr/share/locale/pt_BR/LC_MESSAGES/libapt-pkg4.7.mo
+34bd01c6e825d8ebb021f3fd5a894f72  usr/share/locale/pt_BR/LC_MESSAGES/apt.mo
+896ac085ea47a7be798e294c8f8a450e  usr/share/locale/ja/LC_MESSAGES/libapt-inst1.1.mo
+3e5c0e03fa8ded709b4dc9ede8f8a8f6  usr/share/locale/ja/LC_MESSAGES/libapt-pkg4.7.mo
+86f20ea472fe93495be506b150483f0c  usr/share/locale/ja/LC_MESSAGES/apt.mo
+83611a8a9061291f05eed0025f9499d0  usr/share/locale/ar/LC_MESSAGES/libapt-inst1.1.mo
+a0bd77c987e02b1f964e00ddc5f14e2f  usr/share/locale/ar/LC_MESSAGES/libapt-pkg4.7.mo
+a08fd680ee1b6d2db84a16fa4c323f82  usr/share/locale/ar/LC_MESSAGES/apt.mo
+3e08109d6f2f47160a34b906dbddba60  usr/share/locale/sl/LC_MESSAGES/libapt-inst1.1.mo
+9a03d9e800beec40177bdbaeeb7e7935  usr/share/locale/sl/LC_MESSAGES/libapt-pkg4.7.mo
+d0e42e9844dc3a0bd8ea41eb872706db  usr/share/locale/sl/LC_MESSAGES/apt.mo
+4c9ee40d6447f175fcdea61fed78614a  usr/share/locale/fi/LC_MESSAGES/libapt-inst1.1.mo
+0397e98418291c42ef60975334235da4  usr/share/locale/fi/LC_MESSAGES/libapt-pkg4.7.mo
+aabfa95fa5b0990b14e16840833a779d  usr/share/locale/fi/LC_MESSAGES/apt.mo
+46cc8b3615d8cccdbf33864423e65432  usr/share/locale/ku/LC_MESSAGES/libapt-inst1.1.mo
+2a8e0bbd137aa67fa47c4fd7baf9a637  usr/share/locale/ku/LC_MESSAGES/libapt-pkg4.7.mo
+09de07356a71abd38fa427702f53b03c  usr/share/locale/ku/LC_MESSAGES/apt.mo
+78c529930f21e313ab4cac68b7ad79bd  usr/share/locale/el/LC_MESSAGES/libapt-inst1.1.mo
+dea6a83723a064a6bdd8a1b48cd06c3b  usr/share/locale/el/LC_MESSAGES/libapt-pkg4.7.mo
+02e5640dbb49b07eeae49feec4db3a13  usr/share/locale/el/LC_MESSAGES/apt.mo
+361ea0160dee5656592a7752cb757e33  usr/share/locale/de/LC_MESSAGES/libapt-inst1.1.mo
+1490c1f65aa1dbe6a3b616eeb1bd55e4  usr/share/locale/de/LC_MESSAGES/libapt-pkg4.7.mo
+d46f44ab0dbec6a452209513e6c0ec9c  usr/share/locale/de/LC_MESSAGES/apt.mo
+80408ff34013879278d43afdebd92b76  usr/share/locale/mr/LC_MESSAGES/libapt-inst1.1.mo
+c12c3546ebf58c72c45475e8148014fd  usr/share/locale/mr/LC_MESSAGES/libapt-pkg4.7.mo
+1a39e493c321a9f0b1ef3d7c75e2e7a9  usr/share/locale/mr/LC_MESSAGES/apt.mo
+e9023e7891dc39e2eb171413fa53f481  usr/share/locale/ro/LC_MESSAGES/libapt-inst1.1.mo
+4957b00ebf484c0a9e8b18c9622e1cbf  usr/share/locale/ro/LC_MESSAGES/libapt-pkg4.7.mo
+fa7888ceb5d428bf6d957a35d3dc33fe  usr/share/locale/ro/LC_MESSAGES/apt.mo
+82de6a01a98dc836c55e7b52dd99cd15  usr/share/man/es/man8/apt-cache.8.gz
+3920f1ea7d534bdb699707599d57d753  usr/share/man/es/man8/apt-get.8.gz
 54a143307eb024482aa4b2cbbf3de54b  usr/share/man/es/man8/apt.8.gz
-d1c7e8aa32227e7358ee964c45b09531  usr/share/man/es/man8/apt-config.8.gz
-36241e1c0471a61ac44e6bbff0d62e80  usr/share/man/es/man8/apt-cdrom.8.gz
-2ac8374cdc12795bb31b95126f141130  usr/share/man/es/man5/apt.conf.5.gz
-c7b697ed48c92fafe3f57d7b144c3fab  usr/share/man/es/man5/sources.list.5.gz
-cd459ae7ad61a409c695ebb1e97c4efb  usr/share/man/es/man5/apt_preferences.5.gz
-85ec47850ad07a948d8523acfee3ed28  usr/share/man/man8/apt-cache.8.gz
-9f22029d55a3d3b10881348afa8738ee  usr/share/man/man8/apt-key.8.gz
-ab41165fc20b315dfb9ee10e3b6cb693  usr/share/man/man8/apt-get.8.gz
-e8bc590a5684f530050bf28d2a857bc1  usr/share/man/man8/apt-secure.8.gz
-fbd5fe81c176b6879cdbaa99c690058a  usr/share/man/man8/apt.8.gz
-e0d67763a3c945358ffdf11117ec54fd  usr/share/man/man8/apt-config.8.gz
-d803d901e72331bf41d5b710c5272d8e  usr/share/man/man8/apt-mark.8.gz
-9239392f70e5a469c6094d74fcda3109  usr/share/man/man8/apt-cdrom.8.gz
+c5653b161e6d65fe921dbc4fdccb81ea  usr/share/man/es/man8/apt-config.8.gz
+997d5ab72cdc1d4bfcf77b16f4814f10  usr/share/man/es/man8/apt-cdrom.8.gz
+ea3c7cf4d3fb52799e25e17558c223bb  usr/share/man/es/man5/apt.conf.5.gz
+3261252554b6e16aca2a44ca12111fa2  usr/share/man/es/man5/sources.list.5.gz
+4765553b974094ce5b44cdaeaa641024  usr/share/man/es/man5/apt_preferences.5.gz
+0b1edde30c70749ab1a2c73fd035b170  usr/share/man/man8/apt-cache.8.gz
+2615d2c5ac034c4723d5e31241ce79e4  usr/share/man/man8/apt-key.8.gz
+a776da5752bb9e8f5642d804ba12bf99  usr/share/man/man8/apt-get.8.gz
+1f4ccb4115e779a9b46e88dd959f15a6  usr/share/man/man8/apt-secure.8.gz
+67a934135c6ebb247044a5e459b2884c  usr/share/man/man8/apt.8.gz
+2d355f3801990572236fac912bdb9ba8  usr/share/man/man8/apt-config.8.gz
+f744eaa9c8faec9f6721d36bc624aae9  usr/share/man/man8/apt-mark.8.gz
+23c47f57a630a560bce586322aaeea32  usr/share/man/man8/apt-cdrom.8.gz
 bcc36a5f30b7e311e6b42d3726ba4571  usr/share/man/fr/man8/apt-cache.8.gz
 e4475d28bd35841636b1f926c41fd5a8  usr/share/man/fr/man8/apt-key.8.gz
 3d062bbb19374f77bb8d788a6e929594  usr/share/man/fr/man8/apt-get.8.gz
@@ -1263,34 +1440,38 @@ fe074250695b31504d9bedf81726389d  usr/share/man/fr/man8/apt-cdrom.8.gz
 8d42f23637ca9ba3987e54afd6b26de9  usr/share/man/fr/man5/apt.conf.5.gz
 59d6a12a88e25f8e6dafe1e7fbf552fa  usr/share/man/fr/man5/sources.list.5.gz
 e3c2ca579d0ae083ae7d5bc66ecacd53  usr/share/man/fr/man5/apt_preferences.5.gz
-c02b36afdebe3e92b50a838881e1d5c7  usr/share/man/pt_BR/man5/apt_preferences.5.gz
+5c5008dd15107fd602524cca079cb5c4  usr/share/man/pt_BR/man5/apt_preferences.5.gz
 dba68d5899f5a0246311a6e6ea413704  usr/share/man/ja/man8/apt-cache.8.gz
 7355978b1980a07ac9a9c377c3c913e2  usr/share/man/ja/man8/apt-get.8.gz
 77bbf277dc13933fae629a610a37a3d2  usr/share/man/ja/man8/apt-cdrom.8.gz
 d680c1b22e2b35ca99e59b4e0a20d863  usr/share/man/ja/man5/apt.conf.5.gz
-590193f0d71b52c13e2b2d3b2a6730fd  usr/share/man/man5/apt.conf.5.gz
-e1f87b46cec5fe2d0124bd8f8f8930c0  usr/share/man/man5/sources.list.5.gz
-15a5afa5f5fc4dd857d0c4438fd9843b  usr/share/man/man5/apt_preferences.5.gz
+b336f5669d681e043d2cf71bb242b29b  usr/share/man/man5/apt.conf.5.gz
+0f7eec12f2e6992285a88fd4669ae3bf  usr/share/man/man5/sources.list.5.gz
+b6139102e69dc67f4620ed82475e763c  usr/share/man/man5/apt_preferences.5.gz
 1d869208ecc07ce85d2c51f403b133cc  usr/share/man/de/man8/apt.8.gz
 -------------------------------
 
 -------------------------------
-running: dlocate -md5sum packagedoesnotexist
+running: ./dlocate -md5sum packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or has no md5sums.
 -------------------------------
 
 -------------------------------
-running: dlocate -md5sum xlibmesa-glu
-Package xlibmesa-glu not installed or has no md5sums.
+running: ./dlocate -md5sum xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or has no md5sums.
 -------------------------------
 
 -------------------------------
-running: dlocate -md5sum xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or has no md5sums.
--------------------------------
-
--------------------------------
-running: dlocate -md5check dlocate
+running: ./dlocate -md5check dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
 usr/bin/dlocate: OK
 usr/sbin/dpkg-unhold: OK
 usr/sbin/update-dlocatedb: OK
@@ -1309,170 +1490,175 @@ usr/share/man/man8/update-dlocatedb.8.gz: OK
 -------------------------------
 
 -------------------------------
-running: dlocate -md5check bash
-bin/bash: OK
-usr/share/doc/bash/CHANGES.gz: OK
-usr/share/doc/bash/NEWS.gz: OK
-usr/share/doc/bash/INTRO.gz: OK
-usr/share/doc/bash/POSIX.gz: OK
-usr/share/doc/bash/README.Debian.gz: OK
-usr/share/doc/bash/README.commands.gz: OK
-usr/share/doc/bash/README.abs-guide: OK
-usr/share/doc/bash/inputrc.arrows: OK
+running: ./dlocate -md5check bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
 usr/share/doc/bash/copyright: OK
-usr/share/doc/bash/FAQ: OK
-usr/share/doc/bash/changelog.Debian.gz: OK
 usr/share/doc/bash/COMPAT.gz: OK
-usr/share/man/man1/bash.1.gz: OK
-usr/share/man/man1/rbash.1.gz: OK
-usr/share/man/man1/bashbug.1.gz: OK
-usr/share/man/man1/clear_console.1.gz: OK
-usr/share/man/man7/bash-builtins.7.gz: OK
+usr/share/doc/bash/INTRO.gz: OK
+usr/share/doc/bash/NEWS.gz: OK
+usr/share/doc/bash/inputrc.arrows: OK
+usr/share/doc/bash/POSIX.gz: OK
+usr/share/doc/bash/FAQ: OK
+usr/share/doc/bash/CHANGES.gz: OK
+usr/share/doc/bash/README.commands.gz: OK
+usr/share/doc/bash/README.Debian.gz: OK
+usr/share/doc/bash/changelog.Debian.gz: OK
+usr/share/doc/bash/README.abs-guide: OK
+usr/share/menu/bash: OK
+usr/share/locale/sv/LC_MESSAGES/bash.mo: OK
 usr/share/locale/en@quot/LC_MESSAGES/bash.mo: OK
 usr/share/locale/en@boldquot/LC_MESSAGES/bash.mo: OK
 usr/share/locale/ru/LC_MESSAGES/bash.mo: OK
-usr/share/locale/sv/LC_MESSAGES/bash.mo: OK
-usr/share/menu/bash: OK
-usr/bin/bashbug: OK
+usr/share/man/man7/bash-builtins.7.gz: OK
+usr/share/man/man1/bash.1.gz: OK
+usr/share/man/man1/clear_console.1.gz: OK
+usr/share/man/man1/bashbug.1.gz: OK
+usr/share/man/man1/rbash.1.gz: OK
 usr/bin/clear_console: OK
+usr/bin/bashbug: OK
+bin/bash: OK
 -------------------------------
 
 -------------------------------
-running: dlocate -md5check dpkg
-usr/share/perl5/Dpkg.pm: OK
-usr/share/perl5/Dpkg/Gettext.pm: OK
-usr/share/doc/dpkg/usertags.gz: OK
-usr/share/doc/dpkg/changelog.gz: OK
-usr/share/doc/dpkg/copyright: OK
-usr/share/doc/dpkg/THANKS.gz: OK
-usr/share/doc/dpkg/AUTHORS: OK
-usr/share/doc/dpkg/README.feature-removal-schedule: OK
-usr/share/doc/dpkg/README.api: OK
-usr/share/doc/dpkg/triggers.txt.gz: OK
-usr/share/doc/dpkg/changelog.Debian.gz: OK
-usr/share/dpkg/cputable: OK
-usr/share/dpkg/archtable: OK
-usr/share/dpkg/ostable: OK
-usr/share/dpkg/triplettable: OK
-usr/share/locale/th/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/km/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/et/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/zh_TW/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/bs/LC_MESSAGES/dpkg.mo: OK
+running: ./dlocate -md5check dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
 usr/share/locale/sv/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/dz/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/mr/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/hu/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/nb/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/pt/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/it/LC_MESSAGES/dpkg.mo: OK
 usr/share/locale/el/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/zh_CN/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/es/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/pl/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/mr/LC_MESSAGES/dpkg.mo: OK
 usr/share/locale/de/LC_MESSAGES/dpkg.mo: OK
 usr/share/locale/ne/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/tl/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/ja/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/it/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/fr/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/gl/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/ru/LC_MESSAGES/dpkg.mo: OK
 usr/share/locale/eu/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/nl/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/pt_BR/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/nn/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/ku/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/ko/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/ca/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/vi/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/ro/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/da/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/id/LC_MESSAGES/dpkg.mo: OK
-usr/share/locale/cs/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/es/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/dz/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/tl/LC_MESSAGES/dpkg.mo: OK
 usr/share/locale/sk/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/ko/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/ast/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/nb/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/pt/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/lt/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/zh_CN/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/nn/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/ja/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/ku/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/ca/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/fr/LC_MESSAGES/dpkg.mo: OK
 usr/share/locale/pa/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/da/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/ro/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/hu/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/pl/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/vi/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/th/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/km/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/bs/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/eo/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/ru/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/nl/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/zh_TW/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/pt_BR/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/gl/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/et/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/cs/LC_MESSAGES/dpkg.mo: OK
+usr/share/locale/id/LC_MESSAGES/dpkg.mo: OK
+usr/share/dpkg/cputable: OK
+usr/share/dpkg/ostable: OK
+usr/share/dpkg/triplettable: OK
+usr/share/dpkg/archtable: OK
+usr/share/doc/dpkg/changelog.gz: OK
+usr/share/doc/dpkg/README.api: OK
+usr/share/doc/dpkg/triggers.txt.gz: OK
+usr/share/doc/dpkg/README.feature-removal-schedule: OK
+usr/share/doc/dpkg/AUTHORS: OK
+usr/share/doc/dpkg/changelog.Debian.gz: OK
+usr/share/doc/dpkg/THANKS.gz: OK
+usr/share/doc/dpkg/usertags.gz: OK
+usr/share/doc/dpkg/copyright: OK
 usr/share/lintian/overrides/dpkg: OK
-usr/share/man/sv/man1/dpkg-query.1.gz: OK
-usr/share/man/sv/man1/dpkg.1.gz: OK
-usr/share/man/sv/man1/dpkg-trigger.1.gz: OK
-usr/share/man/sv/man1/dpkg-deb.1.gz: OK
-usr/share/man/sv/man1/dpkg-split.1.gz: OK
 usr/share/man/sv/man5/dpkg.cfg.5.gz: OK
-usr/share/man/sv/man8/dpkg-divert.8.gz: OK
 usr/share/man/sv/man8/update-alternatives.8.gz: OK
+usr/share/man/sv/man8/dpkg-divert.8.gz: OK
 usr/share/man/sv/man8/install-info.8.gz: OK
-usr/share/man/sv/man8/cleanup-info.8.gz: OK
-usr/share/man/sv/man8/start-stop-daemon.8.gz: OK
 usr/share/man/sv/man8/dpkg-statoverride.8.gz: OK
-usr/share/man/hu/man5/dpkg.cfg.5.gz: OK
-usr/share/man/man1/dpkg-query.1.gz: OK
-usr/share/man/man1/dpkg.1.gz: OK
-usr/share/man/man1/dpkg-trigger.1.gz: OK
-usr/share/man/man1/dpkg-deb.1.gz: OK
-usr/share/man/man1/dpkg-split.1.gz: OK
-usr/share/man/pl/man1/dpkg-query.1.gz: OK
-usr/share/man/pl/man1/dpkg.1.gz: OK
-usr/share/man/pl/man1/dpkg-trigger.1.gz: OK
-usr/share/man/pl/man1/dpkg-deb.1.gz: OK
-usr/share/man/pl/man1/dpkg-split.1.gz: OK
-usr/share/man/pl/man5/dpkg.cfg.5.gz: OK
-usr/share/man/pl/man8/dpkg-divert.8.gz: OK
-usr/share/man/pl/man8/update-alternatives.8.gz: OK
-usr/share/man/pl/man8/install-info.8.gz: OK
-usr/share/man/pl/man8/cleanup-info.8.gz: OK
-usr/share/man/pl/man8/start-stop-daemon.8.gz: OK
-usr/share/man/pl/man8/dpkg-statoverride.8.gz: OK
-usr/share/man/man5/dpkg.cfg.5.gz: OK
-usr/share/man/de/man1/dpkg-query.1.gz: OK
-usr/share/man/de/man1/dpkg.1.gz: OK
-usr/share/man/de/man1/dpkg-trigger.1.gz: OK
-usr/share/man/de/man1/dpkg-deb.1.gz: OK
-usr/share/man/de/man1/dpkg-split.1.gz: OK
+usr/share/man/sv/man8/start-stop-daemon.8.gz: OK
+usr/share/man/sv/man1/dpkg-query.1.gz: OK
+usr/share/man/sv/man1/dpkg-deb.1.gz: OK
+usr/share/man/sv/man1/dpkg.1.gz: OK
+usr/share/man/sv/man1/dpkg-split.1.gz: OK
+usr/share/man/sv/man1/dpkg-trigger.1.gz: OK
 usr/share/man/de/man5/dpkg.cfg.5.gz: OK
-usr/share/man/de/man8/dpkg-divert.8.gz: OK
 usr/share/man/de/man8/update-alternatives.8.gz: OK
+usr/share/man/de/man8/dpkg-divert.8.gz: OK
 usr/share/man/de/man8/install-info.8.gz: OK
-usr/share/man/de/man8/cleanup-info.8.gz: OK
-usr/share/man/de/man8/start-stop-daemon.8.gz: OK
 usr/share/man/de/man8/dpkg-statoverride.8.gz: OK
-usr/share/man/man8/dpkg-divert.8.gz: OK
-usr/share/man/man8/update-alternatives.8.gz: OK
-usr/share/man/man8/install-info.8.gz: OK
-usr/share/man/man8/cleanup-info.8.gz: OK
-usr/share/man/man8/start-stop-daemon.8.gz: OK
-usr/share/man/man8/dpkg-statoverride.8.gz: OK
-usr/share/man/ja/man8/update-alternatives.8.gz: OK
-usr/share/man/fr/man1/dpkg-query.1.gz: OK
-usr/share/man/fr/man1/dpkg-deb.1.gz: OK
-usr/share/man/fr/man1/dpkg-split.1.gz: OK
+usr/share/man/de/man8/start-stop-daemon.8.gz: OK
+usr/share/man/de/man1/dpkg-query.1.gz: OK
+usr/share/man/de/man1/dpkg-deb.1.gz: OK
+usr/share/man/de/man1/dpkg.1.gz: OK
+usr/share/man/de/man1/dpkg-split.1.gz: OK
+usr/share/man/de/man1/dpkg-trigger.1.gz: OK
+usr/share/man/man5/dpkg.cfg.5.gz: OK
 usr/share/man/fr/man5/dpkg.cfg.5.gz: OK
 usr/share/man/fr/man8/dpkg-divert.8.gz: OK
-usr/share/man/fr/man8/update-alternatives.8.gz: OK
 usr/share/man/fr/man8/install-info.8.gz: OK
-usr/share/man/fr/man8/cleanup-info.8.gz: OK
 usr/share/man/fr/man8/dpkg-statoverride.8.gz: OK
-usr/lib/dpkg/mksplit: OK
+usr/share/man/fr/man8/start-stop-daemon.8.gz: OK
+usr/share/man/fr/man1/dpkg-query.1.gz: OK
+usr/share/man/fr/man1/dpkg-deb.1.gz: OK
+usr/share/man/fr/man1/dpkg.1.gz: OK
+usr/share/man/fr/man1/dpkg-split.1.gz: OK
+usr/share/man/fr/man1/dpkg-trigger.1.gz: OK
+usr/share/man/hu/man5/dpkg.cfg.5.gz: OK
+usr/share/man/pl/man5/dpkg.cfg.5.gz: OK
+usr/share/man/pl/man8/dpkg-divert.8.gz: OK
+usr/share/man/pl/man8/install-info.8.gz: OK
+usr/share/man/pl/man8/dpkg-statoverride.8.gz: OK
+usr/share/man/pl/man8/start-stop-daemon.8.gz: OK
+usr/share/man/pl/man1/dpkg-query.1.gz: OK
+usr/share/man/pl/man1/dpkg-deb.1.gz: OK
+usr/share/man/pl/man1/dpkg.1.gz: OK
+usr/share/man/pl/man1/dpkg-split.1.gz: OK
+usr/share/man/pl/man1/dpkg-trigger.1.gz: OK
+usr/share/man/man8/update-alternatives.8.gz: OK
+usr/share/man/man8/dpkg-divert.8.gz: OK
+usr/share/man/man8/install-info.8.gz: OK
+usr/share/man/man8/dpkg-statoverride.8.gz: OK
+usr/share/man/man8/start-stop-daemon.8.gz: OK
+usr/share/man/man1/dpkg-query.1.gz: OK
+usr/share/man/man1/dpkg-deb.1.gz: OK
+usr/share/man/man1/dpkg.1.gz: OK
+usr/share/man/man1/dpkg-split.1.gz: OK
+usr/share/man/man1/dpkg-trigger.1.gz: OK
+usr/share/perl5/Dpkg/Gettext.pm: OK
+usr/share/perl5/Dpkg.pm: OK
+usr/bin/dpkg-trigger: OK
+usr/bin/dpkg-deb: OK
+usr/bin/dpkg: OK
 usr/bin/dpkg-query: OK
 usr/bin/dpkg-split: OK
-usr/bin/dpkg-deb: OK
-usr/bin/dpkg-trigger: OK
-usr/bin/dpkg: OK
-usr/sbin/cleanup-info: OK
+usr/bin/dpkg-divert: OK
+usr/bin/update-alternatives: OK
+usr/bin/dpkg-statoverride: OK
 usr/sbin/install-info: OK
-usr/sbin/update-alternatives: OK
-usr/sbin/dpkg-statoverride: OK
-usr/sbin/dpkg-divert: OK
+usr/lib/dpkg/mksplit: OK
 sbin/start-stop-daemon: OK
 -------------------------------
 
 -------------------------------
-running: dlocate -md5check apt
+running: ./dlocate -md5check apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 usr/lib/dpkg/methods/apt/update: OK
 usr/lib/dpkg/methods/apt/desc.apt: OK
 usr/lib/dpkg/methods/apt/setup: OK
 usr/lib/dpkg/methods/apt/names: OK
 usr/lib/dpkg/methods/apt/install: OK
-usr/lib/libapt-pkg-libc6.7-6.so.4.6.0: OK
 usr/lib/apt/methods/cdrom: OK
 usr/lib/apt/methods/copy: OK
 usr/lib/apt/methods/gpgv: OK
@@ -1485,6 +1671,7 @@ usr/lib/apt/methods/rsh: OK
 usr/lib/apt/methods/file: OK
 usr/lib/apt/methods/rred: OK
 usr/lib/apt/methods/lzma: OK
+usr/lib/libapt-pkg-libc6.9-6.so.4.7.0: OK
 usr/bin/apt-get: OK
 usr/bin/apt-mark: OK
 usr/bin/apt-cdrom: OK
@@ -1492,137 +1679,139 @@ usr/bin/apt-cache: OK
 usr/bin/apt-key: OK
 usr/bin/apt-config: OK
 usr/share/bug/apt/script: OK
+usr/share/lintian/overrides/apt: OK
 usr/share/doc/apt/copyright: OK
+usr/share/doc/apt/examples/apt-https-method-example.conf.gz: OK
 usr/share/doc/apt/examples/configure-index.gz: OK
 usr/share/doc/apt/examples/apt.conf: OK
 usr/share/doc/apt/examples/sources.list: OK
 usr/share/doc/apt/changelog.gz: OK
 usr/share/apt/debian-archive.gpg: OK
-usr/share/locale/ru/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ru/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ru/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ru/LC_MESSAGES/apt.mo: OK
-usr/share/locale/ca/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ca/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ca/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ca/LC_MESSAGES/apt.mo: OK
-usr/share/locale/bg/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/bg/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/bg/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/bg/LC_MESSAGES/apt.mo: OK
-usr/share/locale/cs/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/cs/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/cs/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/cs/LC_MESSAGES/apt.mo: OK
-usr/share/locale/es/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/es/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/es/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/es/LC_MESSAGES/apt.mo: OK
-usr/share/locale/zh_TW/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/zh_TW/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/zh_TW/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/zh_TW/LC_MESSAGES/apt.mo: OK
-usr/share/locale/km/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/km/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/km/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/km/LC_MESSAGES/apt.mo: OK
-usr/share/locale/nn/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/nn/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/nn/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/nn/LC_MESSAGES/apt.mo: OK
-usr/share/locale/he/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/he/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/he/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/he/LC_MESSAGES/apt.mo: OK
-usr/share/locale/cy/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/cy/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/cy/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/cy/LC_MESSAGES/apt.mo: OK
-usr/share/locale/it/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/it/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/it/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/it/LC_MESSAGES/apt.mo: OK
-usr/share/locale/uk/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/uk/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/uk/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/uk/LC_MESSAGES/apt.mo: OK
-usr/share/locale/pl/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/pl/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/pl/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/pl/LC_MESSAGES/apt.mo: OK
-usr/share/locale/sv/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/sv/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/sv/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/sv/LC_MESSAGES/apt.mo: OK
-usr/share/locale/gl/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/gl/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/gl/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/gl/LC_MESSAGES/apt.mo: OK
-usr/share/locale/da/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/da/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/da/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/da/LC_MESSAGES/apt.mo: OK
-usr/share/locale/hu/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/hu/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/hu/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/hu/LC_MESSAGES/apt.mo: OK
-usr/share/locale/bs/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/bs/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/bs/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/bs/LC_MESSAGES/apt.mo: OK
-usr/share/locale/dz/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/dz/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/dz/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/dz/LC_MESSAGES/apt.mo: OK
-usr/share/locale/sk/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/sk/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/sk/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/sk/LC_MESSAGES/apt.mo: OK
-usr/share/locale/nl/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/nl/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/nl/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/nl/LC_MESSAGES/apt.mo: OK
-usr/share/locale/th/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/th/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/th/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/th/LC_MESSAGES/apt.mo: OK
-usr/share/locale/fr/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/fr/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/fr/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/fr/LC_MESSAGES/apt.mo: OK
-usr/share/locale/nb/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/nb/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/nb/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/nb/LC_MESSAGES/apt.mo: OK
-usr/share/locale/en_GB/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/en_GB/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/en_GB/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/en_GB/LC_MESSAGES/apt.mo: OK
-usr/share/locale/ne/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ne/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ne/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ne/LC_MESSAGES/apt.mo: OK
-usr/share/locale/eu/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/eu/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/eu/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/eu/LC_MESSAGES/apt.mo: OK
-usr/share/locale/ko/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ko/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ko/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ko/LC_MESSAGES/apt.mo: OK
-usr/share/locale/zh_CN/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/zh_CN/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/zh_CN/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/zh_CN/LC_MESSAGES/apt.mo: OK
-usr/share/locale/vi/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/vi/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/vi/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/vi/LC_MESSAGES/apt.mo: OK
-usr/share/locale/tl/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/tl/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/tl/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/tl/LC_MESSAGES/apt.mo: OK
-usr/share/locale/pt/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/pt/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/pt/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/pt/LC_MESSAGES/apt.mo: OK
-usr/share/locale/pt_BR/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/pt_BR/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/pt_BR/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/pt_BR/LC_MESSAGES/apt.mo: OK
-usr/share/locale/ja/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ja/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ja/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ja/LC_MESSAGES/apt.mo: OK
-usr/share/locale/ar/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ar/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ar/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ar/LC_MESSAGES/apt.mo: OK
-usr/share/locale/sl/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/sl/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/sl/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/sl/LC_MESSAGES/apt.mo: OK
-usr/share/locale/fi/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/fi/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/fi/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/fi/LC_MESSAGES/apt.mo: OK
-usr/share/locale/ku/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ku/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ku/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ku/LC_MESSAGES/apt.mo: OK
-usr/share/locale/el/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/el/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/el/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/el/LC_MESSAGES/apt.mo: OK
-usr/share/locale/de/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/de/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/de/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/de/LC_MESSAGES/apt.mo: OK
-usr/share/locale/mr/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/mr/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/mr/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/mr/LC_MESSAGES/apt.mo: OK
-usr/share/locale/ro/LC_MESSAGES/libapt-pkg4.6.mo: OK
 usr/share/locale/ro/LC_MESSAGES/libapt-inst1.1.mo: OK
+usr/share/locale/ro/LC_MESSAGES/libapt-pkg4.7.mo: OK
 usr/share/locale/ro/LC_MESSAGES/apt.mo: OK
 usr/share/man/es/man8/apt-cache.8.gz: OK
 usr/share/man/es/man8/apt-get.8.gz: OK
@@ -1660,157 +1849,104 @@ usr/share/man/de/man8/apt.8.gz: OK
 -------------------------------
 
 -------------------------------
-running: dlocate -md5check packagedoesnotexist
+running: ./dlocate -md5check packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or has no md5sums.
 -------------------------------
 
 -------------------------------
-running: dlocate -md5check xlibmesa-glu
-Package xlibmesa-glu not installed or has no md5sums.
+running: ./dlocate -md5check xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or has no md5sums.
 -------------------------------
 
 -------------------------------
-running: dlocate -md5check xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or has no md5sums.
--------------------------------
-
--------------------------------
-running: dlocate -man dlocate
+running: ./dlocate -man dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
 1 dlocate
 1 dpkg-hold
+1 dpkg-purge
 1 dpkg-remove
 1 dpkg-unhold
-1 dpkg-purge
 8 update-dlocatedb
 -------------------------------
 
 -------------------------------
-running: dlocate -man bash
+running: ./dlocate -man bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
 1 bash
-1 rbash
 1 bashbug
 1 clear_console
-7 bash-builtins
+1 rbash
 1 sh
+7 bash-builtins
 -------------------------------
 
 -------------------------------
-running: dlocate -man dpkg
-1 dpkg-query
+running: ./dlocate -man dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
 1 dpkg
-1 dpkg-trigger
 1 dpkg-deb
-1 dpkg-split
-5 dpkg.cfg
-8 dpkg-divert
-8 update-alternatives
-8 install-info
-8 cleanup-info
-8 start-stop-daemon
-8 dpkg-statoverride
-5 dpkg.cfg
 1 dpkg-query
-1 dpkg
+1 dpkg-split
 1 dpkg-trigger
-1 dpkg-deb
-1 dpkg-split
-1 dpkg-query
-1 dpkg
-1 dpkg-trigger
-1 dpkg-deb
-1 dpkg-split
 5 dpkg.cfg
 8 dpkg-divert
-8 update-alternatives
+8 dpkg-statoverride
 8 install-info
-8 cleanup-info
 8 start-stop-daemon
-8 dpkg-statoverride
-5 dpkg.cfg
-1 dpkg-query
-1 dpkg
-1 dpkg-trigger
-1 dpkg-deb
-1 dpkg-split
-5 dpkg.cfg
-8 dpkg-divert
 8 update-alternatives
-8 install-info
-8 cleanup-info
-8 start-stop-daemon
-8 dpkg-statoverride
-8 dpkg-divert
-8 update-alternatives
-8 install-info
-8 cleanup-info
-8 start-stop-daemon
-8 dpkg-statoverride
-8 update-alternatives
-1 dpkg-query
-1 dpkg-deb
-1 dpkg-split
-5 dpkg.cfg
-8 dpkg-divert
-8 update-alternatives
-8 install-info
-8 cleanup-info
-8 dpkg-statoverride
 -------------------------------
 
 -------------------------------
-running: dlocate -man apt
-8 apt-cache
-8 apt-get
-8 apt
-8 apt-config
-8 apt-cdrom
+running: ./dlocate -man apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 5 apt.conf
-5 sources.list
 5 apt_preferences
-8 apt-cache
-8 apt-key
-8 apt-get
-8 apt-secure
+5 sources.list
 8 apt
+8 apt-cache
+8 apt-cdrom
 8 apt-config
+8 apt-get
+8 apt-key
 8 apt-mark
-8 apt-cdrom
-8 apt-cache
-8 apt-key
-8 apt-get
-8 apt-config
-8 apt-cdrom
-5 apt.conf
-5 sources.list
-5 apt_preferences
-5 apt_preferences
-8 apt-cache
-8 apt-get
-8 apt-cdrom
-5 apt.conf
-5 apt.conf
-5 sources.list
-5 apt_preferences
-8 apt
+8 apt-secure
 -------------------------------
 
 -------------------------------
-running: dlocate -man packagedoesnotexist
+running: ./dlocate -man packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or packagedoesnotexist.list is empty.
 -------------------------------
 
 -------------------------------
-running: dlocate -man xlibmesa-glu
-Package xlibmesa-glu not installed or xlibmesa-glu.list is empty.
+running: ./dlocate -man xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or xmp.list is empty.
 -------------------------------
 
 -------------------------------
-running: dlocate -man xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or xlibmesa3-gl.list.list is empty.
--------------------------------
-
--------------------------------
-running: dlocate -lsman dlocate
+running: ./dlocate -lsman dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
 /usr/share/man/man1/dlocate.1.gz
 /usr/share/man/man1/dpkg-hold.1.gz
 /usr/share/man/man1/dpkg-remove.1.gz
@@ -1820,80 +1956,84 @@ running: dlocate -lsman dlocate
 -------------------------------
 
 -------------------------------
-running: dlocate -lsman bash
-/usr/share/man/man1/bash.1.gz
-/usr/share/man/man1/rbash.1.gz
-/usr/share/man/man1/bashbug.1.gz
-/usr/share/man/man1/clear_console.1.gz
+running: ./dlocate -lsman bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
 /usr/share/man/man7/bash-builtins.7.gz
+/usr/share/man/man1/bash.1.gz
+/usr/share/man/man1/clear_console.1.gz
+/usr/share/man/man1/bashbug.1.gz
+/usr/share/man/man1/rbash.1.gz
 /usr/share/man/man1/sh.1.gz
 -------------------------------
 
 -------------------------------
-running: dlocate -lsman dpkg
-/usr/share/man/sv/man1/dpkg-query.1.gz
-/usr/share/man/sv/man1/dpkg.1.gz
-/usr/share/man/sv/man1/dpkg-trigger.1.gz
-/usr/share/man/sv/man1/dpkg-deb.1.gz
-/usr/share/man/sv/man1/dpkg-split.1.gz
+running: ./dlocate -lsman dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
 /usr/share/man/sv/man5/dpkg.cfg.5.gz
-/usr/share/man/sv/man8/dpkg-divert.8.gz
 /usr/share/man/sv/man8/update-alternatives.8.gz
+/usr/share/man/sv/man8/dpkg-divert.8.gz
 /usr/share/man/sv/man8/install-info.8.gz
-/usr/share/man/sv/man8/cleanup-info.8.gz
-/usr/share/man/sv/man8/start-stop-daemon.8.gz
 /usr/share/man/sv/man8/dpkg-statoverride.8.gz
-/usr/share/man/hu/man5/dpkg.cfg.5.gz
-/usr/share/man/man1/dpkg-query.1.gz
-/usr/share/man/man1/dpkg.1.gz
-/usr/share/man/man1/dpkg-trigger.1.gz
-/usr/share/man/man1/dpkg-deb.1.gz
-/usr/share/man/man1/dpkg-split.1.gz
-/usr/share/man/pl/man1/dpkg-query.1.gz
-/usr/share/man/pl/man1/dpkg.1.gz
-/usr/share/man/pl/man1/dpkg-trigger.1.gz
-/usr/share/man/pl/man1/dpkg-deb.1.gz
-/usr/share/man/pl/man1/dpkg-split.1.gz
-/usr/share/man/pl/man5/dpkg.cfg.5.gz
-/usr/share/man/pl/man8/dpkg-divert.8.gz
-/usr/share/man/pl/man8/update-alternatives.8.gz
-/usr/share/man/pl/man8/install-info.8.gz
-/usr/share/man/pl/man8/cleanup-info.8.gz
-/usr/share/man/pl/man8/start-stop-daemon.8.gz
-/usr/share/man/pl/man8/dpkg-statoverride.8.gz
-/usr/share/man/man5/dpkg.cfg.5.gz
-/usr/share/man/de/man1/dpkg-query.1.gz
-/usr/share/man/de/man1/dpkg.1.gz
-/usr/share/man/de/man1/dpkg-trigger.1.gz
-/usr/share/man/de/man1/dpkg-deb.1.gz
-/usr/share/man/de/man1/dpkg-split.1.gz
+/usr/share/man/sv/man8/start-stop-daemon.8.gz
+/usr/share/man/sv/man1/dpkg-query.1.gz
+/usr/share/man/sv/man1/dpkg-deb.1.gz
+/usr/share/man/sv/man1/dpkg.1.gz
+/usr/share/man/sv/man1/dpkg-split.1.gz
+/usr/share/man/sv/man1/dpkg-trigger.1.gz
 /usr/share/man/de/man5/dpkg.cfg.5.gz
-/usr/share/man/de/man8/dpkg-divert.8.gz
 /usr/share/man/de/man8/update-alternatives.8.gz
+/usr/share/man/de/man8/dpkg-divert.8.gz
 /usr/share/man/de/man8/install-info.8.gz
-/usr/share/man/de/man8/cleanup-info.8.gz
-/usr/share/man/de/man8/start-stop-daemon.8.gz
 /usr/share/man/de/man8/dpkg-statoverride.8.gz
-/usr/share/man/man8/dpkg-divert.8.gz
-/usr/share/man/man8/update-alternatives.8.gz
-/usr/share/man/man8/install-info.8.gz
-/usr/share/man/man8/cleanup-info.8.gz
-/usr/share/man/man8/start-stop-daemon.8.gz
-/usr/share/man/man8/dpkg-statoverride.8.gz
-/usr/share/man/ja/man8/update-alternatives.8.gz
-/usr/share/man/fr/man1/dpkg-query.1.gz
-/usr/share/man/fr/man1/dpkg-deb.1.gz
-/usr/share/man/fr/man1/dpkg-split.1.gz
+/usr/share/man/de/man8/start-stop-daemon.8.gz
+/usr/share/man/de/man1/dpkg-query.1.gz
+/usr/share/man/de/man1/dpkg-deb.1.gz
+/usr/share/man/de/man1/dpkg.1.gz
+/usr/share/man/de/man1/dpkg-split.1.gz
+/usr/share/man/de/man1/dpkg-trigger.1.gz
+/usr/share/man/man5/dpkg.cfg.5.gz
 /usr/share/man/fr/man5/dpkg.cfg.5.gz
 /usr/share/man/fr/man8/dpkg-divert.8.gz
-/usr/share/man/fr/man8/update-alternatives.8.gz
 /usr/share/man/fr/man8/install-info.8.gz
-/usr/share/man/fr/man8/cleanup-info.8.gz
 /usr/share/man/fr/man8/dpkg-statoverride.8.gz
+/usr/share/man/fr/man8/start-stop-daemon.8.gz
+/usr/share/man/fr/man1/dpkg-query.1.gz
+/usr/share/man/fr/man1/dpkg-deb.1.gz
+/usr/share/man/fr/man1/dpkg.1.gz
+/usr/share/man/fr/man1/dpkg-split.1.gz
+/usr/share/man/fr/man1/dpkg-trigger.1.gz
+/usr/share/man/hu/man5/dpkg.cfg.5.gz
+/usr/share/man/pl/man5/dpkg.cfg.5.gz
+/usr/share/man/pl/man8/dpkg-divert.8.gz
+/usr/share/man/pl/man8/install-info.8.gz
+/usr/share/man/pl/man8/dpkg-statoverride.8.gz
+/usr/share/man/pl/man8/start-stop-daemon.8.gz
+/usr/share/man/pl/man1/dpkg-query.1.gz
+/usr/share/man/pl/man1/dpkg-deb.1.gz
+/usr/share/man/pl/man1/dpkg.1.gz
+/usr/share/man/pl/man1/dpkg-split.1.gz
+/usr/share/man/pl/man1/dpkg-trigger.1.gz
+/usr/share/man/man8/update-alternatives.8.gz
+/usr/share/man/man8/dpkg-divert.8.gz
+/usr/share/man/man8/install-info.8.gz
+/usr/share/man/man8/dpkg-statoverride.8.gz
+/usr/share/man/man8/start-stop-daemon.8.gz
+/usr/share/man/man1/dpkg-query.1.gz
+/usr/share/man/man1/dpkg-deb.1.gz
+/usr/share/man/man1/dpkg.1.gz
+/usr/share/man/man1/dpkg-split.1.gz
+/usr/share/man/man1/dpkg-trigger.1.gz
 -------------------------------
 
 -------------------------------
-running: dlocate -lsman apt
+running: ./dlocate -lsman apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 /usr/share/man/es/man8/apt-cache.8.gz
 /usr/share/man/es/man8/apt-get.8.gz
 /usr/share/man/es/man8/apt.8.gz
@@ -1930,22 +2070,27 @@ running: dlocate -lsman apt
 -------------------------------
 
 -------------------------------
-running: dlocate -lsman packagedoesnotexist
+running: ./dlocate -lsman packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or packagedoesnotexist.list is empty.
 -------------------------------
 
 -------------------------------
-running: dlocate -lsman xlibmesa-glu
-Package xlibmesa-glu not installed or xlibmesa-glu.list is empty.
+running: ./dlocate -lsman xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or xmp.list is empty.
 -------------------------------
 
 -------------------------------
-running: dlocate -lsman xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or xlibmesa3-gl.list.list is empty.
--------------------------------
-
--------------------------------
-running: dlocate -lsbin dlocate
+running: ./dlocate -lsbin dlocate
+PKGS: dlocate
+RE_SEPARATOR: |
+PKGS_REGEXP: dlocate
+/etc/bash_completion.d/dlocate-completion
 /etc/cron.daily/dlocate
 /usr/bin/dlocate
 /usr/sbin/dpkg-hold
@@ -1956,7 +2101,10 @@ running: dlocate -lsbin dlocate
 -------------------------------
 
 -------------------------------
-running: dlocate -lsbin bash
+running: ./dlocate -lsbin bash
+PKGS: bash
+RE_SEPARATOR: |
+PKGS_REGEXP: bash
 /bin/bash
 /bin/rbash
 /bin/sh
@@ -1965,15 +2113,20 @@ running: dlocate -lsbin bash
 -------------------------------
 
 -------------------------------
-running: dlocate -lsbin dpkg
+running: ./dlocate -lsbin dpkg
+PKGS: dpkg
+RE_SEPARATOR: |
+PKGS_REGEXP: dpkg
 /sbin/start-stop-daemon
 /usr/bin/dpkg
 /usr/bin/dpkg-deb
+/usr/bin/dpkg-divert
 /usr/bin/dpkg-query
 /usr/bin/dpkg-split
+/usr/bin/dpkg-statoverride
 /usr/bin/dpkg-trigger
+/usr/bin/update-alternatives
 /usr/lib/dpkg/mksplit
-/usr/sbin/cleanup-info
 /usr/sbin/dpkg-divert
 /usr/sbin/dpkg-statoverride
 /usr/sbin/install-info
@@ -1981,7 +2134,10 @@ running: dlocate -lsbin dpkg
 -------------------------------
 
 -------------------------------
-running: dlocate -lsbin apt
+running: ./dlocate -lsbin apt
+PKGS: apt
+RE_SEPARATOR: |
+PKGS_REGEXP: apt
 /etc/cron.daily/apt
 /usr/bin/apt-cache
 /usr/bin/apt-cdrom
@@ -2008,17 +2164,18 @@ running: dlocate -lsbin apt
 -------------------------------
 
 -------------------------------
-running: dlocate -lsbin packagedoesnotexist
+running: ./dlocate -lsbin packagedoesnotexist
+PKGS: packagedoesnotexist
+RE_SEPARATOR: |
+PKGS_REGEXP: packagedoesnotexist
 Package packagedoesnotexist not installed or packagedoesnotexist.list is empty.
 -------------------------------
 
 -------------------------------
-running: dlocate -lsbin xlibmesa-glu
-Package xlibmesa-glu not installed or xlibmesa-glu.list is empty.
--------------------------------
-
--------------------------------
-running: dlocate -lsbin xlibmesa3-gl.list
-Package xlibmesa3-gl.list not installed or xlibmesa3-gl.list.list is empty.
+running: ./dlocate -lsbin xmp
+PKGS: xmp
+RE_SEPARATOR: |
+PKGS_REGEXP: xmp
+Package xmp not installed or xmp.list is empty.
 -------------------------------
 

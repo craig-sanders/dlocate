@@ -12,22 +12,22 @@
 .\" .sp <n>    insert n+1 empty lines
 .\" for manpage-specific macros, see man(7)
 .SH NAME
-update\-dlocatedb - Generate database of installed files for dlocate
+update\-dlocatedb - Generate text database of installed files for dlocate
 .SH SYNOPSIS
 .B update\-dlocatedb
 .SH DESCRIPTION
 .B update\-dlocatedb
-generates a GNU locate style database for 
+generates a plain text package contents listing
 .B dlocate
 from the files /var/lib/dpkg/info/*.list
 This program is usually called from cron.daily.
 .SH FILES
 .TP
 .I /var/lib/dpkg/info
-dpkg file list
+directory containing dpkg file lists
 .TP
-.I /var/lib/dlocate/dlocatedb
-generated database
+.I /var/lib/dlocate/dlocatedb.txt
+generated listing
 .SH SEE ALSO
 .BR "dlocate(1)"
 .P
