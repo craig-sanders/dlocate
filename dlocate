@@ -65,7 +65,7 @@ __EOF__
 }
 
 function dlocate_version {
-  VERSION_BANNER="1.0"
+  VERSION_BANNER="1.01"
   echo "dlocate version $VERSION_BANNER"
   exit 0
 }
@@ -142,7 +142,7 @@ for p in "$@"; do
             ;;
 
         ('-P'|'--perl-regexp')
-                RE_TYPE='-E'
+                RE_TYPE='-P'
                 RE_SEPARATOR='|'
             ;;
 
@@ -226,9 +226,11 @@ elif [ "$OPTION" = '-S' ] ; then
         echo
         exit 1
     fi
+    PREFIX="^([-a-zA-Z0-9_.+]+:|diversion by )"
+    [ "$RE_TYPE" = "-G" ] && PREFIX="^([-a-zA-Z0-9_.+]+:\|diversion by )"
 
-    [ "$VERBOSE" = "1" ] && echo RUNNING: grep $RE_TYPE $IGNORE_CASE"^[-a-zA-Z0-9_.+]+:.*$FILES_REGEXP" "$DLOCATEDB"
-    grep $RE_TYPE $IGNORE_CASE "^[-a-zA-Z0-9_.+]+:.*$FILES_REGEXP" "$DLOCATEDB"
+    [ "$VERBOSE" = "1" ] && echo RUNNING: grep $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB"
+    grep $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB"
     result=$?
 
 elif [ "$OPTION" = 'DEFAULT' ] ; then

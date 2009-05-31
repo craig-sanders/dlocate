@@ -72,12 +72,27 @@ if (%old_stamps and open(DB, '<', $dbfile)) {
 }
 
 foreach my $pkg (@new_pkgs) {
-    open(FILE, '<', "$pkg.list") or die "$program: can't open file $pkg: $!\n";
+    open(FILE, '<', "$pkg.list") or die "$program: can't open $pkg for read: $!\n";
     foreach (<FILE>) {
         print DBFILE $pkg, ': ', $_;
     }
     close FILE;
 }
+
+# append diversions info to dlocatedb.txt
+my $divfile = '/var/lib/dpkg/diversions';
+
+open(DIVERSIONS,"<",$divfile) or die "$program: can't open $divfile for read: $!\n";
+while (my $from = <DIVERSIONS>) {
+  my $to = <DIVERSIONS>;
+  my $pkg = <DIVERSIONS>;
+  chomp($from, $to, $pkg);
+  print DBFILE "diversion by $pkg from: $from\n";
+  print DBFILE "diversion by $pkg to: $to\n";
+}
+close(DIVERSIONS);
+
+
 close DBFILE;
 
 # Create a backup to the database before replacing it with the new database.

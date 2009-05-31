@@ -1,3 +1,11 @@
+dlocate (1.01) unstable; urgency=low
+
+  * added support for diversions (Closes: #304045)
+  * fixed copy/paste error for -P (now correctly passes -P to grep rather than -E)
+  * really moved the four dpkg-* man pages to section 8
+
+ -- Craig Sanders <cas@taz.net.au>  Mon, 01 Jun 2009 09:56:54 +1000
+
 dlocate (1.0) unstable; urgency=low
 
   * no longer use frcode and locate, see discussion in 494673.  removed
