@@ -1,0 +1,9 @@
+# You can enable compression if you are short on disk space and don't
+# mind dlocate being about 10 times slower.
+#
+# 1 = enable compression
+# anything else = disable compression
+#
+# disabled by default.
+
+COMPRESS_DLOCATE="0"

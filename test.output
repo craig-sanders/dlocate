@@ -3,7 +3,8 @@ running: ./dlocate   /usr/bin/dlocate
 PKGS: /usr/bin/dlocate
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/bin/dlocate
-RUNNING: grep -E /usr/bin/dlocate /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E /usr/bin/dlocate /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 dlocate: /usr/bin/dlocate
 -------------------------------
 
@@ -12,7 +13,8 @@ running: ./dlocate   /usr/sbin/cron
 PKGS: /usr/sbin/cron
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/sbin/cron
-RUNNING: grep -E /usr/sbin/cron /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E /usr/sbin/cron /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 cron: /usr/sbin/cron
 cronolog: /usr/sbin/cronolog
 -------------------------------
@@ -22,7 +24,8 @@ running: ./dlocate   /usr/bin/dpkg
 PKGS: /usr/bin/dpkg
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/bin/dpkg
-RUNNING: grep -E /usr/bin/dpkg /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E /usr/bin/dpkg /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 dpkg-sig: /usr/bin/dpkg-sig
 dpkg: /usr/bin/dpkg-trigger
 dpkg: /usr/bin/dpkg-deb
@@ -56,7 +59,8 @@ running: ./dlocate   /usr/bin/apt
 PKGS: /usr/bin/apt
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/bin/apt
-RUNNING: grep -E /usr/bin/apt /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E /usr/bin/apt /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 apt: /usr/bin/apt-get
 apt: /usr/bin/apt-mark
 apt: /usr/bin/apt-cdrom
@@ -83,7 +87,8 @@ running: ./dlocate   /tmp/foo/bar/filedoesnotexist
 PKGS: /tmp/foo/bar/filedoesnotexist
 RE_SEPARATOR: |
 PKGS_REGEXP: /tmp/foo/bar/filedoesnotexist
-RUNNING: grep -E /tmp/foo/bar/filedoesnotexist /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E /tmp/foo/bar/filedoesnotexist /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 -------------------------------
 
 -------------------------------
@@ -91,7 +96,8 @@ running: ./dlocate -S /usr/bin/dlocate
 PKGS: /usr/bin/dlocate
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/bin/dlocate
-RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/bin/dlocate) /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E ^([-a-zA-Z0-9_.+]+:|diversion by ).*(/usr/bin/dlocate) /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 dlocate: /usr/bin/dlocate
 -------------------------------
 
@@ -100,7 +106,8 @@ running: ./dlocate -S /usr/sbin/cron
 PKGS: /usr/sbin/cron
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/sbin/cron
-RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/sbin/cron) /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E ^([-a-zA-Z0-9_.+]+:|diversion by ).*(/usr/sbin/cron) /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 cron: /usr/sbin/cron
 cronolog: /usr/sbin/cronolog
 -------------------------------
@@ -110,7 +117,8 @@ running: ./dlocate -S /usr/bin/dpkg
 PKGS: /usr/bin/dpkg
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/bin/dpkg
-RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/bin/dpkg) /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E ^([-a-zA-Z0-9_.+]+:|diversion by ).*(/usr/bin/dpkg) /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 dpkg-sig: /usr/bin/dpkg-sig
 dpkg: /usr/bin/dpkg-trigger
 dpkg: /usr/bin/dpkg-deb
@@ -144,7 +152,8 @@ running: ./dlocate -S /usr/bin/apt
 PKGS: /usr/bin/apt
 RE_SEPARATOR: |
 PKGS_REGEXP: /usr/bin/apt
-RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/usr/bin/apt) /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E ^([-a-zA-Z0-9_.+]+:|diversion by ).*(/usr/bin/apt) /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 apt: /usr/bin/apt-get
 apt: /usr/bin/apt-mark
 apt: /usr/bin/apt-cdrom
@@ -171,7 +180,8 @@ running: ./dlocate -S /tmp/foo/bar/filedoesnotexist
 PKGS: /tmp/foo/bar/filedoesnotexist
 RE_SEPARATOR: |
 PKGS_REGEXP: /tmp/foo/bar/filedoesnotexist
-RUNNING: grep -E ^[-a-zA-Z0-9_.+]+:.*(/tmp/foo/bar/filedoesnotexist) /var/lib/dlocate/dlocatedb.txt
+RUNNING: grep -E ^([-a-zA-Z0-9_.+]+:|diversion by ).*(/tmp/foo/bar/filedoesnotexist) /var/lib/dlocate/dlocatedb
+OUTPUT FILTER: none
 -------------------------------
 
 -------------------------------
@@ -185,7 +195,7 @@ Desired=Unknown/Install/Remove/Purge/Hold
 |/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
 ||/ Name                                  Version                               Description
 +++-=====================================-=====================================-============================================================================================
-ii  dlocate                               0.96.2                                fast alternative to dpkg -L and dpkg -S
+iF  dlocate                               1.02                                  fast alternative to dpkg -L and dpkg -S
 -------------------------------
 
 -------------------------------
@@ -227,7 +237,7 @@ Desired=Unknown/Install/Remove/Purge/Hold
 +++-=====================================-=====================================-============================================================================================
 ii  apt                                   0.7.21                                Advanced front-end for dpkg
 ii  apt-dpkg-ref                          5.3                                   APT, Dpkg Quick Reference sheet
-ii  dlocate                               0.96.2                                fast alternative to dpkg -L and dpkg -S
+iF  dlocate                               1.02                                  fast alternative to dpkg -L and dpkg -S
 ii  dpkg                                  1.15.2                                Debian package management system
 ii  dpkg-awk                              1.0.3                                 Gawk script to parse /var/lib/dpkg/{status,a
 pn  dpkg-cross                            <none>                                (no description available)
@@ -523,6 +533,7 @@ PKGS_REGEXP: dlocate
 4	/etc/bash_completion.d/dlocate-completion
 4	/etc/cron.daily/dlocate
 4	/etc/cron.daily/dlocate.dpkg-old
+4	/etc/default/dlocate
 12	/usr/bin/dlocate
 4	/usr/sbin/dpkg-hold
 4	/usr/sbin/dpkg-purge
@@ -533,12 +544,12 @@ PKGS_REGEXP: dlocate
 4	/usr/share/doc/dlocate/copyright
 4	/usr/share/doc/dlocate/README.Debian
 4	/usr/share/man/man1/dlocate.1.gz
-4	/usr/share/man/man1/dpkg-hold.1.gz
-4	/usr/share/man/man1/dpkg-purge.1.gz
-4	/usr/share/man/man1/dpkg-remove.1.gz
-4	/usr/share/man/man1/dpkg-unhold.1.gz
+4	/usr/share/man/man8/dpkg-hold.8.gz
+4	/usr/share/man/man8/dpkg-purge.8.gz
+4	/usr/share/man/man8/dpkg-remove.8.gz
+4	/usr/share/man/man8/dpkg-unhold.8.gz
 4	/usr/share/man/man8/update-dlocatedb.8.gz
-84	total
+88	total
 -------------------------------
 
 -------------------------------
@@ -964,6 +975,7 @@ PKGS: dlocate
 RE_SEPARATOR: |
 PKGS_REGEXP: dlocate
 /etc/bash_completion.d/dlocate-completion
+/etc/default/dlocate
 /etc/cron.daily/dlocate
 -------------------------------
 
@@ -1021,6 +1033,7 @@ RE_SEPARATOR: |
 PKGS_REGEXP: dlocate
 -rwxr-xr-x 1 root root 567 2008-06-27 20:38 /etc/bash_completion.d/dlocate-completion*
 -rwxr-xr-x 1 root root 832 2008-06-27 18:34 /etc/cron.daily/dlocate*
+-rw-r--r-- 1 root root 226 2009-06-03 10:36 /etc/default/dlocate
 -------------------------------
 
 -------------------------------
@@ -1075,21 +1088,21 @@ running: ./dlocate -md5sum dlocate
 PKGS: dlocate
 RE_SEPARATOR: |
 PKGS_REGEXP: dlocate
-c274b2df17fd49dcdf9fe3583dea0105  usr/bin/dlocate
-89088e7577f4e4dbfd1ff248e8b1f67d  usr/sbin/dpkg-unhold
-e2a3694c13269489d319eb5395927f40  usr/sbin/update-dlocatedb
+f3e65e667f7c38337138c7ebc3e47628  usr/bin/dlocate
+05a03db74e420755ddce99e11f903bef  usr/sbin/update-dlocatedb
 c6fd2cc6a2ed1e5c9aa42d04e219bad4  usr/sbin/dpkg-hold
-1b2c9b3b9a8c8197bb71f326dd42d3b2  usr/sbin/dpkg-purge
+89088e7577f4e4dbfd1ff248e8b1f67d  usr/sbin/dpkg-unhold
 9e9f1afd4ea2002c3301bbdc041b0a95  usr/sbin/dpkg-remove
+1b2c9b3b9a8c8197bb71f326dd42d3b2  usr/sbin/dpkg-purge
 df2b44f95ce2d2b721408d44abeb36ed  usr/share/doc/dlocate/README.Debian
-ebafc214ace26c08a26a26e7c0cb2c46  usr/share/doc/dlocate/changelog.gz
-35de09b95ed44d2ed923c0ad132fb1cf  usr/share/doc/dlocate/copyright
-1f934839ccda0fa07e7397415353ae80  usr/share/man/man1/dlocate.1.gz
-3ee648fb180fe26b0216b75fb4bbf642  usr/share/man/man1/dpkg-hold.1.gz
-46a0e76b2ccbd075905555f076b5ea42  usr/share/man/man1/dpkg-remove.1.gz
-b7d3a3f0d6bb37b50c238c0458f45199  usr/share/man/man1/dpkg-unhold.1.gz
-89f0bb6c94db84e45d83c8f307441e10  usr/share/man/man1/dpkg-purge.1.gz
-ad11cad5be99f05452da33c6eda56a4a  usr/share/man/man8/update-dlocatedb.8.gz
+e56ac51480ec0fc86ca9146e8fb13984  usr/share/doc/dlocate/copyright
+e13cf7dd2a5763048a034591bc86e1a9  usr/share/doc/dlocate/changelog.gz
+4c4297f881021f212799444c739106c3  usr/share/man/man1/dlocate.1.gz
+47fa38fac41bb3070f5b5e0a7b064eb9  usr/share/man/man8/update-dlocatedb.8.gz
+25939ee6d0a4f4aa6d067086703a9e49  usr/share/man/man8/dpkg-hold.8.gz
+59bf393aed35fa2b6a20fffefa931f79  usr/share/man/man8/dpkg-unhold.8.gz
+64c8b3c0645898d5f2409424932035f5  usr/share/man/man8/dpkg-remove.8.gz
+a2c27ddbc157ab8472529c9cd935a19c  usr/share/man/man8/dpkg-purge.8.gz
 -------------------------------
 
 -------------------------------
@@ -1473,20 +1486,20 @@ PKGS: dlocate
 RE_SEPARATOR: |
 PKGS_REGEXP: dlocate
 usr/bin/dlocate: OK
-usr/sbin/dpkg-unhold: OK
 usr/sbin/update-dlocatedb: OK
 usr/sbin/dpkg-hold: OK
-usr/sbin/dpkg-purge: OK
+usr/sbin/dpkg-unhold: OK
 usr/sbin/dpkg-remove: OK
+usr/sbin/dpkg-purge: OK
 usr/share/doc/dlocate/README.Debian: OK
-usr/share/doc/dlocate/changelog.gz: OK
 usr/share/doc/dlocate/copyright: OK
+usr/share/doc/dlocate/changelog.gz: OK
 usr/share/man/man1/dlocate.1.gz: OK
-usr/share/man/man1/dpkg-hold.1.gz: OK
-usr/share/man/man1/dpkg-remove.1.gz: OK
-usr/share/man/man1/dpkg-unhold.1.gz: OK
-usr/share/man/man1/dpkg-purge.1.gz: OK
 usr/share/man/man8/update-dlocatedb.8.gz: OK
+usr/share/man/man8/dpkg-hold.8.gz: OK
+usr/share/man/man8/dpkg-unhold.8.gz: OK
+usr/share/man/man8/dpkg-remove.8.gz: OK
+usr/share/man/man8/dpkg-purge.8.gz: OK
 -------------------------------
 
 -------------------------------
@@ -1870,10 +1883,10 @@ PKGS: dlocate
 RE_SEPARATOR: |
 PKGS_REGEXP: dlocate
 1 dlocate
-1 dpkg-hold
-1 dpkg-purge
-1 dpkg-remove
-1 dpkg-unhold
+8 dpkg-hold
+8 dpkg-purge
+8 dpkg-remove
+8 dpkg-unhold
 8 update-dlocatedb
 -------------------------------
 
@@ -1948,11 +1961,11 @@ PKGS: dlocate
 RE_SEPARATOR: |
 PKGS_REGEXP: dlocate
 /usr/share/man/man1/dlocate.1.gz
-/usr/share/man/man1/dpkg-hold.1.gz
-/usr/share/man/man1/dpkg-remove.1.gz
-/usr/share/man/man1/dpkg-unhold.1.gz
-/usr/share/man/man1/dpkg-purge.1.gz
 /usr/share/man/man8/update-dlocatedb.8.gz
+/usr/share/man/man8/dpkg-hold.8.gz
+/usr/share/man/man8/dpkg-unhold.8.gz
+/usr/share/man/man8/dpkg-remove.8.gz
+/usr/share/man/man8/dpkg-purge.8.gz
 -------------------------------
 
 -------------------------------

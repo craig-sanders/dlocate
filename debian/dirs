@@ -2,3 +2,4 @@ usr/bin
 usr/sbin
 var/lib/dlocate
 etc/bash_completion.d
+etc/default

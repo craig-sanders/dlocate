@@ -10,17 +10,36 @@
 
 # 2009-05-30   Craig Sanders <cas@taz.net.au>
 # - rewrote script to output a plain text listing rather than use frcode
+#
+# 2009-06-03 # Craig Sanders <cas@taz.net.au>
+# - added optional support for compressing /var/lib/dlocatedb
 
 use strict;
 use File::Basename;
 
 my $program = basename($0);
 
-my $dbfile='/var/lib/dlocate/dlocatedb.txt';
+my $dbfile='/var/lib/dlocate/dlocatedb';
 my $stampsfile='/var/lib/dlocate/dlocatedb.stamps';
-#my $dbfile='/tmp/dlocate.txt';
+#my $dbfile='/tmp/dlocate';
 #my $stampsfile='/tmp/dlocate.stamps';
 my $infodir='/var/lib/dpkg/info';
+
+my $compress=0;
+my $defaults='/etc/default/dlocate';
+if (open(DEFAULTS,'<', $defaults)) {
+    while (<DEFAULTS>) {
+        chomp;
+        s/#.*|^\s*|\s*$//g;
+        next if (/^$/);
+        s/\s|"//g;
+        my ($key,$val) = split /=/;
+        if ($key eq 'COMPRESS_DLOCATE') {
+            $compress = $val;
+        };
+    };
+    close(DEFAULTS);
+};
 
 my (%old_stamps, %stamps);
 
@@ -79,7 +98,7 @@ foreach my $pkg (@new_pkgs) {
     close FILE;
 }
 
-# append diversions info to dlocatedb.txt
+# append diversions info to dlocatedb
 my $divfile = '/var/lib/dpkg/diversions';
 
 open(DIVERSIONS,"<",$divfile) or die "$program: can't open $divfile for read: $!\n";
@@ -103,6 +122,12 @@ if (-e $dbfile) {
 }
 
 rename("$dbfile.new", $dbfile);
+
+# optionally compress dlocatedb
+if ($compress eq "1") {
+    system('gzip','--quiet','--force',$dbfile);
+    rename("$dbfile.gz", $dbfile);
+};
 
 open(STAMPS, '>', "$stampsfile.new") or die "$program: can't create stamps file $stampsfile.new: $!\n";
 print STAMPS "$stamps{$_}:$_\n" for keys %stamps;

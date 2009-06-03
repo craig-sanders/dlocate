@@ -13,9 +13,14 @@
 # hacked by cas to support multiple string/package arguments
 # hacked by cas to add simplistic emulation of 'dpkg -l'
 
-DLOCATEDB=/var/lib/dlocate/dlocatedb.txt
+DLOCATEDB=/var/lib/dlocate/dlocatedb
 DPKGLIST=/var/lib/dlocate/dpkg-list
 DPKG_INFO=/var/lib/dpkg/info
+
+COMPRESS_DLOCATEDB='0'
+GREP='grep'
+[ -e /etc/default/dlocate ] && . /etc/default/dlocate
+[ "$COMPRESS_DLOCATE" = "1" ] && GREP='zgrep'
 
 function dlocate_help {
   cat <<__EOF__
@@ -26,7 +31,7 @@ Commands:
   -S           PATTERN   list records that match filenames
 
   -L           package   list all files in package
-  -l           package   almost-emulation of 'dpkg -l'
+  -l           package   regexp-enhanced emulation of 'dpkg -l'
   -s           package   print package's status
   -ls          package   'ls -ldF' of all files in package
   -du          package   'du -sck' of all files in package
@@ -37,13 +42,21 @@ Commands:
   -man         package   list package's man pages (if any)
   -lsman       package   list full path/filenames of man pages
   -lsbin       package   list full path/filenames of executable files
+  -K                     list installed kernel & related packages
+  -k                     detailed list of installed kernel & related packages
 
   --                    stop processing commands and options.  remainder of
                         command-line is filename(s)
 
+
 The -l, and -S commands are approximately the same as the equivalent dpkg
 options except that the search is performed using regular expressions
 rather than fixed strings.
+
+Options
+
+  --filename-only        only output file names when searching for files
+  --package-only         only output package names when searching for files
 
 Regular Expression Options (see grep(1) for details):
 
@@ -65,7 +78,7 @@ __EOF__
 }
 
 function dlocate_version {
-  VERSION_BANNER="1.01"
+  VERSION_BANNER="1.02"
   echo "dlocate version $VERSION_BANNER"
   exit 0
 }
@@ -91,6 +104,28 @@ IGNORE_CASE=""
 # default to non- word-based searches
 WORD_RE=""
 
+# output filters for -S and DEFAULT option
+OUTPUT_FILTER="none"
+
+function output_filter() {
+  [ "$VERBOSE" = "1" ] && echo "OUTPUT FILTER: $OUTPUT_FILTER"
+
+  case "$OUTPUT_FILTER" in
+
+      ("Filenames only")    
+            cut -d\  -f 2 | sort -u
+            ;;
+
+      ("Packages only")
+            cut -d:  -f 1 | sort -u
+            ;;
+
+      (*)
+            cat
+            ;;
+  esac
+}
+
 VERBOSE=0
 
 SEPARATOR='::::::::'
@@ -114,6 +149,11 @@ for p in "$@"; do
 
         ('-v'|'--verbose'|'--debug')
                 VERBOSE=1
+            ;;
+
+        ('-K'|'-k')
+                OPTION="$p"
+                PKGS="dummy"
             ;;
 
         ('-S'|'-L'|'-l'|'-s'|'-ls'|'-du'|'-conf'|'-lsconf'|'-md5sum'|'-md5check'|'-man'|'-lsman'|'-lsbin')
@@ -148,6 +188,14 @@ for p in "$@"; do
 
         ('-w'|'--word-regexp')
                 WORD_RE="-w"
+            ;;
+
+        ('--filename-only')
+                OUTPUT_FILTER='Filenames only'
+            ;;
+
+        ('--package-only')
+                OUTPUT_FILTER='Packages only'
             ;;
 
         (-*)
@@ -210,9 +258,9 @@ if [ "$OPTION" = '-l' ] ; then
 
     BODY_FMT_STRING="%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n"
 
-    [ "$VERBOSE" = "1" ] && echo RUNNING: grep $RE_TYPE $WORD_RE $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" 
+    [ "$VERBOSE" = "1" ] && echo RUNNING: $GREP $RE_TYPE $WORD_RE $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" 
 
-    BODY=$(grep $RE_TYPE $WORD_RE $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" | \
+    BODY=$($GREP $RE_TYPE $WORD_RE $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" | \
             awk -F'\t' "{ printf \"$BODY_FMT_STRING\", \$1, \$2, \$3, \$4 }" |
             sed -e 's/ *$//g'
           )
@@ -229,14 +277,14 @@ elif [ "$OPTION" = '-S' ] ; then
     PREFIX="^([-a-zA-Z0-9_.+]+:|diversion by )"
     [ "$RE_TYPE" = "-G" ] && PREFIX="^([-a-zA-Z0-9_.+]+:\|diversion by )"
 
-    [ "$VERBOSE" = "1" ] && echo RUNNING: grep $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB"
-    grep $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB"
+    [ "$VERBOSE" = "1" ] && echo RUNNING: $GREP $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB"
+    $GREP $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB" | output_filter
     result=$?
 
 elif [ "$OPTION" = 'DEFAULT' ] ; then
 
-    [ "$VERBOSE" = "1" ] && echo RUNNING: grep $RE_TYPE $IGNORE_CASE $WORD_RE "$PKGS_REGEXP" "$DLOCATEDB"
-    grep $RE_TYPE $IGNORE_CASE $WORD_RE "$PKGS_REGEXP" "$DLOCATEDB"
+    [ "$VERBOSE" = "1" ] && echo RUNNING: $GREP $RE_TYPE $IGNORE_CASE $WORD_RE "$PKGS_REGEXP" "$DLOCATEDB"
+    $GREP $RE_TYPE $IGNORE_CASE $WORD_RE "$PKGS_REGEXP" "$DLOCATEDB" | output_filter
     result=$?
 
 elif [ "$OPTION" = '-s' ] ; then
@@ -244,6 +292,21 @@ elif [ "$OPTION" = '-s' ] ; then
 
     [ "$VERBOSE" = "1" ] && echo RUNNING: grep-dctrl -X -P $DCTRL_RE_TYPE $DCTRL_REGEXP /var/lib/dpkg/status 
     grep-dctrl -P $DCTRL_RE_TYPE $DCTRL_REGEXP /var/lib/dpkg/status 
+    result=$?
+
+elif [ "$OPTION" = '-k' ] ; then
+
+    grep-status -P -e "(^linux-(image|source|headers|doc|debug)|nvidia-kernel-|.*-modules-)" | \
+        grep-dctrl -n -s Package -F status " installed" - | \
+        egrep -v -- '^(lib|openser|pam|scim|tryton|wims)|-perl'
+
+    result=$?
+
+elif [ "$OPTION" = '-K' ] ; then
+    KERN_RE=$(dlocate -k | xargs | sed -e 's/ /|/g')
+
+    [ "$VERBOSE" = "1" ] && echo echo RUNNING: dlocate -P -l "\s($KERN_RE)\s"
+    dlocate -P -l "\s($KERN_RE)\s"
     result=$?
 
 else

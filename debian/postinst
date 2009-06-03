@@ -22,9 +22,11 @@ set -e
 #     installation fails and the `postinst' is called with `abort-upgrade',
 #     `abort-remove' or `abort-deconfigure'.
 
-# remove old frcode dlocatedb if it exists
-[ -e /var/lib/dlocate/dlocatedb ] && rm -f /var/lib/dlocate/dlocatedb
-[ -e /var/lib/dlocate/dlocatedb.old ] && rm -f /var/lib/dlocate/dlocatedb.old
+# remove old versions of dlocatedb if any exist
+#[ -e /var/lib/dlocate/dlocatedb ] && rm -f /var/lib/dlocate/dlocatedb
+#[ -e /var/lib/dlocate/dlocatedb.old ] && rm -f /var/lib/dlocate/dlocatedb.old
+[ -e /var/lib/dlocate/dlocatedb.txt ] && rm -f /var/lib/dlocate/dlocatedb.txt
+[ -e /var/lib/dlocate/dlocatedb.txt.old ] && rm -f /var/lib/dlocate/dlocatedb.txt.old
 
 case "$1" in
     configure)

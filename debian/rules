@@ -20,7 +20,8 @@ install: install-stamp
 install-stamp: build-stamp
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	#dh_clean -k
+	dh_prep
 	dh_installdirs
 	$(MAKE) DESTDIR=`pwd`/debian/`dh_listpackages` install
 	touch install-stamp
@@ -37,7 +38,7 @@ binary-indep: build install
 #	dh_installemacsen
 #	dh_installpam
 #	dh_installmime
-#	dh_installinit
+	dh_installinit -n -r --no-start
 	dh_installcron
 	dh_installman
 #	dh_installinfo
