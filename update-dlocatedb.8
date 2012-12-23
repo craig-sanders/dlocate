@@ -12,7 +12,7 @@
 .\" .sp <n>    insert n+1 empty lines
 .\" for manpage-specific macros, see man(7)
 .SH NAME
-update\-dlocatedb - Generate text database of installed files for dlocate
+update\-dlocatedb - generate text database of installed files for dlocate
 
 .SH SYNOPSIS
 .B update\-dlocatedb
@@ -27,24 +27,24 @@ This program is usually called from cron.daily.
 .SH FILES
 .TP
 .I /etc/default/dlocate
-Configuration file with default options.  Currently the only option is
-to enable/disable gzip compression of the dlocatedb.txt file
+Configuration file with default options. Currently the only option is
+to enable/disable gzip compression of the dlocatedb file.
 .TP
 
 .I /var/lib/dpkg/info
-directory containing dpkg file lists
+Directory containing dpkg file lists
 .TP
 
 .TP
-.I /var/lib/dlocate/dlocatedb.txt
-plain text listing of all files belonging to all packages (optionally compressed)
+.I /var/lib/dlocate/dlocatedb
+Plain text listing of all files belonging to all packages (optionally compressed)
 
 .SH SEE ALSO
 .BR "dlocate(1)"
 .P
 .SH AUTHOR
 This version of update\-dlocatedb was written by Fredrik Hallenberg,
-Craig Sanders, and Pawel Chmielowski.  The manual page was written
+Craig Sanders, and Pawel Chmielowski. The manual page was written
 by Andreas Metzler <ametzler at downhill.at.eu.org> for the Debian
 GNU/Linux system (but may be used by others).
 

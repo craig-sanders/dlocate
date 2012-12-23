@@ -4,8 +4,7 @@
 .\" other parms are allowed: see man(7), man(1)
 
 .SH NAME
-dpkg-remove - program to flag for removal a package or packages
-
+dpkg-remove - mark packages for removal
 
 .SH SYNOPSIS
 .B dpkg-remove
@@ -14,15 +13,14 @@ dpkg-remove - program to flag for removal a package or packages
 .SH "DESCRIPTION"
 .PP
 .B dpkg-remove
-marks package(s) to be held.
+marks package(s) to be removed.
 
-It achieves this by running `dpkg --set-selections' and piping in the
+It achieves this by running `dpkg \-\-set\-selections' and piping in the
 package name(s) followed by `deinstall'.
 
-NOTE: this program does not install, remove, purge any package. it ONLY
+NOTE: This program does not install, remove, purge any package. It ONLY
 sets the status of the package. any actual removal or purging is done
 the next time dselect, apt-get, aptitude, etc are run.
-
 
 .SH "SEE ALSO"
 \fBdpkg\fP(1),

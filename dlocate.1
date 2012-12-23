@@ -19,7 +19,7 @@ dlocate - program to view debian package information
 .SH "DESCRIPTION"
 .PP
 .B dlocate
-is a fast alternative to dpkg for queries like `dpkg -L' and `dpkg -S'
+is a fast alternative to dpkg for queries like `dpkg \-L' and `dpkg \-S'
 
 .SH COMMANDS
 .TP
@@ -28,19 +28,19 @@ List all records where either the package name or the filename matches
 .IR PATTERN .
 
 Note that dlocate uses GNU grep, so normal regexp metacharacters need to be taken into account or avoided
-by using the '-F' (Fixed String) grep option.
+by using the '\-F' (Fixed String) grep option.
 
 For example, to search for `/usr/bin/[', you might try:
 \fBdlocate '/usr/bin/\\['\fP
 or
-\fBdlocate -F '/usr/bin/['\fP
+\fBdlocate \-F '/usr/bin/['\fP
 .TP
 .BR \-S
-list all records where only the filename matches
+List all records where only the filename matches
 .IR PATTERN .
 
 Note that dlocate uses GNU grep, so normal regexp metacharacters need to be taken into account.
-Fixed String searches are incompatible with -S
+Fixed String searches are incompatible with \-S.
 
 For example, to search for `/usr/bin/[', you need to type:
 
@@ -52,7 +52,7 @@ Regexp-enhanced emulation of `dpkg \-l'.  Shows all packages which match
 .IR package .
 
 Internally this uses grep on a file containing the reformatted
-output output of 'dpkg \-l' (four fields separated by tabs; status,
+output of 'dpkg \-l' (four fields separated by tabs; status,
 package-name, installed version, short description) so it will return
 packages whose version or short description matches, too.
 
@@ -66,14 +66,12 @@ or Perl Regexp:
 
 Both of these will list all the packages whose names start with `libc6'.
 
-
-
 Note that because of the difference between regular expressions and
-dpkg's shell\-style pattern matching, the output from \fBdlocate -l\fP
-is occasionally different to the output from \fBdpkg -l\fP.
+dpkg's shell\-style pattern matching, the output from \fBdlocate \-l\fP
+is occasionally different to the output from \fBdpkg \-l\fP.
 
 This is not a bug, regular expressions are far more flexible than shell
-pattern matching.  This is the way dlocate is supposed to run, but it
+pattern matching. This is the way dlocate is supposed to run, but it
 may require some knowledge of regular expressions to get the output you
 want.
 
@@ -153,10 +151,9 @@ Only output package names when searching for files
 Select only those lines containing matches that form whole words.
 The test is that the matching substring must either be at the
 beginning of the line, or preceded by a non-word constituent
-character.
-Similarly, it must be either at the end of the line
-or followed by a non-word constituent character.
-Word-constituent characters are letters, digits, and the underscore.
+character. Similarly, it must be either at the end of the line
+or followed by a non-word constituent character. Word-constituent
+characters are letters, digits, and the underscore.
 
 .TP
 .BR \-i ", " --ignore-case
@@ -205,12 +202,12 @@ Produce verbose debugging output
 .SH FILES
 .TP
 .I /etc/default/dlocate
-Configuration file with default options.  Currently the only option is
+Configuration file with default options. Currently the only option is
 to enable/disable gzip compression of /var/lib/dlocate/dlocatedb.
 
 .TP
 .I /var/lib/dlocate/dlocatedb
-plain text listing of all files belonging to all packages (optionally compressed)
+Plain text listing of all files belonging to all packages (optionally compressed)
 
 .TP
 .I /var/lib/dlocate/dpkg-list
@@ -228,27 +225,27 @@ To find which package `/usr/bin/[' belongs to:
 
 To view all man pages contained within the dpkg package:
 .br
-\fB     man $(dlocate -man dpkg)\fP
+\fB     man $(dlocate \-man dpkg)\fP
 .br
 
 To purge kernel version 2.6.28.7 and all related module packages:
 .br
-\fB     dlocate -k | grep -- -2.6.28.7 | xargs apt-get purge\fP
+\fB     dlocate \-k | grep \-\- \-2.6.28.7 | xargs apt\-get purge\fP
 .br
 
 To check the md5sums of the dlocate package:
 .br
-\fB     dlocate -md5check dlocate\fP
+\fB     dlocate \-md5check dlocate\fP
 .br
 
 To use dpkg-repack to make a backup copy of all installed mythtv packages just before
 upgrading them:
 .br
-\fB     dlocate -l mythtv | grep '^.i' | awk '{print $2}' | xargs dpkg-repack\fP
+\fB     dlocate \-l mythtv | grep '^.i' | awk '{print $2}' | xargs dpkg\-repack\fP
 .br
 
 .br
-# dlocate -l mythtv | grep '^.i' | awk '{print $2}' | xargs dpkg-repack
+# dlocate \-l mythtv | grep '^.i' | awk '{print $2}' | xargs dpkg\-repack
 .br
 dpkg-deb: building package `libmythtv-perl' in `./libmythtv-perl_0.21.svn20090414-0.0_amd64.deb'.
 .br
@@ -275,12 +272,11 @@ dpkg-deb: building package `mythtvfs' in `./mythtvfs_0.5.2-2_amd64.deb'.
 dpkg-deb: building package `python-mythtv' in `./python-mythtv_0.21.svn20090414-0.0_amd64.deb'.
 .br
 
-
 .SH ENVIRONMENT VARIABLES
 .TP
 .BR COLUMNS
 Sets the number of columns \fBdlocate\fP should use when displaying formatted
-text.  Currently only used by \-l. Values lower than 80 are ignored.
+text. Currently only used by \-l. Values lower than 80 are ignored.
 
 .SH "SEE ALSO"
 \fBdpkg\fP(1),
@@ -288,8 +284,6 @@ text.  Currently only used by \-l. Values lower than 80 are ignored.
 \fBgrep\fP(1)
 and
 \fBgrep\-dctrl\fP(1).
-
-
 
 .SH AUTHOR
 dlocate was written by Jim Pick <jim@pick.com> and Craig Sanders

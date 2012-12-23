@@ -4,8 +4,7 @@
 .\" other parms are allowed: see man(7), man(1)
 
 .SH NAME
-dpkg-hold - program to flag for hold a package or packages
-
+dpkg-hold - mark packages as `hold' to prevent installation
 
 .SH SYNOPSIS
 .B dpkg-hold
@@ -16,13 +15,12 @@ dpkg-hold - program to flag for hold a package or packages
 .B dpkg-hold
 marks package(s) to be held.
 
-It achieves this by running `dpkg --set-selections' and piping in the
+It achieves this by running `dpkg \-\-set\-selections' and piping in the
 package name(s) followed by `hold'.
 
-NOTE: this program does not install, remove, purge any package. it ONLY
+NOTE: This program does not install, remove, purge any package. It ONLY
 sets the status of the package. Any actual removal or purging is done
 the next time dselect, apt-get, aptitude, etc are run.
-
 
 .SH "SEE ALSO"
 \fBdpkg\fP(1),
