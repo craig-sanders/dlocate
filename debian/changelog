@@ -1,3 +1,13 @@
+dlocate (1.02+nmu2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Add missing "--" when invoking grep command (Closes: #587179).
+  * Fix bash completion for package names in dlocate (Closes: # 658669).
+  * Fix incorrect exit code 0 on failed search (Closes: #689647).
+  * Fix parameter passing to dlocate_option_error() in dlocate (Closes: # 690758).
+
+ -- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>  Fri, 28 Dec 2012 15:42:16 +0100
+
 dlocate (1.02+nmu1) unstable; urgency=low
 
   * Non-maintainer upload.
