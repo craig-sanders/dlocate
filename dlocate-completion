@@ -15,7 +15,7 @@ _dlocate()
 		return 0
 		;;
 	-@(L|l|s|ls|du|conf|lsconf|md5sum|md5check|man))
-		COMPREPLY=( $( _comp_dpkg_installed_packages $cur ) )
+		COMPREPLY=( $( _xfunc dpkg _comp_dpkg_installed_packages "$cur" ) )
 		return 0
 		;;
 	*)
