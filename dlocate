@@ -279,13 +279,13 @@ elif [ "$OPTION" = '-S' ] ; then
 
     [ "$VERBOSE" = "1" ] && echo RUNNING: $GREP $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB"
     $GREP $RE_TYPE $IGNORE_CASE "$PREFIX.*$FILES_REGEXP" "$DLOCATEDB" | output_filter
-    result=$?
+    result=${PIPESTATUS[0]}
 
 elif [ "$OPTION" = 'DEFAULT' ] ; then
 
     [ "$VERBOSE" = "1" ] && echo RUNNING: $GREP $RE_TYPE $IGNORE_CASE $WORD_RE "$PKGS_REGEXP" "$DLOCATEDB"
     $GREP $RE_TYPE $IGNORE_CASE $WORD_RE "$PKGS_REGEXP" "$DLOCATEDB" | output_filter
-    result=$?
+    result=${PIPESTATUS[0]}
 
 elif [ "$OPTION" = '-s' ] ; then
     DCTRL_REGEXP="^($PKGS_REGEXP)$"
