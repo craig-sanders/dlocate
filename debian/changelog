@@ -1,3 +1,11 @@
+dlocate (1.02+nmu3) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix handling of multiple arguments for several commands (Closes: #563881).
+  * Fix dlocate return codes for several commands on exit (Closes: #564293).
+
+ -- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>  Sat, 29 Dec 2012 14:32:54 +0100
+
 dlocate (1.02+nmu2) unstable; urgency=low
 
   * Non-maintainer upload.

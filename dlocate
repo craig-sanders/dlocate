@@ -217,7 +217,7 @@ PKGS_REGEXP=$(echo "$PKGS" | sed -e "s/$SEPARATOR/$RE_SEPARATOR/g")
 FILES_REGEXP="($PKGS_REGEXP)"
 [ "$WORD_RE" = "-w" ] && FILES_REGEXP="\b$FILES_REGEXP\b"
 
-PKGS=$(echo "$PKGS" | sed -e "s/$SEPARATOR/ /")
+PKGS=$(echo "$PKGS" | sed -e "s/$SEPARATOR/ /g")
 
 if [ "$VERBOSE" = "1" ] ; then
     echo "PKGS:" $PKGS
@@ -316,48 +316,60 @@ else
             '-L')
                 if [ -s $DPKG_INFO/$PKG.list ] ; then
                     cat $DPKG_INFO/$PKG.list
+                    result=$?
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
+                    result=1
                 fi
                 ;;
 
             '-ls')
                 if [ -s $DPKG_INFO/$PKG.list ] ; then
                     xargs -r ls -ldF < $DPKG_INFO/$PKG.list
+                    result=$?
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
+                    result=1
                 fi
                 ;;
 
             '-du')
                 if [ -s $DPKG_INFO/$PKG.list ] ; then
                     du -sck $(cat $DPKG_INFO/$PKG.list | xargs -r ls -1dF | grep -v "@$\|/$" )
+                    result=$?
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
+                    result=1
                 fi
                 ;;
 
             '-conf')
                 if [ -s $DPKG_INFO/$PKG.conffiles ] ; then
                     cat $DPKG_INFO/$PKG.conffiles
+                    result=$?
                 else
                     echo Package $PKG not installed or has no conffiles. >&2
+                    result=1
                 fi
                 ;;
 
             '-lsconf')
                 if [ -s $DPKG_INFO/$PKG.conffiles ] ; then
                     ls -ldF $(cat $DPKG_INFO/$PKG.conffiles)
+                    result=$?
                 else
                     echo Package $PKG not installed or has no conffiles. >&2
+                    result=1
                 fi
                 ;;
 
             '-md5sum')
                 if [ -s $DPKG_INFO/$PKG.md5sums ] ; then
                     cat $DPKG_INFO/$PKG.md5sums
+                    result=$?
                 else
                     echo Package $PKG not installed or has no md5sums. >&2
+                    result=1
                 fi
                 ;;
 
@@ -365,8 +377,10 @@ else
                 if [ -s $DPKG_INFO/$PKG.list ] ; then
                     dlocate -L $PKG | \
                     grep -E '/man[0-9]+/'
+                    result=$?
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
+                    result=1
                 fi
                 ;;
 
@@ -378,8 +392,10 @@ else
                             -e 's:.*/::' \
                             -e 's/\(^.*\)\.\(.*\)/\2 \1/' | \
                         sort -u
+                    result=$?
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
+                    result=1
                 fi
                 ;;
 
@@ -391,8 +407,10 @@ else
                     grep -E '^-.{2,8}[xs]' | \
                     sed -e 's/.* \//\//' | \
                     xargs -r ls -1
+                    result=$?
                 else
                     echo Package $PKG not installed or $PKG.list is empty. >&2
+                    result=1
                 fi
                 ;;
 
@@ -402,8 +420,10 @@ else
                     cat $DPKG_INFO/$PKG.md5sums | \
                         md5sum -c -
                     popd >/dev/null 2>&1
+                    result=$?
                 else
                     echo Package $PKG not installed or has no md5sums. >&2
+                    result=1
                 fi
                 ;;
 
