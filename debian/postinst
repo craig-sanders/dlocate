@@ -1,0 +1,52 @@
+#! /bin/sh
+# postinst script for dlocate
+#
+# see: dh_installdeb(1)
+
+set -e
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see /usr/doc/packaging-manual/
+#
+# quoting from the policy:
+#     Any necessary prompting should almost always be confined to the
+#     post-installation script, and should be protected with a conditional
+#     so that unnecessary prompting doesn't happen if a package's
+#     installation fails and the `postinst' is called with `abort-upgrade',
+#     `abort-remove' or `abort-deconfigure'.
+
+# remove old versions of dlocatedb if any exist
+#[ -e /var/lib/dlocate/dlocatedb ] && rm -f /var/lib/dlocate/dlocatedb
+#[ -e /var/lib/dlocate/dlocatedb.old ] && rm -f /var/lib/dlocate/dlocatedb.old
+[ -e /var/lib/dlocate/dlocatedb.txt ] && rm -f /var/lib/dlocate/dlocatedb.txt
+[ -e /var/lib/dlocate/dlocatedb.txt.old ] && rm -f /var/lib/dlocate/dlocatedb.txt.old
+
+case "$1" in
+    configure)
+		# generate initial dlocate database
+		update-dlocatedb >/dev/null 2>&1 &
+		# generate initial 'dpkg -l' file
+        dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' -e 's/ /\t/' -e 's/ /\t/' -e 's/ /\t/' > /var/lib/dlocate/dpkg-list
+
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 0
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

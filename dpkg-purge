@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# dpkg-hold  --  command line tool to flag package(s) as held.
+#
+# by Craig Sanders, 1998-10-26.  This script is hereby placed into the 
+# public domain.
+#
+# BUGS: this script has absolutely no error checking.  this is not good.
+
+if [ -z "$*" ] ; then
+	echo "Usage:"
+	echo "      dpkg-hold <package...>"
+	exit 1
+fi
+
+for i in $@ ; do
+	echo "$i	purge"
+done | dpkg --set-selections

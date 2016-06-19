@@ -1,0 +1,32 @@
+#! /bin/sh
+
+DPKGLIST=/var/lib/dlocate/dpkg-list
+
+# See ionice(1)
+if [ -x /usr/bin/ionice ]; then
+  # don't run ionice if kernel version < 2.6.13
+  KVER=$(uname -r)
+  case "$KVER" in
+    2.[012345]*) ;;
+
+    2.6.[0-9])   ;;
+    2.6.[0-9].*) ;;
+
+    2.6.1[012]*) ;;
+
+    # redirect ionice output to /dev/null 
+    # because VSERVER doesn't like it.  See Bug#456292
+    *) ionice -c3 -p$$ > /dev/null 2>&1 ;;
+  esac
+fi
+
+# exit if dlocate is uninstalled but not purged
+test -x /usr/sbin/update-dlocatedb || exit 0
+
+# update dlocate database
+/usr/sbin/update-dlocatedb >/dev/null
+
+# update 'dlocate -l' emulation
+# use sed to convert first three spaces in $DPKGLIST to tab
+# characters so we can use that as a field-sep in awk for 'dlocate -l'
+dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' -e 's/ /\t/' -e 's/ /\t/' -e 's/ /\t/' >$DPKGLIST
