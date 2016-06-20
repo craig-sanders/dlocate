@@ -1,3 +1,22 @@
+dlocate (1.05) unstable; urgency=low
+
+  * completely rewrote option parsing, now uses getopt from util-linux
+    long options now use --.  Backwards-compatibility is maintained
+    by using getopt's `-a` option.  (Closes: #532061)
+  * added `-p` and `-f` as short options for `--package-only` and `--filename-only`
+  * improved `dlocate -k`, and sorted output.
+  * added support for `+` characters in package names for 'dlocate -s'
+  * fixed `--lsbin` to use `stat -c '%A %n'` rather than `ls -lLd`
+  * added support for virtual packages in `-s` (Closes: #407412)
+  * warnings and errors now go to stderr (Closes: #532704)
+  * added note about update-dlocatedb to man page (Closes: #563595, #567080)
+  * `dlocate -l` shows more of the package names (Closes: #614664)
+  * added full path to error messages mentioning the .list file (Closes: #733864)
+  * added --lsdir option to list directories (Closes: #788661)
+  * update-dlocatedb now updates `dlocate -l` info (Closes: #567080)  
+
+ -- Craig Sanders <cas@taz.net.au>  Mon, 20 Jun 2016 20:01:14 +1000
+
 dlocate (1.02+nmu3) unstable; urgency=low
 
   * Non-maintainer upload.

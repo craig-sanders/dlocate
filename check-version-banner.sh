@@ -1,19 +1,15 @@
 #! /bin/bash
 
-PWD=$(pwd)
-BASEDIR=$(basename $PWD)
-VERSION=$(echo $BASEDIR | sed -e 's/.*-//' | sed -e 's/ //g')
+# quick check to make sure i've updated VERSION_BANNER in the script
+# to match the latest changelog entry.
+CV=$(awk -F'[()]' '/^dlocate/ {print $2; nextfile}' ./debian/changelog)
+SV=$(awk -F'"' '/^[[:space:]]*VERSION_BANNER=/ {print $2; nextfile}' ./dlocate)
 
-SCRIPT_VERSION=$(grep 'VERSION_BANNER=' ./dlocate | \
-                 grep -v '#' | \
-                 sed -e 's/"//g' -e 's/VERSION_BANNER=//' \
-                     -e 's/ //g')
-
-if [ "$VERSION" != "$SCRIPT_VERSION" ] ; then
+if [ "$CV" != "$SV" ] ; then
   echo
   echo "Version banner mismatch:"
-  echo "    DIRECTORY = '$VERSION'"
-  echo "    SCRIPT    = '$SCRIPT_VERSION'"
+  echo "  CHANGELOG='$CV'"
+  echo "     SCRIPT='$SV'"
   echo
   exit 1
 fi

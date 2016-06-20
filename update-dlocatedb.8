@@ -1,4 +1,4 @@
-.TH UPDATE\-DLOCATEDB 8 "2009-06-03" "Debian Project" "dlocate"
+.TH UPDATE\-DLOCATEDB 8 "2016-06-20" "Debian Project" "dlocate"
 .\" Please adjust this date whenever revising the manpage.
 .\"
 .\" Some roff macros, for reference:
@@ -20,9 +20,27 @@ update\-dlocatedb - generate text database of installed files for dlocate
 .SH DESCRIPTION
 .B update\-dlocatedb
 generates a plain text package contents listing
-.B dlocate
 from the files /var/lib/dpkg/info/*.list
+.PP
 This program is usually called from cron.daily.
+
+.SH OPTIONS
+.TP
+.BR \-p
+Update the packages list only
+
+.TP
+.BR \-j
+Update the files list only
+
+.TP
+.BR \-b
+Update both (default)
+
+.TP
+.BR \-h
+This help message
+
 
 .SH FILES
 .TP
@@ -39,12 +57,25 @@ Directory containing dpkg file lists
 .I /var/lib/dlocate/dlocatedb
 Plain text listing of all files belonging to all packages (optionally compressed)
 
+.TP
+.I /var/lib/dlocate/dpkg-list
+Listing of all packages known to dpkg.
+
+This contains the reformatted output output of 'dpkg \-l'.  The file format is four fields separated by tabs:
+
+status [TAB] package-name [TAB] installed version [TAB] short description 
+
+The "installed version" field may contain an architecture, e.g. ":arch"
+
+
 .SH SEE ALSO
 .BR "dlocate(1)"
 .P
 .SH AUTHOR
 This version of update\-dlocatedb was written by Fredrik Hallenberg,
-Craig Sanders, and Pawel Chmielowski. The manual page was written
-by Andreas Metzler <ametzler at downhill.at.eu.org> for the Debian
-GNU/Linux system (but may be used by others).
+Craig Sanders, and Pawel Chmielowski.
+.PP
+The manual page was written by Andreas Metzler <ametzler at
+downhill.at.eu.org> for the Debian GNU/Linux system (but may be used by
+others, under the terms of the GNU GPL).
 
