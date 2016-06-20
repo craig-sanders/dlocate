@@ -1,7 +1,18 @@
-.TH DLOCATE 1 "2009-06-03" "Debian Project" "dlocate"
+.TH DLOCATE 1 "2016-06-20" "Debian Project" "dlocate"
 .\" Please adjust this date whenever revising the manpage.
 .\" NAME should be all caps, SECTION should be 1-8, maybe w/ subsection
 .\" other parms are allowed: see man(7), man(1)
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
 
 .SH NAME
 dlocate - program to view debian package information
@@ -93,48 +104,53 @@ Print status of
 .IR package .
 
 .TP
-.BR \-ls
+.BR \-\^\-ls
 `ls \-ldF' of all files in
 .IR package .
 
 .TP
-.BR \-lsconf
+.BR \-\^\-lsconf
 `ls \-ldF' of conffiles in
 .IR package .
 
 .TP
-.BR \-conf
+.BR \-\^\-conf
 List conffiles in
 .IR package .
 
 .TP
-.BR \-du
+.BR \-\^\-du
 `du \-sck' of all files in
 .IR package .
 
 .TP
-.BR \-md5sum
+.BR \-\^\-md5sum
 List md5sums (if any) of 
 .IR package .
 
 .TP
-.BR \-md5check
+.BR \-\^\-md5check
 Check md5sums (if any) of 
 .IR package .
 
 .TP
-.BR \-man
+.BR \-\^\-man
 List man pages (if any) in
 .IR package .
 
 .TP
-.BR \-lsman
+.BR \-\^\-lsman
 List full path/filenames of man pages (if any) in
 .IR package .
 
 .TP
-.BR \-lsbin
+.BR \-\^\-lsbin
 List full path/filenames of executable files (if any) in
+.IR package .
+
+.TP
+.BR \-\^\-lsdir
+List only the directories in 
 .IR package .
 
 .SH OPTIONS
@@ -199,6 +215,11 @@ Display dlocate's version number and exit.
 Produce verbose debugging output
 .PP
 
+.TP
+.BR \-c ", " \-\-columns [ =\fIcolumns\fP ]
+Set COLUMN width to override the \fBdlocate\fP default of using the entire terminal line width.
+Any value for \fIcolumns\fP less than 80 will be increaed to 80.
+
 .SH FILES
 .TP
 .I /etc/default/dlocate
@@ -213,9 +234,7 @@ Plain text listing of all files belonging to all packages (optionally compressed
 .I /var/lib/dlocate/dpkg-list
 Listing of all packages known to dpkg.
 
-This contains the reformatted output output of 'dpkg \-l'.  The file format is four fields separated by tabs:
-
-status [TAB] package-name [TAB] installed version [TAB] short description 
+See \fBupdate\-dlocatedb\fP(8) for details.
 
 .SH EXAMPLES
 To find which package `/usr/bin/[' belongs to:
@@ -241,11 +260,12 @@ To check the md5sums of the dlocate package:
 To use dpkg-repack to make a backup copy of all installed mythtv packages just before
 upgrading them:
 .br
-\fB     dlocate \-l mythtv | grep '^.i' | awk '{print $2}' | xargs dpkg\-repack\fP
+\fB     dlocate \-l mythtv | awk '/^.i/ {print $2}' | xargs dpkg\-repack\fP
 .br
 
 .br
-# dlocate \-l mythtv | grep '^.i' | awk '{print $2}' | xargs dpkg\-repack
+.nf
+# dlocate \-l mythtv | awk '/^.i/ {print $2}' | xargs dpkg\-repack
 .br
 dpkg-deb: building package `libmythtv-perl' in `./libmythtv-perl_0.21.svn20090414-0.0_amd64.deb'.
 .br
@@ -271,12 +291,24 @@ dpkg-deb: building package `mythtvfs' in `./mythtvfs_0.5.2-2_amd64.deb'.
 .br
 dpkg-deb: building package `python-mythtv' in `./python-mythtv_0.21.svn20090414-0.0_amd64.deb'.
 .br
+.fi
+
+.SH NOTES
+\fBdlocate\fP does not update its databases (see \fBFILES\fP section)
+automatically after new or upgraded packages have been installed with
+\fBdpkg\fP or \fBapt-get\fP etc.
+.br
+.br
+A daily cron job is run to perform the update.  Or the root user can
+run \fPupdate-dlocatedb\fP at any time to force an update.
+.br
+
 
 .SH ENVIRONMENT VARIABLES
 .TP
 .BR COLUMNS
 Sets the number of columns \fBdlocate\fP should use when displaying formatted
-text. Currently only used by \-l. Values lower than 80 are ignored.
+text. Currently only used by \-l. Values lower than 80 are increased to 80.
 
 .SH "SEE ALSO"
 \fBdpkg\fP(1),
@@ -286,6 +318,6 @@ and
 \fBgrep\-dctrl\fP(1).
 
 .SH AUTHOR
-dlocate was written by Jim Pick <jim@pick.com> and Craig Sanders
+\fBdlocate\fP was written by Jim Pick <jim@pick.com> and Craig Sanders
 <cas@taz.net.au>. dlocate is Free Software licensed under the GNU
 General Public License.

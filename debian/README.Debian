@@ -1,15 +1,10 @@
 dlocate for Debian
-----------------------
+------------------
 
-fast alternative to 'dpkg -L', 'dpkg -S' etc.
+Fast alternative to 'dpkg -L', 'dpkg -S' etc.
 
+NOTE: `dlocate -l` is NOT the same as `dpkg -l`.  It uses regular
+expressions for searches rather than glob-like wildcards.
 
-NOTE: the 'dlocate -l' is NOT the same as 'dpkg -l' and i will ignore
-bug reports which point out this obvious fact.
+`dlocate -l` is a regexp-enhanced emulation of `dpkg -l`, not an exact clone.
 
-it is a simplistic emulation, not an exact clone.
-
-IMO, it is more useful than 'dpkg -l'. if you disagree, then you are
-free to use the slower original.
-
- -- Craig Sanders <cas@taz.net.au>, Tue,  2 Nov 1999 17:21:03 +1100

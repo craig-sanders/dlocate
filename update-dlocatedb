@@ -1,140 +1,72 @@
-#!/usr/bin/perl
+#! /bin/sh
 
-# perl script originally by hallon@debian.org, much faster than sed & sh.
-#
-# modified by cas to pipe its output through frcode and then > to the
-# db file.
-#
-# caching of .list timestamps and re-use of old locatedb data added by 
-# Pawel Chmielowski <prefiks@prefiks.org>, see Bug #457572
+DPKGLIST='/var/lib/dlocate/dpkg-list'
 
-# 2009-05-30   Craig Sanders <cas@taz.net.au>
-# - rewrote script to output a plain text listing rather than use frcode
-#
-# 2009-06-03 # Craig Sanders <cas@taz.net.au>
-# - added optional support for compressing /var/lib/dlocatedb
+pkgs=1
+files=1
 
-use strict;
-use File::Basename;
+usage() {
+[ -n "$*" ] && printf "%s\n" "$*" > /dev/stderr && exit 1
 
-my $program = basename($0);
+cat <<__EOF__
+Usage:
+      $0 [options]
 
-my $dbfile='/var/lib/dlocate/dlocatedb';
-my $stampsfile='/var/lib/dlocate/dlocatedb.stamps';
-#my $dbfile='/tmp/dlocate';
-#my $stampsfile='/tmp/dlocate.stamps';
-my $infodir='/var/lib/dpkg/info';
+Options:
+    -p    Update the packages list only
+    -f    Update the files list only
+    -b    Update both (default)
 
-my $compress=0;
-my $defaults='/etc/default/dlocate';
-if (open(DEFAULTS,'<', $defaults)) {
-    while (<DEFAULTS>) {
-        chomp;
-        s/#.*|^\s*|\s*$//g;
-        next if (/^$/);
-        s/\s|"//g;
-        my ($key,$val) = split /=/;
-        if ($key eq 'COMPRESS_DLOCATE') {
-            $compress = $val;
-        };
-    };
-    close(DEFAULTS);
-};
+    -h    This help message
 
-my (%old_stamps, %stamps);
-
-if (open(STAMPS, '<', $stampsfile)) {
-    while (<STAMPS>) {
-        chomp;
-        my ($stamp, $file) = split /:/, $_, 2;
-        $old_stamps{$file} = $stamp;
-    }
-    close(STAMPS);
+__EOF__
+exit 1
 }
 
-open(DBFILE,'>', "$dbfile.new") or die "$program: couldn't open $dbfile.new for write: $!\n";
+while getopts "pfbh" opt; do
+    case "$opt" in
+        p) pkgs=1  ; files='' ;;
+        f) pkgs='' ; files=1 ;;
+        b) pkgs=1  ; files=1 ;;
+        h) usage ;;
+        *) usage "%s\n" "Unknown option: '$opt'" ;;
+    esac
+done
+shift $((OPTIND-1))
 
-opendir(DIR, $infodir) or die "$program: can't open directory $infodir: $!\n";
-while (defined(my $pkg = readdir(DIR))) {
-    next unless $pkg =~ s/\.list$// and -s "$infodir/$pkg.list";
-    $stamps{$pkg} = (stat(_))[10]; #ctime
-}
-closedir DIR;
+# See ionice(1)
+if [ -x /usr/bin/ionice ]; then
+  # don't run ionice if kernel version < 2.6.13
+  KVER=$(uname -r)
+  case "$KVER" in
+    2.[012345]*) ;;
 
-my @new_pkgs;
-my %processed;
+    2.6.[0-9])   ;;
+    2.6.[0-9].*) ;;
 
-chdir $infodir;
-if (%old_stamps and open(DB, '<', $dbfile)) {
-    while (<DB>) {
-        my ($pkg) = /^(\S+?):/;
-        if (not exists $stamps{$pkg}) {
-            # skip packages which are no longer installed
-        } elsif (exists $old_stamps{$pkg} and $stamps{$pkg} == $old_stamps{$pkg}) {
-            print DBFILE $_;
-        } elsif (not exists $processed{$pkg}) {
-            open(FILE, "$pkg.list") or die "$program: can't open file $pkg.list: $!\n";
-            foreach (<FILE>) {
-                print DBFILE "$pkg: $_";
-            }
-            close FILE;
-        }
-        $processed{$pkg} = 1;
-    }
-    close(DB);
+    2.6.1[012]*) ;;
 
-    my %tmp = %stamps;
-    delete $tmp{$_} for keys %processed;
-    @new_pkgs = keys %tmp;
-} else {
-    @new_pkgs = keys %stamps;
-}
+    # Redirect ionice output to /dev/null because VSERVER & OPENVZ
+    # & probably other container environments don't like it.  See
+    # Bug#456292
+    *) ionice -c3 -p$$ > /dev/null 2>&1 ;;
+  esac
+fi
 
-foreach my $pkg (@new_pkgs) {
-    open(FILE, '<', "$pkg.list") or die "$program: can't open $pkg for read: $!\n";
-    foreach (<FILE>) {
-        print DBFILE $pkg, ': ', $_;
-    }
-    close FILE;
-}
+if [ -n "$files" ] ; then
+  # update dlocate database
+  test -x /usr/share/dlocate/updatedb && /usr/share/dlocate/updatedb >/dev/null
+fi
 
-# append diversions info to dlocatedb
-my $divfile = '/var/lib/dpkg/diversions';
-
-open(DIVERSIONS,"<",$divfile) or die "$program: can't open $divfile for read: $!\n";
-while (my $from = <DIVERSIONS>) {
-  my $to = <DIVERSIONS>;
-  my $pkg = <DIVERSIONS>;
-  chomp($from, $to, $pkg);
-  print DBFILE "diversion by $pkg from: $from\n";
-  print DBFILE "diversion by $pkg to: $to\n";
-}
-close(DIVERSIONS);
-
-
-close DBFILE;
-
-# Create a backup to the database before replacing it with the new database.
-# This is effectively two rename's done atomically.
-if (-e $dbfile) {
-    unlink("$dbfile.old") if (-e "$dbfile.old");
-    link($dbfile, "$dbfile.old") if (-e $dbfile);
-}
-
-rename("$dbfile.new", $dbfile);
-
-# optionally compress dlocatedb
-if ($compress eq "1") {
-    system('gzip','--quiet','--force',$dbfile);
-    rename("$dbfile.gz", $dbfile);
-};
-
-open(STAMPS, '>', "$stampsfile.new") or die "$program: can't create stamps file $stampsfile.new: $!\n";
-print STAMPS "$stamps{$_}:$_\n" for keys %stamps;
-close STAMPS;
-
-if (-e $stampsfile) {
-  unlink($stampsfile);
-};
-rename("$stampsfile.new", $stampsfile);
-
+if [ -n "$pkgs" ] ; then
+  # update 'dlocate -l' emulation
+  # use sed to convert first, second, and fourth space on each line of
+  # dpkg -l to tab characters so we can use that as a field-sep in awk for
+  # 'dlocate -l'.
+  #
+  # convert third space to a : for architecture
+  dpkg -l "*" | 
+    sed -e '1,5d; s/  */ /g; s/ /\t/; s/ /\t/; s/ /:/; s/ /\t/' | 
+    sort -k2 | 
+    uniq -f2 > "$DPKGLIST"
+fi

@@ -30,11 +30,8 @@ set -e
 
 case "$1" in
     configure)
-		# generate initial dlocate database
-		update-dlocatedb >/dev/null 2>&1 &
-		# generate initial 'dpkg -l' file
-        dpkg -l "*" | sed -e '1,5d' -e 's/  */ /g' -e 's/ /\t/' -e 's/ /\t/' -e 's/ /\t/' > /var/lib/dlocate/dpkg-list
-
+		# generate initial dlocate database and package list
+        /usr/sbin/update-dlocatedb -b
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
