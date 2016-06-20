@@ -14,6 +14,8 @@ dlocate (1.05) unstable; urgency=low
   * added full path to error messages mentioning the .list file (Closes: #733864)
   * added --lsdir option to list directories (Closes: #788661)
   * update-dlocatedb now updates `dlocate -l` info (Closes: #567080)  
+  * now being maintained on github https://github.com/craig-sanders/dlocate
+    forks and pull requests welcome.
 
  -- Craig Sanders <cas@taz.net.au>  Mon, 20 Jun 2016 20:01:14 +1000
 
