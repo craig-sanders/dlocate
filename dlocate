@@ -86,11 +86,7 @@ function warn() {
 }
 
 function dlocate_version {
-<<<<<<< HEAD
   VERSION_BANNER="1.07"
-=======
-  VERSION_BANNER="1.06"
->>>>>>> master
   echo "dlocate version $VERSION_BANNER"
   exit 0
 }
