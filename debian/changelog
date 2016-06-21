@@ -1,3 +1,9 @@
+dlocate (1.07) unstable; urgency=medium
+
+  * updated VERSION_BANNER
+
+ -- Craig Sanders <cas@taz.net.au>  Tue, 21 Jun 2016 13:33:28 +1000
+
 dlocate (1.06) unstable; urgency=medium
 
   * added util-linux to dependencies
