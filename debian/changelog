@@ -1,3 +1,9 @@
+dlocate (1.06) unstable; urgency=medium
+
+  * added util-linux to dependencies
+
+ -- Craig Sanders <cas@taz.net.au>  Tue, 21 Jun 2016 11:48:29 +1000
+
 dlocate (1.05) unstable; urgency=low
 
   * completely rewrote option parsing, now uses getopt from util-linux
