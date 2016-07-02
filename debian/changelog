@@ -1,6 +1,7 @@
 dlocate (1.07) unstable; urgency=medium
 
   * updated VERSION_BANNER
+  * (Closes: #532061,  #407412, #532704, #563595, #567080, #614664, #733864, #788661, #567080)
 
  -- Craig Sanders <cas@taz.net.au>  Tue, 21 Jun 2016 13:33:28 +1000
 
