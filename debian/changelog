@@ -4,6 +4,7 @@ dlocate (1.08) unstable; urgency=medium
   * for --md5check, if any files have been diverted, list them with 
     'dpkg-divert --list' and perform an md5sum check on the diverted
     files.  (Closes: #601394)
+  * modified updatedb to use output of 'dpkg-divert --list \*'
 
  -- Craig Sanders <cas@taz.net.au>  Sun, 03 Jul 2016 03:46:36 +1000
 
