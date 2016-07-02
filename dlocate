@@ -393,16 +393,35 @@ else
                 ;;
 
             --md5check)
+                MD5TMP=$(mktemp)
+                DIVTMP=$(mktemp)
+                #MD5TMP='/tmp/md5temp'
+                #DIVTMP='/tmp/divtemp'
                 if [ -s "$PMD5" ] ; then
                     pushd / >/dev/null 2>&1
                     cat "$PMD5" | \
-                        md5sum -c -
-                    popd >/dev/null 2>&1
+                        md5sum -c - 2>/dev/null | tee "$MD5TMP"
                     result=$?
+                    if grep -q FAILED "$MD5TMP" ; then
+                      echo
+                      echo "Some files in package '$PKG' may have been diverted by other packages"
+                      echo "which will cause false FAILED errors:"
+                      echo
+                      awk -F: '/FAILED/ {print "/"$1}' "$MD5TMP" | xargs -d'\n' -r dpkg-divert --list | tee "$DIVTMP"
+                      if [ -s "$DIVTMP" ] ; then
+                        echo
+                        echo Checking diverted files:
+                        echo
+                        awk '/^diversion of/ {gsub(/ \//," ");print "s|"$3"|"$5"|gp"}' "$DIVTMP" | 
+                          sed -n -f /dev/stdin <("$DLOCATE" -md5sum perl)  | md5sum -c - 2>/dev/null
+                      fi
+                    fi
+                    popd >/dev/null 2>&1
                 else
                     warn "Package $PKG is not installed or has no md5sums."
                     result=1
                 fi
+                rm -f "$MD5TMP" "$DIVTMP"
                 ;;
 
 

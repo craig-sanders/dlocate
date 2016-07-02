@@ -1,7 +1,9 @@
 dlocate (1.08) unstable; urgency=medium
 
   * better multi-arch support for .list, .conffiles, and .md5sums files
-  *
+  * for --md5check, if any files have been diverted, list them with 
+    'dpkg-divert --list' and perform an md5sum check on the diverted
+    files.  (Closes: #601394)
 
  -- Craig Sanders <cas@taz.net.au>  Sun, 03 Jul 2016 03:46:36 +1000
 
