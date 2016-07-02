@@ -1,3 +1,10 @@
+dlocate (1.08) unstable; urgency=medium
+
+  * better multi-arch support for .list, .conffiles, and .md5sums files
+  *
+
+ -- Craig Sanders <cas@taz.net.au>  Sun, 03 Jul 2016 03:46:36 +1000
+
 dlocate (1.07) unstable; urgency=medium
 
   * updated VERSION_BANNER
