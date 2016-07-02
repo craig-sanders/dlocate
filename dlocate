@@ -10,6 +10,7 @@ DLOCATE="$0"
 DLOCATEDB=/var/lib/dlocate/dlocatedb
 DPKGLIST=/var/lib/dlocate/dpkg-list
 DPKG_INFO=/var/lib/dpkg/info
+DPKG_ARCH=$(dpkg --print-architecture)
 
 COMPRESS_DLOCATEDB=0
 GREP='grep'
@@ -311,45 +312,58 @@ elif [ "$OPTION" = '-K' ] ; then
 
 else
     for PKG in "${PKGS[@]}" ; do
+
+        PLIST="$DPKG_INFO/$PKG.list"
+        PLISTARCH="$DPKG_INFO/$PKG:$DPKG_ARCH.list"
+        [ ! -s "$PLIST" ] && [ -s "$PLISTARCH" ] && PLIST="$PLISTARCH"
+
+        PCONF="$DPKG_INFO/$PKG.conffiles"
+        PCONFARCH="$DPKG_INFO/$PKG:$DPKG_ARCH.conffiles"
+        [ ! -s "$PCONF" ] && [ -s "$PCONFARCH" ] && PCONF="$PCONFARCH"
+
+        PMD5="$DPKG_INFO/$PKG.md5sums"
+        PMD5ARCH="$DPKG_INFO/$PKG:$DPKG_ARCH.md5sums"
+        [ ! -s "$PMD5" ] && [ -s "$PMD5ARCH" ] && PMD5="$PMD5ARCH"
+
         case "$OPTION" in
 
             -L)
-                if [ -s "$DPKG_INFO/$PKG.list" ] ; then
-                    cat "$DPKG_INFO/$PKG.list"
+                if [ -s "$PLIST" ] ; then
+                    cat "$PLIST"
                     result=$?
                 else
-                    warn "Package $PKG is not installed or $DPKG_INFO/$PKG.list is empty."
+                    warn "Package $PKG is not installed or $PLIST is empty."
                     result=1
                 fi
                 ;;
 
             --ls)
-                if [ -s "$DPKG_INFO/$PKG.list" ] ; then
-                    xargs -d '\n' -r ls -ldF < "$DPKG_INFO/$PKG.list"
+                if [ -s "$PLIST" ] ; then
+                    xargs -d '\n' -r ls -ldF < "$PLIST"
                     result=$?
                 else
-                    warn "Package $PKG is not installed or $DPKG_INFO/$PKG.list is empty."
+                    warn "Package $PKG is not installed or $PLIST is empty."
                     result=1
                 fi
                 ;;
 
             --du)
-                if [ -s "$DPKG_INFO/$PKG.list" ] ; then
-                    sed '1d' "$DPKG_INFO/$PKG.list" | 
+                if [ -s "$PLIST" ] ; then
+                    sed '1d' "$PLIST" | 
                       xargs -d '\n' -r ls -1dF | 
                       sed -e '/@$\|\/$/d; s/\*$//;' | 
                       xargs du -sck
                     result=$?
                 else
-                    warn "Package $PKG is not installed or $DPKG_INFO/$PKG.list is empty."
+                    warn "Package $PKG is not installed or $PLIST is empty."
                     result=1
                 fi
                 ;;
 
 
             --conf)
-                if [ -s "$DPKG_INFO/$PKG.conffiles" ] ; then
-                    cat "$DPKG_INFO/$PKG.conffiles"
+                if [ -s "$PCONF" ] ; then
+                    cat "$PCONF"
                     result=$?
                 else
                     warn "Package $PKG is not installed or has no conffiles."
@@ -358,8 +372,8 @@ else
                 ;;
 
             --lsconf)
-                if [ -s "$DPKG_INFO/$PKG.conffiles" ] ; then
-                    xargs -a "$DPKG_INFO/$PKG.conffiles" -d '\n' -r ls -ldF
+                if [ -s "$PCONF" ] ; then
+                    xargs -a "$PCONF" -d '\n' -r ls -ldF
                     result=$?
                 else
                     warn "Package $PKG is not installed or has no conffiles."
@@ -369,8 +383,8 @@ else
 
 
             --md5sum)
-                if [ -s "$DPKG_INFO/$PKG.md5sums" ] ; then
-                    cat "$DPKG_INFO/$PKG.md5sums"
+                if [ -s "$PMD5" ] ; then
+                    cat "$PMD5"
                     result=$?
                 else
                     warn "Package $PKG is not installed or has no md5sums."
@@ -379,9 +393,9 @@ else
                 ;;
 
             --md5check)
-                if [ -s "$DPKG_INFO/$PKG.md5sums" ] ; then
+                if [ -s "$PMD5" ] ; then
                     pushd / >/dev/null 2>&1
-                    cat "$DPKG_INFO/$PKG.md5sums" | \
+                    cat "$PMD5" | \
                         md5sum -c -
                     popd >/dev/null 2>&1
                     result=$?
@@ -393,18 +407,18 @@ else
 
 
             --lsman)
-                if [ -s "$DPKG_INFO/$PKG.list" ] ; then
+                if [ -s "$PLIST" ] ; then
                     "$DLOCATE" -L "$PKG" | \
                     grep -E '/man[0-9]+/'
                     result=$?
                 else
-                    warn "Package $PKG is not installed or $DPKG_INFO/$PKG.list is empty."
+                    warn "Package $PKG is not installed or $PLIST is empty."
                     result=1
                 fi
                 ;;
 
             --man)
-                if [ -s "$DPKG_INFO/$PKG.list" ] ; then
+                if [ -s "$PLIST" ] ; then
                     "$DLOCATE" -L "$PKG" | \
                         grep -E '/man[0-9]+/' | \
                         sed -e 's/\.gz$//' \
@@ -413,31 +427,31 @@ else
                         sort -u
                     result=$?
                 else
-                    warn "Package $PKG is not installed or $DPKG_INFO/$PKG.list is empty."
+                    warn "Package $PKG is not installed or $PLIST is empty."
                     result=1
                 fi
                 ;;
 
             --lsbin)
-                if [ -s "$DPKG_INFO/$PKG.list" ] ; then
+                if [ -s "$PLIST" ] ; then
                     "$DLOCATE" -L $PKG | \
                       xargs -d '\n' -r stat -c '%A %n' | \
                       awk '!/^[^-]/ &&  /^-.{2,8}[xs]/ {print $2}'
                     result=$?
                 else
-                    warn "Package $PKG is not installed or $DPKG_INFO/$PKG.list is empty."
+                    warn "Package $PKG is not installed or $PLIST is empty."
                     result=1
                 fi
                 ;;
 
             --lsdir)
-                if [ -s "$DPKG_INFO/$PKG.list" ] ; then
+                if [ -s "$PLIST" ] ; then
                     "$DLOCATE" -L $PKG | \
                       xargs -d '\n' -r stat -c '%A %n' | \
                       awk '/^d/ {print $2}'
                     result=$?
                 else
-                    warn "Package $PKG is not installed or $DPKG_INFO/$PKG.list is empty."
+                    warn "Package $PKG is not installed or $PLIST is empty."
                     result=1
                 fi
                 ;;
