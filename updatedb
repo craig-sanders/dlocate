@@ -99,15 +99,10 @@ foreach my $pkg (@new_pkgs) {
 }
 
 # append diversions info to dlocatedb
-my $divfile = '/var/lib/dpkg/diversions';
-
-open(DIVERSIONS,"<",$divfile) or die "$program: can't open $divfile for read: $!\n";
-while (my $from = <DIVERSIONS>) {
-  my $to = <DIVERSIONS>;
-  my $pkg = <DIVERSIONS>;
-  chomp($from, $to, $pkg);
-  print DBFILE "diversion by $pkg from: $from\n";
-  print DBFILE "diversion by $pkg to: $to\n";
+my $divpipe = 'dpkg-divert --list \*';
+open(DIVERSIONS,"-|",$divpipe) or die "$program: can't open pipe from '$divpipe': $!\n";
+while (<DIVERSIONS>) {
+  print DBFILE $_
 }
 close(DIVERSIONS);
 
