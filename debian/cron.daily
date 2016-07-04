@@ -1,4 +1,4 @@
 #! /bin/sh
 
 # update databases for both files and packages.
-/usr/sbin/update-dlocatedb -b
+[ -x /usr/sbin/update-dlocatedb ] && /usr/sbin/update-dlocatedb -b
