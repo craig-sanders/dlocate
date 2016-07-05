@@ -87,7 +87,7 @@ function warn() {
 }
 
 function dlocate_version {
-  VERSION_BANNER="1.07"
+  VERSION_BANNER=$(dpkg-query -W -f '${version}' dlocate)
   echo "dlocate version $VERSION_BANNER"
   exit 0
 }

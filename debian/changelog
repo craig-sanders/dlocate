@@ -7,6 +7,8 @@ dlocate (1.08) unstable; urgency=medium
   * modified updatedb to use output of 'dpkg-divert --list \*'
   * cron.daily only runs /usr/sbin/update-dlocatedb if it exists and is
     executable (Closes: #829473)
+  * got tired of forgetting to update the VERSION_BANNER in dlocate,
+    so made it use $(dpkg-query -W -f '${version}' dlocate)
 
  -- Craig Sanders <cas@taz.net.au>  Sun, 03 Jul 2016 03:46:36 +1000
 
