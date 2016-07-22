@@ -247,12 +247,12 @@ if [ "$OPTION" = '-l' ] ; then
 +++-${fmt_eq}-${fmt_eq}-${fmt_eq}${fmt_eq}==================\\n" \
               Name Version Description)
 
-    BODY_FMT_STRING="%-2s  %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n"
+    BODY_FMT_STRING="%-3s %-${fieldw}.${fieldw}s %-${fieldw}.${fieldw}s %-${fieldd}.${fieldd}s\\n"
 
     [ -n "$VERBOSE" ] && warn RUNNING: $GREP $RE_TYPE $WORD_RE $IGNORE_CASE -- "'$PKGS_REGEXP'" "$DPKGLIST"
 
     BODY=$($GREP $RE_TYPE $WORD_RE $IGNORE_CASE -- "$PKGS_REGEXP" "$DPKGLIST" | \
-            awk -F'\t' "{ printf \"$BODY_FMT_STRING\", \$1, \$2, \$3, \$4 }" |
+            awk -F'\t' -v fmt="$BODY_FMT_STRING" '{ printf fmt, $1, $2, $3, $4 }' |
             sed -e 's/ *$//g'
           )
 
