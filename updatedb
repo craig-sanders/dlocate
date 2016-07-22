@@ -91,7 +91,7 @@ if (%old_stamps and open(DB, '<', $dbfile)) {
 }
 
 foreach my $pkg (@new_pkgs) {
-    open(FILE, '<', "$pkg.list") or die "$program: can't open $pkg for read: $!\n";
+    open(FILE, '<', "$pkg.list") or die "$program: can't open new $pkg.list for read: $!\n";
     foreach (<FILE>) {
         print DBFILE $pkg, ': ', $_;
     }
