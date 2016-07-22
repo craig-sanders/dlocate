@@ -1,0 +1,12 @@
+#  HTML COLOR NAME   COL A N T STRING or REGULAR EXPRESSION
+#################### ### # # # ################################################################
+# field names
+Green                grn       (^[^ :]*):
+# Version strings
+Red                  red       [[:space:]]([0-9]+\.[-+:.0-9a-z~]+)([^,)]|$)
+# Maintainer name
+Yellow               yel       ^Maintainer: ([^<]*) 
+# Maintainer address
+Magenta              mag       (<[^>]+@[^>]+>)
+# URL
+Yellow               yel       ([a-z]+://.*)

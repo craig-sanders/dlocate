@@ -1,0 +1,22 @@
+#  HTML COLOR NAME   COL A N T STRING or REGULAR EXPRESSION
+#################### ### # # # ################################################################
+# default bold white (I don't like bold much but need to highlight installed vs uninstalled packages)
+White                whi b 1   (.*)
+# Header
+White                whi   1   (^[D|+].*)
+# Versions
+Green                grn   1   [[:space:]]([0-9~:.]{2,}[-+:.0-9a-z~]+)[[:space:]]
+Magenta              mag   1   (<[^:]*>)
+#
+# See `man dpkg-query` for details.
+#
+# Desired
+Red                  red b 1   ^(u[^n])
+White                whi   1   ^(un.*)
+Cyan                 cya   1   ^([h].*)
+White                whi   1   ^([rp][^n].*)
+Magenta              mag   1   ^([rp])[^n]
+# Status
+Magenta              mag   1   ^.([cHUFWt])
+# Errors
+Red                  red b 1   ^([uirph][ncHUFWti]R.*)
