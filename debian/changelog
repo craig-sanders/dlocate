@@ -9,6 +9,13 @@ dlocate (1.08) unstable; urgency=medium
     executable (Closes: #829473)
   * got tired of forgetting to update the VERSION_BANNER in dlocate,
     so made it use $(dpkg-query -W -f '${version}' dlocate)
+  * deleted test.output file and check-version-banner.sh, not needed anymore
+  * fixed off-by-one fmt bug in -l output
+  * added -C, --colour option for -l and -s (requires supercat package)
+    default colours can be changed by copying spcrc-dpkg-l and spcrc-package
+    from /usr/share/dlocate to ~/.spc/ and editing.
+  * update-dlocatedb now uses /usr/share/dlocate/update-dpkg-list
+  * update-dpkg-list outputs details for all known packages, not just installed packages
 
  -- Craig Sanders <cas@taz.net.au>  Sun, 03 Jul 2016 03:46:36 +1000
 
