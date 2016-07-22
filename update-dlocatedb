@@ -58,15 +58,8 @@ if [ -n "$files" ] ; then
   test -x /usr/share/dlocate/updatedb && /usr/share/dlocate/updatedb >/dev/null
 fi
 
-if [ -n "$pkgs" ] ; then
-  # update 'dlocate -l' emulation
-  # use sed to convert first, second, and fourth space on each line of
-  # dpkg -l to tab characters so we can use that as a field-sep in awk for
-  # 'dlocate -l'.
-  #
-  # convert third space to a : for architecture
-  dpkg -l "*" | 
-    sed -e '1,5d; s/  */ /g; s/ /\t/; s/ /\t/; s/ /:/; s/ /\t/' | 
-    sort -k2 | 
-    uniq -f2 > "$DPKGLIST"
+if [ -n "$files" ] ; then
+  # update dpkg-list
+  test -x /usr/share/dlocate/update-dpkg-list && /usr/share/dlocate/update-dpkg-list >/dev/null
 fi
+

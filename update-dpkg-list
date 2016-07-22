@@ -1,0 +1,138 @@
+#! /usr/bin/perl 
+
+use strict;
+use warnings;
+use IPC::Open2;
+use File::Basename;
+
+my $program = basename($0);
+
+my %packages = ();
+
+my $myarch = qx(dpkg --print-architecture);
+chomp $myarch;
+
+# pre-declare subroutines (see below for implementation)
+use subs qw(parse_pkg);
+
+# get details for all packages known by dpkg
+open(DPKG,'-|','dpkg -l "*"');
+while(<DPKG>) {
+  next unless (m/^[uihrp][ncHUFWti]/);
+  chomp;
+
+  my ($status,$pkg,$version,$arch,$desc) = split /\s+/,$_,5;
+  $pkg =~ s/:.*//;
+
+  $packages{"$pkg"}->{$arch}->{'status'} = sprintf('%-3s',$status);
+  $packages{"$pkg"}->{$arch}->{'version'} = $version;
+  $packages{$pkg}->{$arch}->{'desc'} = $desc;
+}
+close(DPKG);
+
+# now get missing details for uninstalled packages 
+$/='';
+my $pkgfiles='/var/lib/dpkg/status /var/lib/dpkg/available';
+my $fields= join(',',qw(Package Description Architecture Version));
+
+open(DCTRL,'-|',"grep-dctrl -e . -s $fields $pkgfiles");
+while(<DCTRL>) {
+  parse_pkg('DCTRL',$_);
+};
+close(DCTRL);
+
+
+# as a last ressort, try to get missing details from apt-cache show
+# if arch or version is '<none>'
+my @unknown = ();
+foreach my $pkg (keys %packages) {
+  foreach my $arch (keys %{ $packages{$pkg} } ) {
+
+    push @unknown, $pkg if (
+            $arch eq '<none>'
+         || $packages{$pkg}->{$arch}->{'version'} eq '<none>'
+        );
+  };
+};
+
+if (@unknown) {
+  # apt-cache doesn't read stdin, so we have to use xargs to make sure we
+  # never exceed the bash command line limit.
+  my $pid = open2(\*ACS, \*XARGS, 'xargs -0r apt-cache show');
+
+  print XARGS join("\0",@unknown);
+  close(XARGS);
+
+  while (<ACS>) {
+    parse_pkg('ACS',$_);
+  };
+  close(ACS);
+};
+
+my $dlist = '/var/lib/dlocate/dpkg-list';
+
+open(DPKGLIST,'>', "$dlist.new") or die "$program: couldn't open $dlist.new for write: $!\n";
+foreach (sort keys %packages) {
+  foreach my $arch (sort keys %{ $packages{$_} } ) {
+    next if ($arch eq '<none>');
+    my $pkg = ($arch =~ m/^($myarch|all)$/io) ? $_ : "$_:$arch";
+
+    printf DPKGLIST "%s\t%s\t%s:%s\t%s\n", 
+    #printf DPKGLIST "%s\t%s\t%s\t%s\t%s\n", 
+      $packages{$_}->{$arch}->{'status'}, 
+      $pkg, 
+      $packages{$_}->{$arch}->{'version'}, $arch,
+      $packages{$_}->{$arch}->{'desc'};
+
+  };
+};
+close(DPKGLIST);
+rename("$dlist.new", $dlist);
+
+
+###
+### subroutines
+###
+
+sub parse_pkg {
+  my $calltype = shift;
+  my ($pkg,$desc,$status,$version,$arch) = ('','(no description available)','un ','','');
+
+  # split package details by newline
+  foreach (split /\n/,$_) {
+    next unless (m/^(Package|Description(?:-..)?|Architecture|Version):/o);
+
+    my ($field, $val) = split /: /,$_,2;
+    if ($field eq 'Package') {
+      $pkg     = $val ;
+    } elsif ($field =~ m/Description(?:-..)?/io) {
+      $desc    = $val;
+    } elsif ($field eq 'Version') {
+      $version = $val;
+    } elsif ($field eq 'Architecture') {
+      $arch    = $val;
+    };
+  };
+
+  #$desc = "$calltype $desc";
+
+  return unless ($pkg && $arch);
+  return if ($arch ne $myarch && !defined($packages{$pkg}->{$arch}));
+
+  $packages{$pkg}->{$arch}->{'desc'} = $desc;
+
+  if (!defined($packages{$pkg}->{$arch}->{'status'})) {
+    $packages{$pkg}->{$arch}->{'status'}  =  'un ';
+  };
+
+  if (    ! defined($packages{$pkg}->{$arch}->{'version'})
+       || $packages{$pkg}->{$arch}->{'version'} eq '<none>' 
+     ) {
+    $packages{$pkg}->{$arch}->{'version'} =  $version;
+  };
+
+  if (!defined($packages{$pkg}->{$arch})) {
+    $packages{$pkg}->{$arch}->{'arch'}    =  $arch;
+  };
+};
+
