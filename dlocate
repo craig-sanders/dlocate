@@ -76,8 +76,12 @@ Miscellaneous Options:
   -h, -H, --help          Display this help message and exit.
   -V, --version           Display dlocate's version number and exit.
   -v, --verbose, --debug  Verbose/debug output
+
   -c, --columns [cols]    Set COLUMN width.  Without -c, dlocate defaults to
                           using the entire terminal line width.
+
+  -C, --colour            Colourise -l or -s output 
+                            (requires supercat to be installed)
 __EOF__
   exit 1
 }
@@ -132,8 +136,31 @@ function output_filter() {
   esac
 }
 
+function colourise_dpkg() {
+  case "$COLOURISE" in 
+    1) spc -c "$CCONFD" ;;
+    *) cat ;;
+  esac
+}
+
+function colourise_packages() {
+  case "$COLOURISE" in 
+    1) spc -c "$CCONFP" ;;
+    *) cat ;;
+  esac
+}
+
 VERBOSE=''
 KERNEL=''
+
+COLOURISE=''
+CCONFP=''
+CCONFD=''
+
+for d in /etc/supercat /usr/share/dlocate ~/.spc ./ ; do
+  [ -e "$d/spcrc-dpkg-l"  ] && CCONFD="$d/spcrc-dpkg-l"
+  [ -e "$d/spcrc-package" ] && CCONFP="$d/spcrc-package"
+done
 
 # getopt is only safe if GETOPT_COMPATIBLE is not set.
 unset GETOPT_COMPATIBLE
@@ -144,8 +171,8 @@ unset GETOPT_COMPATIBLE
 # become "-x -y -o optval -- file1 file2 file3"
 unset POSIXLY_CORRECT
 
-OPTS_SHORT='hHVvdc:KkSLlsiEFGPwfp'
-OPTS_LONG='help,version,verbose,debug,columns:,ls,du,conf,lsconf,md5sum,md5check,man,lsman,lsbin,ignore-case,extended-regexp,fixed-strings,basic-regexp,perl-regexp,filename-only,package-only,lsdir'
+OPTS_SHORT='hHVvdc:KkSLlsiEFGPwfpC'
+OPTS_LONG='help,version,verbose,debug,columns:,ls,du,conf,lsconf,md5sum,md5check,man,lsman,lsbin,ignore-case,extended-regexp,fixed-strings,basic-regexp,perl-regexp,filename-only,package-only,lsdir,colour,color'
 
 # check options and shuffle them
 # use getopt's `-a` option to provide backwards-compatibility
@@ -162,6 +189,7 @@ while true ; do
          -h|-H|--help) usage ; shift ;;
            -V|--vers*) dlocate_version ; shift ;;
     -v|--verb*|--deb*) VERBOSE=1 ; shift ;;
+           -C|--colo*) COLOURISE=1 ; shift ;;
             -c|--col*) COLUMNS="${2:-80}" ; shift 2 ;;
 
             -E|--ext*) RE_TYPE='-E' ; shift ;;
@@ -256,7 +284,7 @@ if [ "$OPTION" = '-l' ] ; then
             sed -e 's/ *$//g'
           )
 
-    [ -n "$BODY" ] && printf "%s\n" "$HEADER" "$BODY"
+    [ -n "$BODY" ] && printf "%s\n" "$HEADER" "$BODY" | colourise_dpkg
 
 elif [ "$OPTION" = '-S' ] ; then
 
@@ -281,11 +309,11 @@ elif [ "$OPTION" = 'DEFAULT' ] ; then
 elif [ "$OPTION" = '-s' ] ; then
 
     for p in "${PKGS[@]}" ; do
-        grep-status -P -X "$p"
+        grep-status -P -X "$p" | colourise_packages
         result=$?
         if [ "$result"0 -ne 0 ] ; then
-          printf "%s\n" "Package: $p (virtual package, currently provided by '$(deb_provided_by "$p")')"
-          printf "%s\n\n" "X-Available-Providers: $(list_deb_providers "$p" | sort -u | xargs | sed -e 's/ / | /g')"
+          (printf "%s\n" "Package: $p (virtual package, currently provided by '$(deb_provided_by "$p")')"
+          printf "%s\n\n" "X-Available-Providers: $(list_deb_providers "$p" | sort -u | xargs | sed -e 's/ / | /g')") | colourise_packages
           # use X-Available-Provides: to provide a hint that it's a synthetic status field.
         fi
     done
