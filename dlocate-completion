@@ -1,3 +1,5 @@
+# FIXME: fixed in dlocate > 1.07
+
 # Debian GNU dlocate(1) completion
 #
 have dlocate && {
@@ -19,15 +21,28 @@ _dlocate()
 		return 0
 		;;
 	*)
-		COMPREPLY=( $( compgen -W '-h -H -V -S -L -l -s -ls -du \
-			-conf -lsconf -md5sum -md5check -man --help \
-			--version' -- $cur ) )
-		return 0
+		case "$cur" in
+		-)
+			COMPREPLY=( $( compgen -W '-h -H -V -S -L -l -s -ls -du \
+				-conf -lsconf -md5sum -md5check -man --help \
+				--version' -- $cur ) )
+			return 0
+			;;
+		*)
+			_filedir
+			return 0
+			;;
+		esac
 		;;
 	esac
-	
+
 	# notreached
 	return 0
 }
 complete -F _dlocate $filenames dlocate
 }
+
+# Local variables:
+# mode: shell-script
+# End:
+# ex: filetype=sh
