@@ -31,7 +31,7 @@ set -e
 case "$1" in
     configure)
 		# generate initial dlocate database and package list
-        /usr/sbin/update-dlocatedb -b
+        update-dlocatedb -b
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

@@ -7,11 +7,11 @@ Build-Depends: debhelper (>= 5)
 
 Package: dlocate
 Architecture: all
-Depends: dctrl-tools | grep-dctrl (>= 0.11), util-linux, dpkg (>= 1.8.0), ${perl:Depends}
+Depends: dctrl-tools | grep-dctrl (>= 0.11), dpkg (>= 1.8.0), ${perl:Depends}, ${misc:Depends}
 Recommends: supercat
 Description: fast alternative to dpkg -L and dpkg -S 
- Uses GNU grep and text dumps of dpkg's data to greatly speed up finding out which
- package a file belongs to (i.e. a very fast dpkg -S). Many other uses,
- including options to view all files in a package, calculate disk space
- used, view and check md5sums, list man pages, etc.
+ Uses GNU grep and text dumps of dpkg's data to greatly speed up finding
+ out which package a file belongs to (i.e. a very fast dpkg -S). Many
+ other uses, including options to view all files in a package, calculate
+ disk space used, view and check md5sums, list man pages, etc.
 Homepage: https://github.com/craig-sanders/dlocate

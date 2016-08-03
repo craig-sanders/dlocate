@@ -15,7 +15,9 @@ dlocate (1.08) unstable; urgency=medium
     default colours can be changed by copying spcrc-dpkg-l and spcrc-package
     from /usr/share/dlocate to ~/.spc/ and editing.
   * update-dlocatedb now uses /usr/share/dlocate/update-dpkg-list
-  * update-dpkg-list outputs details for all known packages, not just installed packages
+  * update-dpkg-list outputs details for all known packages, not just
+    installed packages
+  * minor packaging fixes to keep lintian happy
 
  -- Craig Sanders <cas@taz.net.au>  Sun, 03 Jul 2016 03:46:36 +1000
 
