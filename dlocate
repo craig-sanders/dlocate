@@ -73,7 +73,7 @@ Regular Expression Options (see grep(1) for details):
 
 Miscellaneous Options:
 
-  -h, -H, --help          Display this help message and exit.
+  -h, --help              Display this help message and exit.
   -V, --version           Display dlocate's version number and exit.
   -v, --verbose, --debug  Verbose/debug output
 
@@ -171,7 +171,7 @@ unset GETOPT_COMPATIBLE
 # become "-x -y -o optval -- file1 file2 file3"
 unset POSIXLY_CORRECT
 
-OPTS_SHORT='hHVvdc:KkSLlsiEFGPwfpC'
+OPTS_SHORT='hVvdc:KkSLlsiEFGPwfpC'
 OPTS_LONG='help,version,verbose,debug,columns:,ls,du,conf,lsconf,md5sum,md5check,man,lsman,lsbin,ignore-case,extended-regexp,fixed-strings,basic-regexp,perl-regexp,filename-only,package-only,lsdir,colour,color'
 
 # check options and shuffle them
@@ -186,7 +186,7 @@ eval set -- "$TEMP"
 
 while true ; do
   case "$1" in
-         -h|-H|--help) usage ; shift ;;
+            -h|--help) usage ; shift ;;
            -V|--vers*) dlocate_version ; shift ;;
     -v|--verb*|--deb*) VERBOSE=1 ; shift ;;
            -C|--colo*) COLOURISE=1 ; shift ;;
@@ -202,9 +202,6 @@ while true ; do
             -f|--fil*) OUTPUT_FILTER='filenames' ; shift ;;
             -p|--pac*) OUTPUT_FILTER='packages' ; shift ;;
        
-   # only one of the following options can be used at a time.
-   # last one seen on the command-line wins.
-
                 -K|-k) OPTION="$1" ; KERNEL=1 ; shift ;;
                    -S) OPTION="$1" ; shift ;;
                    -L) OPTION="$1" ; shift ;;
@@ -510,3 +507,7 @@ fi
 
 test -n "$result" && exit $result
 
+# Local variables:
+# mode: shell-script
+# End:
+# ex: ts=2 sts=2 sw=2 et filetype=sh
