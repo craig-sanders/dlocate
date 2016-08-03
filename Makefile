@@ -15,7 +15,8 @@ install:
 	install -m 755 dpkg-unhold $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-remove $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-purge $(DESTDIR)/usr/sbin/
-	install -m 644 dlocate-completion $(DESTDIR)/etc/bash_completion.d/
+	#install -m 644 dlocate-completion $(DESTDIR)/etc/bash_completion.d/
+	install -m 644 dlocate-completion $(DESTDIR)/usr/share/bash-completion/completions
 
 update-test:
 	./test-dlocate.sh > test.output 2>&1
