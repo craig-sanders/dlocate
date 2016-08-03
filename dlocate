@@ -157,7 +157,7 @@ COLOURISE=''
 CCONFP=''
 CCONFD=''
 
-for d in /etc/supercat /usr/share/dlocate ~/.spc ./ ; do
+for d in /etc/supercat /usr/share/dlocate ~/.spcrc ; do
   [ -e "$d/spcrc-dpkg-l"  ] && CCONFD="$d/spcrc-dpkg-l"
   [ -e "$d/spcrc-package" ] && CCONFP="$d/spcrc-package"
 done
