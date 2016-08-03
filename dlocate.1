@@ -220,6 +220,10 @@ Produce verbose debugging output
 Set COLUMN width to override the \fBdlocate\fP default of using the entire terminal line width.
 Any value for \fIcolumns\fP less than 80 will be increaed to 80.
 
+.TP
+.BR \-C ", " \-\-colour ", " \-\-color
+Colourise -l or -s output (requires supercat to be installed)
+
 .SH FILES
 .TP
 .I /etc/default/dlocate
@@ -254,7 +258,7 @@ To purge kernel version 2.6.28.7 and all related module packages:
 
 To check the md5sums of the dlocate package:
 .br
-\fB     dlocate \-md5check dlocate\fP
+\fB     dlocate \-\-md5check dlocate\fP
 .br
 
 To use dpkg-repack to make a backup copy of all installed mythtv packages just before
