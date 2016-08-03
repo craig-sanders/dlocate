@@ -1,48 +1,50 @@
-# FIXME: fixed in dlocate > 1.07
-
 # Debian GNU dlocate(1) completion
 #
 have dlocate && {
-_dlocate()
-{
-	local cur prev
+  _dlocate() {
+    local cur prev
 
-	COMPREPLY=()
-	cur=${COMP_WORDS[COMP_CWORD]}
-	prev=${COMP_WORDS[COMP_CWORD-1]}
+    COMPREPLY=()
+    cur=${COMP_WORDS[COMP_CWORD]}
+    prev=${COMP_WORDS[COMP_CWORD-1]}
 
-	case "$prev" in
-	-S)
-		_filedir
-		return 0
-		;;
-	-@(L|l|s|ls|du|conf|lsconf|md5sum|md5check|man))
-		COMPREPLY=( $( _xfunc dpkg _comp_dpkg_installed_packages "$cur" ) )
-		return 0
-		;;
-	*)
-		case "$cur" in
-		-)
-			COMPREPLY=( $( compgen -W '-h -H -V -S -L -l -s -ls -du \
-				-conf -lsconf -md5sum -md5check -man --help \
-				--version' -- $cur ) )
-			return 0
-			;;
-		*)
-			_filedir
-			return 0
-			;;
-		esac
-		;;
-	esac
+    case "$prev" in
+      -S) _filedir ; return 0 ;;
 
-	# notreached
-	return 0
+      -@(L|l|s|-ls|-du|-conf|-lsconf|-md5sum|-md5check|-man|-lsman|-lsbin|-lsdir))
+        COMPREPLY=( $( _xfunc dpkg _comp_dpkg_installed_packages "$cur" ) )
+        return 0
+        ;;
+
+      *) case "$cur" in
+           -) COMPREPLY=( $( compgen -W '-h -V -v -d -c -K -k -S -L -l -s -i
+                -l -s i -E -F -G -P -w -f -p -C --help --version
+                --verbose --debug --columns --ls --du --conf
+                --lsconf -md5sum --md5check --man --lsman
+                --lsbin --ignore-case -extended-regexp
+                --fixed-strings --basic-regexp -perl-regexp
+                --filename-only --package-only --lsdir --colour'
+                -- $cur ) )
+
+              return 0
+              ;;
+
+           *) _filedir ; return 0 ;;
+         esac
+         ;;
+    esac
+
+    # notreached
+    return 0
+  }
+  complete -F _dlocate $filenames dlocate
 }
-complete -F _dlocate $filenames dlocate
-}
+
+#$ awk -F"['=]" '$1 == "OPTS_SHORT" {$3=gensub(/./," -&","g",$3); print $3}; $1=="OPTS_LONG" { $3=gensub(/^|,/," --","g",$3); print $3}'   dlocate | sed -e 's/-: \|://g'
+# -h -V -v -d -c -K -k -S -L -l -s -i -E -F -G -P -w -f -p -C
+# --help --version --verbose --debug --columns --ls --du --conf --lsconf --md5sum --md5check --man --lsman --lsbin --ignore-case --extended-regexp --fixed-strings --basic-regexp --perl-regexp --filename-only --package-only --lsdir --colour --color
 
 # Local variables:
 # mode: shell-script
 # End:
-# ex: filetype=sh
+# ex: ts=2 sts=2 sw=2 et filetype=sh
