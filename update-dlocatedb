@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 DPKGLIST='/var/lib/dlocate/dpkg-list'
 

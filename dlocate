@@ -58,8 +58,8 @@ rather than fixed strings.
 
 Options
 
-  -f, --filename-only     Output file names only when searching for files
-  -p, --package-only      Output package names only when searching for files
+  -f, --filename-only     Strip 'package: ' prefix from search output
+  -p, --package-only      Output package names only when searching
 
 Regular Expression Options (see grep(1) for details):
 
@@ -80,14 +80,14 @@ Miscellaneous Options:
   -c, --columns [cols]    Set COLUMN width.  Without -c, dlocate defaults to
                           using the entire terminal line width.
 
-  -C, --colour            Colourise -l or -s output 
+  -C, --colour            Colourise -l or -s output
                             (requires supercat to be installed)
 __EOF__
   exit 1
 }
 
 function warn() {
-  printf "%s\n\n" "$*" >&2
+  printf "%s\n" "$*" >&2
 }
 
 function dlocate_version {
@@ -137,14 +137,14 @@ function output_filter() {
 }
 
 function colourise_dpkg() {
-  case "$COLOURISE" in 
+  case "$COLOURISE" in
     1) spc -c "$CCONFD" ;;
     *) cat ;;
   esac
 }
 
 function colourise_packages() {
-  case "$COLOURISE" in 
+  case "$COLOURISE" in
     1) spc -c "$CCONFP" ;;
     *) cat ;;
   esac
@@ -157,7 +157,7 @@ COLOURISE=''
 CCONFP=''
 CCONFD=''
 
-for d in /etc/supercat /usr/share/dlocate ~/.spcrc ; do
+for d in /etc/supercat /usr/share/dlocate ~/.spcrc ./ ; do
   [ -e "$d/spcrc-dpkg-l"  ] && CCONFD="$d/spcrc-dpkg-l"
   [ -e "$d/spcrc-package" ] && CCONFP="$d/spcrc-package"
 done
@@ -201,7 +201,7 @@ while true ; do
 
             -f|--fil*) OUTPUT_FILTER='filenames' ; shift ;;
             -p|--pac*) OUTPUT_FILTER='packages' ; shift ;;
-       
+
                 -K|-k) OPTION="$1" ; KERNEL=1 ; shift ;;
                    -S) OPTION="$1" ; shift ;;
                    -L) OPTION="$1" ; shift ;;
@@ -242,7 +242,7 @@ FILES_REGEXP="($PKGS_REGEXP)"
 
 
 if [ -n "$VERBOSE" ] ; then
-  declare -p COLUMNS TEMP PKGS OPTION RE_SEPARATOR PKGS_REGEXP FILES_REGEXP | 
+  declare -p COLUMNS TEMP PKGS OPTION RE_SEPARATOR PKGS_REGEXP FILES_REGEXP |
     sed -e 's/^declare [^ ]\+ //' >&2
   echo >&2
 fi
@@ -324,7 +324,7 @@ elif [ "$OPTION" = '-k' ] ; then
 
     [ -n "$VERBOSE" ] && warn RUNNING: grep-status -P -e "'$linux_pkgs'"
     grep-status -P -e "$linux_pkgs" | \
-        grep-dctrl -n -s Package -F status " installed" - | sort -V 
+        grep-dctrl -n -s Package -F status " installed" - | sort -V
     result=$?
 
 elif [ "$OPTION" = '-K' ] ; then
@@ -374,9 +374,9 @@ else
 
             --du)
                 if [ -s "$PLIST" ] ; then
-                    sed '1d' "$PLIST" | 
-                      xargs -d '\n' -r ls -1dF | 
-                      sed -e '/@$\|\/$/d; s/\*$//;' | 
+                    sed '1d' "$PLIST" |
+                      xargs -d '\n' -r ls -1dF |
+                      sed -e '/@$\|\/$/d; s/\*$//;' |
                       xargs du -sck
                     result=$?
                 else
@@ -431,13 +431,11 @@ else
                       echo
                       echo "Some files in package '$PKG' may have been diverted by other packages"
                       echo "which will cause false FAILED errors:"
-                      echo
                       awk -F: '/FAILED/ {print "/"$1}' "$MD5TMP" | xargs -d'\n' -r dpkg-divert --list | tee "$DIVTMP"
                       if [ -s "$DIVTMP" ] ; then
                         echo
                         echo Checking diverted files:
-                        echo
-                        awk '/^diversion of/ {gsub(/ \//," ");print "s|"$3"|"$5"|gp"}' "$DIVTMP" | 
+                        awk '/^diversion of/ {gsub(/ \//," ");print "s|"$3"|"$5"|gp"}' "$DIVTMP" |
                           sed -n -f /dev/stdin <("$DLOCATE" -md5sum perl)  | md5sum -c - 2>/dev/null
                       fi
                     fi

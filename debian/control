@@ -3,13 +3,13 @@ Section: utils
 Priority: optional
 Maintainer: Craig Sanders <cas@taz.net.au>
 Standards-Version: 3.7.2.1
-Build-Depends: debhelper (>= 5)
+Build-Depends: debhelper (>= 13)
 
 Package: dlocate
 Architecture: all
 Depends: dctrl-tools | grep-dctrl (>= 0.11), dpkg (>= 1.8.0), ${perl:Depends}, ${misc:Depends}
 Recommends: supercat
-Description: fast alternative to dpkg -L and dpkg -S 
+Description: fast alternative to dpkg -L and dpkg -S
  Uses GNU grep and text dumps of dpkg's data to greatly speed up finding
  out which package a file belongs to (i.e. a very fast dpkg -S). Many
  other uses, including options to view all files in a package, calculate

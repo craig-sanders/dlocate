@@ -1,10 +1,10 @@
-#! /bin/bash 
+#!/bin/bash
 
 # simple script to test
 # run like so:
 #
 # ./test-dlocate.sh > new.output 2>&1 ; diff -u test.output new.output
-# 
+#
 # or just 'make test'
 
 FILE="/usr/bin/dlocate /usr/sbin/cron /usr/bin/dpkg /usr/bin/apt"
