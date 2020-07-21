@@ -3,7 +3,7 @@
 set -e
 
 if [ "$1" = "purge" ]; then
-        rm -f /var/lib/dlocate/* 
+        rm -f /var/lib/dlocate/*
         rmdir /var/lib/dlocate/
 fi
 

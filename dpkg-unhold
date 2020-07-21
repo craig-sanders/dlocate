@@ -1,11 +1,13 @@
-#! /bin/bash
+#!/bin/bash
 
-# dpkg-unhold  --  command line tool to flag package(s) as held.
+# dpkg-unhold -- command line tool to remove the hold flag on package(s).
 #
-# by Craig Sanders, 1998-10-26.  This script is hereby placed into the 
+# by Craig Sanders, 1998-10-26.  This script is hereby placed into the
 # public domain.
 #
-# BUGS: this script has absolutely no error checking.  this is not good.
+# 2017-09-06 update: apt-mark does this better.  My dpkg-hold etc
+# scripts are now wrappers around apt-mark and continue to exist only so
+# that any existing scripts that depend on them don't break..
 
 if [ -z "$*" ] ; then
 	echo "Usage:"
@@ -13,6 +15,8 @@ if [ -z "$*" ] ; then
 	exit 1
 fi
 
-for i in $@ ; do
-	echo "$i	install"
-done | dpkg --set-selections
+#for i in $@ ; do
+#	echo "$i	install"
+#done | dpkg --set-selections
+
+apt-mark unhold "$@"

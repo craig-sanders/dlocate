@@ -1,8 +1,8 @@
-#! /usr/bin/make -f
+#!/usr/bin/make -f
 
 all:
 
-clean: 
+clean:
 	rm -rf debian/dlocate debian/dlocate.substvars debian/files build-stamp install-stamp new.output
 
 install:

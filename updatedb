@@ -5,7 +5,7 @@
 # modified by cas to pipe its output through frcode and then > to the
 # db file.
 #
-# caching of .list timestamps and re-use of old locatedb data added by 
+# caching of .list timestamps and re-use of old locatedb data added by
 # Pawel Chmielowski <prefiks@prefiks.org>, see Bug #457572
 
 # 2009-05-30   Craig Sanders <cas@taz.net.au>

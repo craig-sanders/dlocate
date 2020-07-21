@@ -1,4 +1,4 @@
-#! /usr/bin/perl 
+#!/usr/bin/perl
 
 use strict;
 use warnings;
@@ -30,7 +30,7 @@ while(<DPKG>) {
 }
 close(DPKG);
 
-# now get missing details for uninstalled packages 
+# now get missing details for uninstalled packages
 $/='';
 my $pkgfiles='/var/lib/dpkg/status /var/lib/dpkg/available';
 my $fields= join(',',qw(Package Description Architecture Version));
@@ -77,10 +77,10 @@ foreach (sort keys %packages) {
     next if ($arch eq '<none>');
     my $pkg = ($arch =~ m/^($myarch|all)$/io) ? $_ : "$_:$arch";
 
-    printf DPKGLIST "%s\t%s\t%s:%s\t%s\n", 
-    #printf DPKGLIST "%s\t%s\t%s\t%s\t%s\n", 
-      $packages{$_}->{$arch}->{'status'}, 
-      $pkg, 
+    printf DPKGLIST "%s\t%s\t%s:%s\t%s\n",
+    #printf DPKGLIST "%s\t%s\t%s\t%s\t%s\n",
+      $packages{$_}->{$arch}->{'status'},
+      $pkg,
       $packages{$_}->{$arch}->{'version'}, $arch,
       $packages{$_}->{$arch}->{'desc'};
 
@@ -126,7 +126,7 @@ sub parse_pkg {
   };
 
   if (    ! defined($packages{$pkg}->{$arch}->{'version'})
-       || $packages{$pkg}->{$arch}->{'version'} eq '<none>' 
+       || $packages{$pkg}->{$arch}->{'version'} eq '<none>'
      ) {
     $packages{$pkg}->{$arch}->{'version'} =  $version;
   };

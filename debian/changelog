@@ -1,25 +1,28 @@
 dlocate (1.08) unstable; urgency=medium
 
-  * better multi-arch support for .list, .conffiles, and .md5sums files
-  * for --md5check, if any files have been diverted, list them with 
-    'dpkg-divert --list' and perform an md5sum check on the diverted
-    files.  (Closes: #601394)
-  * modified updatedb to use output of 'dpkg-divert --list \*'
-  * cron.daily only runs /usr/sbin/update-dlocatedb if it exists and is
-    executable (Closes: #829473)
-  * got tired of forgetting to update the VERSION_BANNER in dlocate,
-    so made it use $(dpkg-query -W -f '${version}' dlocate)
-  * deleted test.output file and check-version-banner.sh, not needed anymore
-  * fixed off-by-one fmt bug in -l output
-  * added -C, --colour option for -l and -s (requires supercat package)
+  * Closes: #601394 For --md5check: if any files have been diverted, list them with 'dpkg-divert --list' and perform an md5sum check on the diverted files.
+  * Closes: #829473 Cron.daily only runs /usr/sbin/update-dlocatedb if it exists and is executable
+  * Closes: #875773 Better multi-arch support for .list, .conffiles, and .md5sums files
+  * Closes: #903773 Can not reproduce
+  * Closes: #912850 Removed completions, so bash-completions package can take them over
+  * Closes: #867735 dlocate no longer handles its own completions file
+  * Closes: #919122 Removed some extra blank lines from error msg output
+  * Closes: #965492 updated debhelper compat level to >= 13
+  * Closes: #843115, #874062 clarified help message for --filenames-only, --package-only
+  * Changed dpkg-hold, dpkg-unhold, dpkg-purge to be wrappers around apt-mark
+  * Modified updatedb to use output of 'dpkg-divert --list \*'
+  * Got tired of forgetting to update the VERSION_BANNER in dlocate, so made it use $(dpkg-query -W -f '${version}' dlocate)
+  * Deleted test.output file and check-version-banner.sh, not needed anymore
+  * Fixed off-by-one fmt bug in -l output
+  * Added -C, --colour option for -l and -s (requires supercat package)
     default colours can be changed by copying spcrc-dpkg-l and spcrc-package
     from /usr/share/dlocate to ~/.spc/ and editing.
+  * dlocate now also looks in ./ for supercat colourisation files
   * update-dlocatedb now uses /usr/share/dlocate/update-dpkg-list
-  * update-dpkg-list outputs details for all known packages, not just
-    installed packages
-  * minor packaging fixes to keep lintian happy
+  * update-dpkg-list outputs details for all known packages, not just installed packages
+  * Minor packaging fixes to keep lintian happy
 
- -- Craig Sanders <cas@taz.net.au>  Sun, 03 Jul 2016 03:46:36 +1000
+ -- Craig Sanders <cas@taz.net.au>  Tue, 21 Jul 2020 17:13:32 +1000
 
 dlocate (1.07) unstable; urgency=medium
 
