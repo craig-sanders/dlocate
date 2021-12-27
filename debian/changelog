@@ -1,3 +1,9 @@
+dlocate (1.09) unstable; urgency=medium
+
+  * forgot to update debian/compat. fixed.  Closes: #965492
+
+ -- Craig Sanders <cas@taz.net.au>  Tue, 28 Dec 2021 02:44:11 +1100
+
 dlocate (1.08) unstable; urgency=medium
 
   * Closes: #601394 For --md5check: if any files have been diverted, list them with 'dpkg-divert --list' and perform an md5sum check on the diverted files.
