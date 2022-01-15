@@ -1,3 +1,11 @@
+dlocate (1.10) unstable; urgency=medium
+
+  * Edited cron.daily script to stop piuparts complaining
+  * Use grep-available instead of grep-dctrl (only need to read available file, not status)
+  * Closes: #1003631 Removed unnecessary call to xargs apt-cache show
+
+ -- Craig Sanders <cas@taz.net.au>  Sat, 15 Jan 2022 15:48:48 +1100
+
 dlocate (1.09) unstable; urgency=medium
 
   * forgot to update debian/compat. fixed.  Closes: #965492
