@@ -1,7 +1,7 @@
 Source: dlocate
 Section: utils
 Priority: optional
-Maintainer: Craig Sanders <cas@taz.net.au>
+Maintainer: Debian QA Group <packages@qa.debian.org>
 Standards-Version: 3.7.2.1
 Build-Depends: debhelper (>= 13)
 

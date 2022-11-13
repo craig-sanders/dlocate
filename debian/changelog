@@ -1,3 +1,10 @@
+dlocate (1.11) unstable; urgency=medium
+
+  * QA upload.
+  * Set maintainer to Debian QA Group <packages@qa.debian.org>. (see: #1020698)
+
+ -- Marcos Talau <talau@debian.org>  Sun, 13 Nov 2022 09:11:35 -0300
+
 dlocate (1.10) unstable; urgency=medium
 
   * Edited cron.daily script to stop piuparts complaining
