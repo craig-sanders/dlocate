@@ -1,3 +1,10 @@
+dlocate (1.12) unstable; urgency=medium
+
+  * QA upload.
+  * Convert to 3.0 source format. Closes: #1007667
+
+ -- Bastian Germann <bage@debian.org>  Thu, 24 Nov 2022 00:10:50 +0100
+
 dlocate (1.11) unstable; urgency=medium
 
   * QA upload.
