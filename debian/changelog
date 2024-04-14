@@ -1,4 +1,4 @@
-dlocate (1.13) UNRELEASED; urgency=medium
+dlocate (1.13) unstable; urgency=medium
 
   * QA upload.
   * Add debian/gbp.conf for pristine-tar and branch-names.
@@ -16,7 +16,7 @@ dlocate (1.13) UNRELEASED; urgency=medium
   * Delete some trailing whitespaces from debian/changelog.
   * Make debian/copyright machine-readable.
 
- -- Roland Rosenfeld <roland@debian.org>  Sun, 14 Apr 2024 16:23:06 +0200
+ -- Roland Rosenfeld <roland@debian.org>  Sun, 14 Apr 2024 17:29:49 +0200
 
 dlocate (1.12) unstable; urgency=medium
 
