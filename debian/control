@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Debian QA Group <packages@qa.debian.org>
 Standards-Version: 3.7.2.1
-Build-Depends: debhelper (>= 13)
+Build-Depends: debhelper-compat (= 13)
 
 Package: dlocate
 Architecture: all
