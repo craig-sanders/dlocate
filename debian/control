@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Debian QA Group <packages@qa.debian.org>
 Standards-Version: 4.7.0
 Build-Depends: debhelper-compat (= 13)
+Homepage: https://github.com/craig-sanders/dlocate
 Vcs-Git: https://salsa.debian.org/debian/dlocate.git
 Vcs-Browser: https://salsa.debian.org/debian/dlocate
 
@@ -16,4 +17,3 @@ Description: fast alternative to dpkg -L and dpkg -S
  out which package a file belongs to (i.e. a very fast dpkg -S). Many
  other uses, including options to view all files in a package, calculate
  disk space used, view and check md5sums, list man pages, etc.
-Homepage: https://github.com/craig-sanders/dlocate
