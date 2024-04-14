@@ -1,4 +1,3 @@
-etc/bash_completion.d
 etc/default
 usr/bin
 usr/sbin
