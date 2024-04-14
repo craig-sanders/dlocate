@@ -13,6 +13,7 @@ dlocate (1.13) UNRELEASED; urgency=medium
   * Run wrap-and-sort.
   * Remove empty directory /etc/bash_completion.d.
   * Add Rules-Requires-Root: no.
+  * Delete some trailing whitespaces from debian/changelog.
 
  -- Roland Rosenfeld <roland@debian.org>  Sun, 14 Apr 2024 16:23:06 +0200
 
@@ -98,7 +99,7 @@ dlocate (1.05) unstable; urgency=low
   * `dlocate -l` shows more of the package names (Closes: #614664)
   * added full path to error messages mentioning the .list file (Closes: #733864)
   * added --lsdir option to list directories (Closes: #788661)
-  * update-dlocatedb now updates `dlocate -l` info (Closes: #567080)  
+  * update-dlocatedb now updates `dlocate -l` info (Closes: #567080)
   * now being maintained on github https://github.com/craig-sanders/dlocate
     forks and pull requests welcome.
 
@@ -215,12 +216,12 @@ dlocate (0.95) unstable; urgency=low
     that we don't end up grepping for everything.  (Closes: #466662)
   * while/read loops in bash are abysmally slow.  replaced that loop
     in 'dlocate -l' section with an awk script.  vast improvement in
-    speed.  
+    speed.
     Note: this required changing the field separator in $DPKGLIST from
     space to tab, so anyone who parses that file directly (nobody, i
     think) may need to modify their scripts.
     (Closes: #487471)
-  * finally close some bugs that were actually closed ages ago in 
+  * finally close some bugs that were actually closed ages ago in
     NMUs.  (Closes: #314276, #337711, #83196, #54073, #63902, #84018, #67650, #78621, #132930, #91785, #100694, #101426, #129251,  #132931, #129186, #76149, #43145, #43146, #45057, #42314)
 
  -- Craig Sanders <cas@taz.net.au>  Thu, 26 Jun 2008 20:53:30 +1000
