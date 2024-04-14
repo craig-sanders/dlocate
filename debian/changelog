@@ -6,6 +6,8 @@ dlocate (1.13) UNRELEASED; urgency=medium
   * Switch to debhelper-compat (= 13).
   * Fix permissions of /usr/share/dlocate/spcrc-*.
   * Add Vcs-Git/Vcs-Browser.
+  * Switch debian/rules to dh (with disabled dh_auto_test, which did not
+    work before, too).
 
  -- Roland Rosenfeld <roland@debian.org>  Sun, 14 Apr 2024 16:23:06 +0200
 
