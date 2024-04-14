@@ -5,6 +5,7 @@ dlocate (1.13) UNRELEASED; urgency=medium
   * Remove .gitignore.
   * Switch to debhelper-compat (= 13).
   * Fix permissions of /usr/share/dlocate/spcrc-*.
+  * Add Vcs-Git/Vcs-Browser.
 
  -- Roland Rosenfeld <roland@debian.org>  Sun, 14 Apr 2024 16:23:06 +0200
 
