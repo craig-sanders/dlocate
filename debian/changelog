@@ -2,6 +2,7 @@ dlocate (1.13) UNRELEASED; urgency=medium
 
   * QA upload.
   * Add debian/gbp.conf for pristine-tar and branch-names.
+  * Remove .gitignore.
 
  -- Roland Rosenfeld <roland@debian.org>  Sun, 14 Apr 2024 16:23:06 +0200
 
