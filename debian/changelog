@@ -10,6 +10,7 @@ dlocate (1.13) UNRELEASED; urgency=medium
     work before, too).
   * Update to Standards-Version 4.7.0.
   * debian/control: Move Homepage field to source package.
+  * Run wrap-and-sort.
 
  -- Roland Rosenfeld <roland@debian.org>  Sun, 14 Apr 2024 16:23:06 +0200
 
