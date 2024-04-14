@@ -1,20 +1,36 @@
-This package was debianized by Craig Sanders <cas@taz.net.au> on
-Fri, 16 Jul 1999 11:31:28 +1000.
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: dlocate
+Upstream-Contact: Craig Sanders <cas@taz.net.au>
 
-It was created from original source code by Jim Pick <jim@pick.com>,
-greatly modified and enhanced by myself.
+Files: *
+Copyright: 1999 Jim Pick <jim@jimpick.com>, Craig Sanders <cas@taz.net.au>
+           2007-2016 Craig Sanders <cas@taz.net.au>
+License: GPL-2+
+ This program is released under the GNU General Public License (GPL),
+ version 2 (or later, at your option).
+ .
+ On Debian GNU/Linux systems, the complete text of the GNU General
+ Public License version 2 can be found in
+ `/usr/share/common-licenses/GPL-2'.
 
-Various versions have been posted to the debian mailing lists and it's
-well past time to package it.
+Files: update-dlocatedb.8
+Copyright: Andreas Metzler <ametzler at downhill.at.eu.org>
+License: GPL
+ The manual page was written by Andreas Metzler <ametzler at
+ downhill.at.eu.org> for the Debian GNU/Linux system (but may be used by
+ others, under the terms of the GNU GPL).
+ .
+ On Debian GNU/Linux systems, the complete text of the GNU General
+ Public License can be found in `/usr/share/common-licenses/GPL'.
 
-Upstream Authors: Jim Pick <jim@pick.com>
-                  Craig Sanders <cas@taz.net.au>
+Files: dlocate dlocate.1
+Copyright: Jim Pick <jim@pick.com> and Craig Sanders <cas@taz.net.au>
+License: GPL
+ dlocate is Free Software licensed under the GNU General Public License.
 
-Copyright:
+Files: dpkg-hold* dpkg-purge* dpkg-remove* dpkg-unhold*
+Copyright: 1998 Craig Sanders
+License: public-domain
+ This script is hereby placed into the public domain.
 
-Copyright (C) 1999 Jim Pick <jim@jimpick.com>, Craig Sanders <cas@taz.net.au>
-Copyright (C) 2007, 2008 Craig Sanders <cas@taz.net.au>
 
-original script by Jim Pick <jim@jimpick.com>, GPL'd of course
-
-see /usr/share/common-licenses/GPL-2 for details
