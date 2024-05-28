@@ -1,3 +1,10 @@
+dlocate (1.14) unstable; urgency=medium
+
+  * QA upload.
+  * debian/salsa-ci.yml: Add to provide CI tests for Salsa.
+
+ -- Jacqueline Agatha Agnes Ferreira <jacquelineagatha@alunos.utfpr.edu.br>  Tue, 28 May 2024 00:15:40 -0300
+
 dlocate (1.13) unstable; urgency=medium
 
   * QA upload.
