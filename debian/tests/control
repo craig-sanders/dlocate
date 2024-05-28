@@ -1,0 +1,5 @@
+Test-Command: dpkg-hold coreutils
+Restrictions: needs-root, superficial
+
+Test-Command: dpkg-hold coreutils && dpkg-unhold coreutils && ! apt-mark showhold | grep coreutils
+Restrictions: needs-root, superficial
