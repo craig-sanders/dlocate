@@ -1,3 +1,22 @@
+dlocate (1.15) unstable; urgency=medium
+
+  * Take over maintainership as part of the Dpkg Developers umbrella.
+    Closes: #1020698
+  * Packaging:
+    - Remove gbp.conf.
+    - Remove salsa-ci.yml.
+    - Run wrap-and-sort -ast.
+    - Remove redundant source/options.
+    - Remove obsolete grep-dctrl alternative dependency.
+    - Remove ancient versioned dependency on dpkg.
+    - Remove ineffective hardening=+all.
+    - Namespace debhelper fragment files with package name.
+    - Remove exec bits from debian/cron.daily.
+    - Replace maintscript comment boilerplate with refs to manual pages.
+    - Remove redundant Upstream-Name from copyright file.
+
+ -- Guillem Jover <guillem@debian.org>  Thu, 17 Oct 2024 07:10:23 +0200
+
 dlocate (1.14) unstable; urgency=medium
 
   * QA upload.
