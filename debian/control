@@ -2,21 +2,25 @@ Source: dlocate
 Section: utils
 Priority: optional
 Maintainer: Dpkg Developers <debian-dpkg@lists.debian.org>
-Uploaders: Guillem Jover <guillem@debian.org>
+Uploaders:
+ Guillem Jover <guillem@debian.org>,
 Vcs-Browser: https://git.dpkg.org/git/dpkg/dlocate.git
 Vcs-Git: https://git.dpkg.org/cgit/dpkg/dlocate.git
 Homepage: https://wiki.debian.org/Teams/Dpkg
 Standards-Version: 4.7.0
-Build-Depends: debhelper-compat (= 13)
 Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13),
 
 Package: dlocate
 Architecture: all
-Depends: dctrl-tools | grep-dctrl (>= 0.11),
-         dpkg (>= 1.8.0),
-         ${misc:Depends},
-         ${perl:Depends}
-Recommends: supercat
+Depends:
+ dctrl-tools | grep-dctrl (>= 0.11),
+ dpkg (>= 1.8.0),
+ ${misc:Depends},
+ ${perl:Depends},
+Recommends:
+ supercat,
 Description: fast alternative to dpkg -L and dpkg -S
  Uses GNU grep and text dumps of dpkg's data to greatly speed up finding
  out which package a file belongs to (i.e. a very fast dpkg -S). Many
