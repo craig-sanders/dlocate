@@ -1,6 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dlocate
-Upstream-Contact: Craig Sanders <cas@taz.net.au>
 
 Files: *
 Copyright: 1999 Jim Pick <jim@jimpick.com>, Craig Sanders <cas@taz.net.au>

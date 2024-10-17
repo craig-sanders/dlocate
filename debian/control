@@ -1,13 +1,14 @@
 Source: dlocate
 Section: utils
 Priority: optional
-Maintainer: Debian QA Group <packages@qa.debian.org>
+Maintainer: Dpkg Developers <debian-dpkg@lists.debian.org>
+Uploaders: Guillem Jover <guillem@debian.org>
+Vcs-Browser: https://git.dpkg.org/git/dpkg/dlocate.git
+Vcs-Git: https://git.dpkg.org/cgit/dpkg/dlocate.git
+Homepage: https://wiki.debian.org/Teams/Dpkg
 Standards-Version: 4.7.0
 Build-Depends: debhelper-compat (= 13)
 Rules-Requires-Root: no
-Homepage: https://github.com/craig-sanders/dlocate
-Vcs-Git: https://salsa.debian.org/debian/dlocate.git
-Vcs-Browser: https://salsa.debian.org/debian/dlocate
 
 Package: dlocate
 Architecture: all
