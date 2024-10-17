@@ -15,7 +15,7 @@ Build-Depends:
 Package: dlocate
 Architecture: all
 Depends:
- dctrl-tools | grep-dctrl (>= 0.11),
+ dctrl-tools,
  dpkg (>= 1.8.0),
  ${misc:Depends},
  ${perl:Depends},
