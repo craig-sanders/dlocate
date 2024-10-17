@@ -1,4 +1,5 @@
 #!/bin/sh
+# See deb-postrm(5).
 
 set -e
 
