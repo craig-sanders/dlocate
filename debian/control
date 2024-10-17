@@ -16,7 +16,6 @@ Package: dlocate
 Architecture: all
 Depends:
  dctrl-tools,
- dpkg (>= 1.8.0),
  ${misc:Depends},
  ${perl:Depends},
 Recommends:
