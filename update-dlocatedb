@@ -36,21 +36,10 @@ shift $((OPTIND-1))
 
 # See ionice(1)
 if [ -x /usr/bin/ionice ]; then
-  # don't run ionice if kernel version < 2.6.13
-  KVER=$(uname -r)
-  case "$KVER" in
-    2.[012345]*) ;;
-
-    2.6.[0-9])   ;;
-    2.6.[0-9].*) ;;
-
-    2.6.1[012]*) ;;
-
-    # Redirect ionice output to /dev/null because VSERVER & OPENVZ
-    # & probably other container environments don't like it.  See
-    # Bug#456292
-    *) ionice -c3 -p$$ > /dev/null 2>&1 ;;
-  esac
+  # Redirect ionice output to /dev/null because VSERVER & OPENVZ
+  # & probably other container environments don't like it.  See
+  # Bug#456292
+  ionice -c3 -p$$ > /dev/null 2>&1
 fi
 
 if [ -n "$files" ] ; then
