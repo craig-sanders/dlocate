@@ -6,6 +6,12 @@ dpkg-unhold - mark held packages for installation
 
 B<dpkg-unhold> [I<package>...]
 
+=head1 WARNING
+
+This command is B<deprecated>,
+and will be removed during in Debian forky,
+use C<dpkg --set-selections> or C<apt-mark> instead.
+
 =head1 DESCRIPTION
 
 B<dpkg-unhold> marks package(s) to be installed.
@@ -26,6 +32,7 @@ will cause B<dselect>/B<apt>/etc to install it if it wasn't already installed.
 =head1 SEE ALSO
 
 L<dpkg(1)>,
+L<apt-mark(8)>,
 L<dpkg-hold(1)>,
 L<dpkg-remove(1)>,
 L<dpkg-purge(1)>.

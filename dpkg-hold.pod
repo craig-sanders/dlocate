@@ -6,6 +6,12 @@ dpkg-hold - mark packages as held to prevent installation
 
 B<dpkg-hold> [I<package>...]
 
+=head1 WARNING
+
+This command is B<deprecated>,
+and will be removed during in Debian forky,
+use C<dpkg --set-selections> or C<apt-mark> instead.
+
 =head1 DESCRIPTION
 
 B<dpkg-hold> marks package(s) to be held.
@@ -20,6 +26,7 @@ the next time B<dselect>, B<apt-get>, B<aptitude>, etc are run.
 =head1 SEE ALSO
 
 L<dpkg(1)>,
+L<apt-mark(8)>,
 L<dpkg-unhold(1)>,
 L<dpkg-remove(1)>,
 L<dpkg-purge(1)>.

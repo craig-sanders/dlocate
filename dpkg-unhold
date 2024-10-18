@@ -9,6 +9,14 @@
 # scripts are now wrappers around apt-mark and continue to exist only so
 # that any existing scripts that depend on them don't break..
 
+PROGNAME=$(basename "$0")
+
+. /usr/share/dpkg/sh/dpkg-error.sh
+
+setup_colors
+
+warning "deprecated program; use 'dpkg --set-selections' or 'apt-mark'"
+
 if [ -z "$*" ]; then
   echo "Usage: dpkg-unhold <package>..."
   exit 1
