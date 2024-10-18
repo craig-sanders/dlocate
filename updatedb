@@ -38,10 +38,10 @@ if (open(DEFAULTS,'<', $defaults)) {
         my ($key,$val) = split /=/;
         if ($key eq 'COMPRESS_DLOCATE') {
             $compress = $val;
-        };
-    };
+        }
+    }
     close(DEFAULTS);
-};
+}
 
 my (%old_stamps, %stamps);
 
@@ -124,7 +124,7 @@ rename("$dbfile.new", $dbfile);
 if ($compress eq "1") {
     system('gzip','--quiet','--force',$dbfile);
     rename("$dbfile.gz", $dbfile);
-};
+}
 
 open(STAMPS, '>', "$stampsfile.new") or die "$program: can't create stamps file $stampsfile.new: $!\n";
 print STAMPS "$stamps{$_}:$_\n" for keys %stamps;
@@ -132,6 +132,6 @@ close STAMPS;
 
 if (-e $stampsfile) {
   unlink($stampsfile);
-};
+}
 rename("$stampsfile.new", $stampsfile);
 

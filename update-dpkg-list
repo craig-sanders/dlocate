@@ -34,7 +34,7 @@ $/='';
 open(DCTRL,'-|',"grep-available -e . -s Package,Description,Architecture,Version");
 while(<DCTRL>) {
   parse_pkg('DCTRL',$_);
-};
+}
 close(DCTRL);
 
 
@@ -53,8 +53,8 @@ foreach (sort keys %packages) {
       $packages{$_}->{$arch}->{'version'}, $arch,
       $packages{$_}->{$arch}->{'desc'};
 
-  };
-};
+  }
+}
 close(DPKGLIST);
 rename("$dlist.new", $dlist);
 
@@ -80,8 +80,8 @@ sub parse_pkg {
       $version = $val;
     } elsif ($field eq 'Architecture') {
       $arch    = $val;
-    };
-  };
+    }
+  }
 
   #$desc = "$calltype $desc";
 
@@ -92,16 +92,16 @@ sub parse_pkg {
 
   if (!defined($packages{$pkg}->{$arch}->{'status'})) {
     $packages{$pkg}->{$arch}->{'status'}  =  'un ';
-  };
+  }
 
   if (    ! defined($packages{$pkg}->{$arch}->{'version'})
        || $packages{$pkg}->{$arch}->{'version'} eq '<none>'
      ) {
     $packages{$pkg}->{$arch}->{'version'} =  $version;
-  };
+  }
 
   if (!defined($packages{$pkg}->{$arch})) {
     $packages{$pkg}->{$arch}->{'arch'}    =  $arch;
-  };
-};
+  }
+}
 
