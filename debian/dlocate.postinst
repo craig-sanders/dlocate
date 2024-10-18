@@ -3,12 +3,6 @@
 
 set -e
 
-# remove old versions of dlocatedb if any exist
-#[ -e /var/lib/dlocate/dlocatedb ] && rm -f /var/lib/dlocate/dlocatedb
-#[ -e /var/lib/dlocate/dlocatedb.old ] && rm -f /var/lib/dlocate/dlocatedb.old
-[ -e /var/lib/dlocate/dlocatedb.txt ] && rm -f /var/lib/dlocate/dlocatedb.txt
-[ -e /var/lib/dlocate/dlocatedb.txt.old ] && rm -f /var/lib/dlocate/dlocatedb.txt.old
-
 case "$1" in
     configure)
 		# generate initial dlocate database and package list
