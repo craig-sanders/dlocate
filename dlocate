@@ -505,7 +505,4 @@ fi
 
 test -n "$result" && exit $result
 
-# Local variables:
-# mode: shell-script
-# End:
 # ex: ts=2 sts=2 sw=2 et filetype=sh

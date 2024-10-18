@@ -537,7 +537,3 @@ dlocate (0.1-1) unstable; urgency=low
   * Initial Release.
 
  -- Craig Sanders <cas@taz.net.au>  Wed, 23 Jun 1999 11:35:02 +1000
-
-Local variables:
-mode: debian-changelog
-End:
