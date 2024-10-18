@@ -9,14 +9,14 @@
 # scripts are now wrappers around apt-mark and continue to exist only so
 # that any existing scripts that depend on them don't break..
 
-if [ -z "$*" ] ; then
-	echo "Usage:"
-	echo "      dpkg-deinstall <package...>"
-	exit 1
+if [ -z "$*" ]; then
+  echo "Usage:"
+  echo "      dpkg-deinstall <package...>"
+  exit 1
 fi
 
-#for i in $@ ; do
-#	echo "$i	deinstall"
+#for i in $@; do
+#  echo "$i	deinstall"
 #done | dpkg --set-selections
 
 apt-mark remove "$@"

@@ -21,21 +21,21 @@ use File::Basename;
 
 my $program = basename($0);
 
-my $dbfile='/var/lib/dlocate/dlocatedb';
-my $stampsfile='/var/lib/dlocate/dlocatedb.stamps';
-#my $dbfile='/tmp/dlocate';
-#my $stampsfile='/tmp/dlocate.stamps';
-my $infodir='/var/lib/dpkg/info';
+my $dbfile = '/var/lib/dlocate/dlocatedb';
+my $stampsfile = '/var/lib/dlocate/dlocatedb.stamps';
+#my $dbfile = '/tmp/dlocate';
+#my $stampsfile = '/tmp/dlocate.stamps';
+my $infodir = '/var/lib/dpkg/info';
 
-my $compress=0;
-my $defaults='/etc/default/dlocate';
-if (open(DEFAULTS,'<', $defaults)) {
+my $compress = 0;
+my $defaults = '/etc/default/dlocate';
+if (open(DEFAULTS, '<', $defaults)) {
     while (<DEFAULTS>) {
         chomp;
         s/#.*|^\s*|\s*$//g;
         next if (/^$/);
         s/\s|"//g;
-        my ($key,$val) = split /=/;
+        my ($key, $val) = split /=/;
         if ($key eq 'COMPRESS_DLOCATE') {
             $compress = $val;
         }
@@ -54,12 +54,14 @@ if (open(STAMPS, '<', $stampsfile)) {
     close(STAMPS);
 }
 
-open(DBFILE,'>', "$dbfile.new") or die "$program: couldn't open $dbfile.new for write: $!\n";
+open(DBFILE, '>', "$dbfile.new")
+    or die "$program: couldn't open $dbfile.new for write: $!\n";
 
-opendir(DIR, $infodir) or die "$program: can't open directory $infodir: $!\n";
+opendir(DIR, $infodir)
+    or die "$program: can't open directory $infodir: $!\n";
 while (defined(my $pkg = readdir(DIR))) {
     next unless $pkg =~ s/\.list$// and -s "$infodir/$pkg.list";
-    $stamps{$pkg} = (stat(_))[10]; #ctime
+    $stamps{$pkg} = (stat(_))[10]; # ctime
 }
 closedir DIR;
 
@@ -72,10 +74,12 @@ if (%old_stamps and open(DB, '<', $dbfile)) {
         my ($pkg) = /^(\S+?):/;
         if (not exists $stamps{$pkg}) {
             # skip packages which are no longer installed
-        } elsif (exists $old_stamps{$pkg} and $stamps{$pkg} == $old_stamps{$pkg}) {
+        } elsif (exists $old_stamps{$pkg} and
+                 $stamps{$pkg} == $old_stamps{$pkg}) {
             print DBFILE $_;
         } elsif (not exists $processed{$pkg}) {
-            open(FILE, "$pkg.list") or die "$program: can't open file $pkg.list: $!\n";
+            open(FILE, "$pkg.list")
+                or die "$program: can't open file $pkg.list: $!\n";
             foreach (<FILE>) {
                 print DBFILE "$pkg: $_";
             }
@@ -93,7 +97,8 @@ if (%old_stamps and open(DB, '<', $dbfile)) {
 }
 
 foreach my $pkg (@new_pkgs) {
-    open(FILE, '<', "$pkg.list") or die "$program: can't open new $pkg.list for read: $!\n";
+    open(FILE, '<', "$pkg.list")
+        or die "$program: can't open new $pkg.list for read: $!\n";
     foreach (<FILE>) {
         print DBFILE $pkg, ': ', $_;
     }
@@ -102,9 +107,10 @@ foreach my $pkg (@new_pkgs) {
 
 # append diversions info to dlocatedb
 my $divpipe = 'dpkg-divert --list \*';
-open(DIVERSIONS,"-|",$divpipe) or die "$program: can't open pipe from '$divpipe': $!\n";
+open(DIVERSIONS, "-|", $divpipe)
+    or die "$program: can't open pipe from '$divpipe': $!\n";
 while (<DIVERSIONS>) {
-  print DBFILE $_
+  print DBFILE $_;
 }
 close(DIVERSIONS);
 
@@ -122,16 +128,16 @@ rename("$dbfile.new", $dbfile);
 
 # optionally compress dlocatedb
 if ($compress eq "1") {
-    system('gzip','--quiet','--force',$dbfile);
+    system('gzip', '--quiet', '--force', $dbfile);
     rename("$dbfile.gz", $dbfile);
 }
 
-open(STAMPS, '>', "$stampsfile.new") or die "$program: can't create stamps file $stampsfile.new: $!\n";
+open(STAMPS, '>', "$stampsfile.new")
+    or die "$program: can't create stamps file $stampsfile.new: $!\n";
 print STAMPS "$stamps{$_}:$_\n" for keys %stamps;
 close STAMPS;
 
 if (-e $stampsfile) {
-  unlink($stampsfile);
+    unlink($stampsfile);
 }
 rename("$stampsfile.new", $stampsfile);
-

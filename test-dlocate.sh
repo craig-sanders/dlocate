@@ -3,7 +3,7 @@
 # simple script to test
 # run like so:
 #
-# ./test-dlocate.sh > new.output 2>&1 ; diff -u test.output new.output
+# ./test-dlocate.sh > new.output 2>&1; diff -u test.output new.output
 #
 # or just 'make test'
 
@@ -14,7 +14,7 @@ EXIST="dlocate bash dpkg apt"
 NOTEXIST=packagedoesnotexist
 EMPTY="xmp"
 
-for opt in " " "-S" ; do
+for opt in " " "-S"; do
   for file in $FILE $NONFILE; do
     echo '-------------------------------'
     echo "running: ./dlocate $opt $file"
@@ -24,8 +24,8 @@ for opt in " " "-S" ; do
   done
 done
 
-for opt in -l -du -conf -lsconf -md5sum -md5check -man -lsman -lsbin ; do
-  for pkg in $EXIST $NOTEXIST $EMPTY ; do
+for opt in -l -du -conf -lsconf -md5sum -md5check -man -lsman -lsbin; do
+  for pkg in $EXIST $NOTEXIST $EMPTY; do
     echo '-------------------------------'
     echo "running: ./dlocate $opt $pkg"
     ./dlocate -v $opt $pkg
@@ -33,4 +33,3 @@ for opt in -l -du -conf -lsconf -md5sum -md5check -man -lsman -lsbin ; do
     echo
   done
 done
-

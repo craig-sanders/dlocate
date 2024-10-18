@@ -6,9 +6,9 @@ pkgs=1
 files=1
 
 usage() {
-[ -n "$*" ] && printf "%s\n" "$*" > /dev/stderr && exit 1
+  [ -n "$*" ] && printf "%s\n" "$*" >/dev/stderr && exit 1
 
-cat <<__EOF__
+  cat <<__EOF__
 Usage:
       $0 [options]
 
@@ -20,35 +20,51 @@ Options:
     -h    This help message
 
 __EOF__
-exit 1
+  exit 1
 }
 
 while getopts "pfbh" opt; do
-    case "$opt" in
-        p) pkgs=1  ; files='' ;;
-        f) pkgs='' ; files=1 ;;
-        b) pkgs=1  ; files=1 ;;
-        h) usage ;;
-        *) usage "%s\n" "Unknown option: '$opt'" ;;
-    esac
+  case "$opt" in
+  p)
+    pkgs=1
+    files=''
+    ;;
+  f)
+    pkgs=''
+    files=1
+    ;;
+  b)
+    pkgs=1
+    files=1
+    ;;
+  h)
+    usage
+    ;;
+  *)
+    usage "%s\n" "Unknown option: '$opt'"
+    ;;
+  esac
 done
-shift $((OPTIND-1))
+shift $((OPTIND - 1))
 
 # See ionice(1)
 if [ -x /usr/bin/ionice ]; then
   # Redirect ionice output to /dev/null because VSERVER & OPENVZ
   # & probably other container environments don't like it.  See
   # Bug#456292
-  ionice -c3 -p$$ > /dev/null 2>&1
+  ionice -c3 -p$$ >/dev/null 2>&1
 fi
 
-if [ -n "$files" ] ; then
+if [ -n "$files" ]; then
   # update dlocate database
-  test -x /usr/share/dlocate/updatedb && /usr/share/dlocate/updatedb >/dev/null
+  if [ -x /usr/share/dlocate/updatedb ]; then
+    /usr/share/dlocate/updatedb >/dev/null
+  fi
 fi
 
-if [ -n "$files" ] ; then
+if [ -n "$files" ]; then
   # update dpkg-list
-  test -x /usr/share/dlocate/update-dpkg-list && /usr/share/dlocate/update-dpkg-list >/dev/null
+  if [ -x /usr/share/dlocate/update-dpkg-list ]; then
+    /usr/share/dlocate/update-dpkg-list >/dev/null
+  fi
 fi
-
