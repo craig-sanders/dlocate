@@ -18,7 +18,7 @@ GREP='grep'
 [ "$COMPRESS_DLOCATE" = "1" ] && GREP='zgrep'
 
 
-function usage {
+usage() {
   [ -n "$*" ] && printf "%s\n" "$*" > /dev/stderr && exit 1
 
   cat <<__EOF__
@@ -86,17 +86,17 @@ __EOF__
   exit 1
 }
 
-function warn() {
+warn() {
   printf "%s\n" "$*" >&2
 }
 
-function dlocate_version {
+dlocate_version() {
   VERSION_BANNER=$(dpkg-query -W -f '${version}' dlocate)
   echo "dlocate version $VERSION_BANNER"
   exit 0
 }
 
-function dlocate_option_error () {
+dlocate_option_error() {
   echo "dlocate: unknown option '$1'"
   echo
   echo "Use: 'dlocate -- $1' if you want to search for '$1'"
@@ -126,7 +126,7 @@ WSEP2='\>'
 # output filters for -S and DEFAULT option
 OUTPUT_FILTER="none"
 
-function output_filter() {
+output_filter() {
   [ -n "$VERBOSE" ] && warn "OUTPUT FILTER: $OUTPUT_FILTER"
 
   case "$OUTPUT_FILTER" in
@@ -136,14 +136,14 @@ function output_filter() {
   esac
 }
 
-function colourise_dpkg() {
+colourise_dpkg() {
   case "$COLOURISE" in
     1) spc -c "$CCONFD" ;;
     *) cat ;;
   esac
 }
 
-function colourise_packages() {
+colourise_packages() {
   case "$COLOURISE" in
     1) spc -c "$CCONFP" ;;
     *) cat ;;
