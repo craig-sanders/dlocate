@@ -38,7 +38,7 @@ while getopts "pfbh" opt; do
     usage
     ;;
   *)
-    usage "%s\n" "Unknown option: '$opt'"
+    usage "unknown option: '$opt'"
     ;;
   esac
 done
