@@ -64,7 +64,6 @@ General options:
   -V, --version           Display dlocate's version number and exit.
   -h, --help              Display this help message and exit.
 __EOF__
-  exit 1
 }
 
 usage_error() {

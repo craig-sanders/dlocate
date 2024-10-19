@@ -15,7 +15,6 @@ Options:
   -b        Update both (default).
   -h        This help message.
 __EOF__
-  exit 1
 }
 
 usage_error() {
