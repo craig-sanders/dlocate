@@ -6,8 +6,6 @@ pkgs=1
 files=1
 
 usage() {
-  [ -n "$*" ] && printf "%s\n" "$*" >/dev/stderr && exit 1
-
   cat <<__EOF__
 Usage: $0 [<option>...]
 
@@ -17,6 +15,11 @@ Options:
   -b        Update both (default).
   -h        This help message.
 __EOF__
+  exit 1
+}
+
+usage_error() {
+  printf "%s\n" "$*" >/dev/stderr
   exit 1
 }
 
@@ -38,7 +41,7 @@ while getopts "pfbh" opt; do
     usage
     ;;
   *)
-    usage "unknown option: '$opt'"
+    usage_error "unknown option: '$opt'"
     ;;
   esac
 done

@@ -19,8 +19,6 @@ GREP='grep'
 
 
 usage() {
-  [ -n "$*" ] && printf "%s\n" "$*" >/dev/stderr && exit 1
-
   cat <<__EOF__
 Usage: dlocate [<option>...] [<command>] [<pattern>...]
 
@@ -66,6 +64,11 @@ General options:
   -V, --version           Display dlocate's version number and exit.
   -h, --help              Display this help message and exit.
 __EOF__
+  exit 1
+}
+
+usage_error() {
+  printf "%s\n" "$*" >/dev/stderr
   exit 1
 }
 
@@ -183,7 +186,7 @@ OPTS_LONG='help,version,verbose,debug,columns:,ls,du,conf,lsconf,md5sum,md5check
 TEMP=$(getopt -a -o "$OPTS_SHORT" --long "$OPTS_LONG" -n "$0" -- "$@")
 
 if [ $? != 0 ]; then
-  usage "Terminating..."
+  usage_error "Terminating..."
 fi
 
 # assign the re-ordered options & args to this shell instance
@@ -316,13 +319,13 @@ while true; do
     break
     ;;
   *)
-    usage
+    usage_error "unknown option $1"
     ;;
   esac
 done
 
 if [ -z "$*${KERNEL}" ]; then
-  usage
+  usage_error "missing search criteria"
 fi
 
 PKGS=("$@")
