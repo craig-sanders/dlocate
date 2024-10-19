@@ -1,0 +1,291 @@
+=encoding utf8
+
+=head1 NAME
+
+dlocate - program to view debian package information
+
+=head1 SYNOPSIS
+
+B<dlocate> [I<option>...] [I<command>] [I<package>...|I<pattern>...]
+
+=head1 DESCRIPTION
+
+B<dlocate> is a fast alternative to dpkg for queries like C<dpkg -L>
+and C<dpkg -S>.
+
+=head1 COMMANDS
+
+=over
+
+=item B<(none)>
+
+List all records where either the package name or the filename matches
+I<pattern>.
+
+Note that dlocate uses GNU grep, so normal regexp metacharacters need to be
+taken into account or avoided by using the B<-F> (Fixed String) grep option.
+
+For example, to search for C</usr/bin/[>, you might try:
+
+  dlocate '/usr/bin/\['
+
+or
+
+  dlocate -F '/usr/bin/['
+
+=item B<-S>
+
+List all records where only the filename matches I<pattern>.
+
+Note that dlocate uses GNU grep, so normal regexp metacharacters need to be
+taken into account.
+Fixed String searches are incompatible with B<-S>.
+
+For example, to search for C</usr/bin/[>, you need to type:
+
+  dlocate  '/usr/bin/\['
+
+=item B<-l>
+
+Regexp-enhanced emulation of C<dpkg -l>.
+Shows all packages which match I<package>.
+
+Internally this uses grep on a file containing the reformatted
+output of C<dpkg -l> (four fields separated by tabs; status,
+package-name, installed version, short description) so it will return
+packages whose version or short description matches, too.
+
+Various flavours of regular expression are supported.
+For example, Extended Regexp:
+
+  dlocate -l '^..[[:space:]]libc6'
+
+or Perl Regexp:
+
+  dlocate -P -l '^..\slibc6'
+
+Both of these will list all the packages whose names start with C<libc6>.
+
+Note that because of the difference between regular expressions and
+dpkg's shell-style pattern matching, the output from C<dlocate -l>
+is occasionally different to the output from C<dpkg -l>.
+
+This is not a bug, regular expressions are far more flexible than shell
+pattern matching. This is the way dlocate is supposed to run, but it
+may require some knowledge of regular expressions to get the output you
+want.
+
+=item B<-k>
+
+List package names of installed kernels and all related packages.
+
+=item B<-K>
+
+Detailed list of installed kernels and all related packages.
+
+=item B<-L>
+
+List all files in I<package>.
+
+=item B<-s>
+
+Print status of I<package>.
+
+=item B<--ls>
+
+C<ls -ldF> of all files in I<package>.
+
+=item B<--lsconf>
+
+C<ls -ldF> of conffiles in I<package>.
+
+=item B<--conf>
+
+List conffiles in I<package>.
+
+=item B<--du>
+
+C<du -sck> of all files in I<package>.
+
+=item B<--md5sum>
+
+List md5sums (if any) of I<package>.
+
+=item B<--md5check>
+
+Check md5sums (if any) of I<package>.
+
+=item B<--man>
+
+List man pages (if any) in I<package>.
+
+=item B<--lsman>
+
+List full path/filenames of man pages (if any) in I<package>.
+
+=item B<--lsbin>
+
+List full path/filenames of executable files (if any) in I<package>.
+
+=item B<--lsdir>
+
+List only the directories in I<package>.
+
+=back
+
+=head1 OPTIONS
+
+=over
+
+=item B<--filename-only>
+
+Only output file names when searching for files.
+
+=item B<--package-only>
+
+Only output package names when searching for files.
+
+=item B<-w>, B<--word-regexp>
+
+Select only those lines containing matches that form whole words.
+The test is that the matching substring must either be at the beginning
+of the line, or preceded by a non-word constituent character.
+Similarly, it must be either at the end of the line or followed by
+a non-word constituent character.
+Word-constituent characters are letters, digits, and the underscore.
+
+=item B<-i>, B<--ignore-case>
+
+Ignore case distinctions in the I<pattern>.
+
+=item B<-E>, B<--extended-regexp>
+
+Interpret I<pattern> as an extended regular expression.
+This is the default.
+
+=item B<-F>, B<--fixed-strings>
+
+Interpret I<pattern> as a list of fixed strings, separated by newlines,
+any of which is to be matched.
+
+=item B<-G>, B<--basic-regexp>
+
+Interpret I<pattern> as a basic regular expression.
+
+=item B<-P>, B<--perl-regexp>
+
+Interpret I<pattern> as a Perl regular expression.
+This is considered to be highly experimental within GNU grep and
+may warn of unimplemented features.
+
+=item B<-h>, B<--help>
+
+Display help message and exit.
+
+=item B<-V>, B<--version>
+
+Display dlocate's version number and exit.
+
+=item B<-v>, B<--verbose>, B<--debug>
+
+Produce verbose debugging output.
+
+=item B<-c>, B<--columns>[B<=>I<columns>]
+
+Set I<columns> width to override the B<dlocate> default of using the entire
+terminal line width.
+Any value for I<columns> less than 80 will be increased to 80.
+
+=item B<-C>, B<--colour>, B<--color>
+
+Colourise B<-l> or B<-s> output (requires supercat to be installed).
+
+=back
+
+=head1 FILES
+
+=over
+
+=item F</etc/default/dlocate>
+
+Configuration file with default options. Currently the only option is
+to enable/disable gzip compression of F</var/lib/dlocate/dlocatedb>.
+
+=item F</var/lib/dlocate/dlocatedb>
+
+Plain text listing of all files belonging to all packages
+(optionally compressed).
+
+=item F</var/lib/dlocate/dpkg-list>
+
+Listing of all packages known to dpkg.
+
+See L<update-dlocatedb(8)> for details.
+
+=back
+
+=head1 EXAMPLES
+
+To find which package C</usr/bin/[> belongs to:
+
+  dlocate '/usr/bin/\['
+
+To view all man pages contained within the dpkg package:
+
+  man $(dlocate -man dpkg)
+
+To purge kernel version 2.6.28.7 and all related module packages:
+
+  dlocate -k | grep -- -2.6.28.7 | xargs apt-get purge
+
+To check the md5sums of the dlocate package:
+
+  dlocate --md5check dlocate
+
+To use dpkg-repack to make a backup copy of all installed mythtv packages
+just before upgrading them:
+
+  dlocate -l mythtv | awk '/^.i/ {print $2}' | xargs dpkg-repack
+
+  # dlocate -l mythtv | awk '/^.i/ {print $2}' | xargs dpkg-repack
+  dpkg-deb: building package `libmythtv-perl' in `./libmythtv-perl_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv' in `./mythtv_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv-backend' in `./mythtv-backend_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv-common' in `./mythtv-common_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv-database' in `./mythtv-database_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv-doc' in `./mythtv-doc_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv-frontend' in `./mythtv-frontend_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv-perl' in `./mythtv-perl_0.21.svn20090414-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtv-status' in `./mythtv-status_0.9.0-5_amd64.deb'.
+  dpkg-deb: building package `mythtv-themes' in `./mythtv-themes_0.21-0.0_amd64.deb'.
+  dpkg-deb: building package `mythtvfs' in `./mythtvfs_0.5.2-2_amd64.deb'.
+  dpkg-deb: building package `python-mythtv' in `./python-mythtv_0.21.svn20090414-0.0_amd64.deb'.
+
+=head1 NOTES
+
+B<dlocate> does not update its databases (see L<FILES> section)
+automatically after new or upgraded packages have been installed with
+B<dpkg> or B<apt-get> etc.
+
+A daily cron job is run to perform the update.
+Or the root user can run B<update-dlocatedb> at any time to force an update.
+
+=head1 ENVIRONMENT
+
+=over
+
+=item B<COLUMNS>
+
+Sets the number of columns B<dlocate> should use when displaying
+formatted text.
+Currently only used by B<-l>.
+Values lower than 80 are increased to 80.
+
+=back
+
+=head1 SEE ALSO
+
+L<dpkg(1)>,
+L<update-dlocatedb(8)>,
+L<grep(1)>,
+L<grep-dctrl(1)>.

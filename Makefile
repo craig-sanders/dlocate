@@ -1,9 +1,30 @@
 #!/usr/bin/make -f
 
-all:
+MANS = \
+	dlocate.1 \
+	dpkg-hold.8 \
+	dpkg-purge.8 \
+	dpkg-remove.8 \
+	dpkg-unhold.8 \
+	update-dlocatedb.8 \
+	# EOL
+
+PACKAGE_VERSION = $(shell dpkg-parsechangelog -SVersion)
+SOURCE_DATE_EPOCH = $(shell dpkg-parsechangelog -STimestamp)
+PACKAGE_RELEASE_DATE = $(shell date --date="@$(SOURCE_DATE_EPOCH)" -I)
+
+POD2MAN = pod2man
+POD2MAN_OPTS = \
+	--utf \
+	--center='dpkg suite' \
+	--release='$(PACKAGE_VERSION)' \
+	--date='$(PACKAGE_RELEASE_DATE)' \
+	# EOL
+
+all: man
 
 clean:
-	rm -rf debian/dlocate debian/dlocate.substvars debian/files build-stamp install-stamp new.output
+	$(RM) $(MANS)
 
 install:
 	install -m 755 dlocate $(DESTDIR)/usr/bin/
@@ -15,6 +36,15 @@ install:
 	install -m 755 dpkg-unhold $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-remove $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-purge $(DESTDIR)/usr/sbin/
+
+%.1 %.8: %.pod
+	filename='$@'; \
+	$(POD2MAN) $(POD2MAN_OPTS) \
+		--name="$$(basename $${filename%.*})" \
+		--section="$${filename##*.}" \
+		$< >$@
+
+man: $(MANS)
 
 update-test:
 	./test-dlocate.sh > test.output 2>&1

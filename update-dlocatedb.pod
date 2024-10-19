@@ -1,0 +1,74 @@
+# Written by Andreas Metzler <ametzler@downhill.at.eu.org>,
+# under the terms of the GNU GPL.
+
+=head1 NAME
+
+update-dlocatedb - generate text database of installed files for dlocate
+
+=head1 SYNOPSIS
+
+B<update-dlocatedb> [I<option>...]
+
+=head1 DESCRIPTION
+
+B<update-dlocatedb> generates a plain text package contents listing
+from the files F</var/lib/dpkg/info/*.list>.
+
+This program is usually called from F<cron.daily>.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-p>
+
+Update the packages list only.
+
+=item B<-j>
+
+Update the files list only.
+
+=item B<-b>
+
+Update both (default).
+
+=item B<-h>
+
+This help message.
+
+=back
+
+=head1 FILES
+
+=over
+
+=item F</etc/default/dlocate>
+
+Configuration file with default options. Currently the only option is
+to enable/disable gzip compression of the dlocatedb file.
+
+=item F</var/lib/dpkg/info>
+
+Directory containing dpkg file lists.
+
+=item F</var/lib/dlocate/dlocatedb>
+
+Plain text listing of all files belonging to all packages
+(optionally compressed).
+
+=item F</var/lib/dlocate/dpkg-list>
+
+Listing of all packages known to dpkg.
+
+This contains the reformatted output output of C<dpkg -l>.
+The file format is four fields separated by tabs:
+
+  status<TAB>package-name<TAB>installed-version<TAB>synopsis
+
+The "installed-version" field may contain an architecture, e.g. ":arch".
+
+=back
+
+=head1 SEE ALSO
+
+L<dlocate(1)>.

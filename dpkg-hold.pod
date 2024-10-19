@@ -1,0 +1,25 @@
+=head1 NAME
+
+dpkg-hold - mark packages as held to prevent installation
+
+=head1 SYNOPSIS
+
+B<dpkg-hold> [I<package>...]
+
+=head1 DESCRIPTION
+
+B<dpkg-hold> marks package(s) to be held.
+
+It achieves this by running C<dpkg --set-selections> and piping in the
+package name(s) followed by B<hold>.
+
+NOTE: This program does not install, remove, purge any package. It ONLY
+sets the status of the package. Any actual removal or purging is done
+the next time B<dselect>, B<apt-get>, B<aptitude>, etc are run.
+
+=head1 SEE ALSO
+
+L<dpkg(1)>,
+L<dpkg-unhold(1)>,
+L<dpkg-remove(1)>,
+L<dpkg-purge(1)>.

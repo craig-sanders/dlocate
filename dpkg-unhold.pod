@@ -1,0 +1,31 @@
+=head1 NAME
+
+dpkg-unhold - mark held packages for installation
+
+=head1 SYNOPSIS
+
+B<dpkg-unhold> [I<package>...]
+
+=head1 DESCRIPTION
+
+B<dpkg-unhold> marks package(s) to be installed.
+
+It achieves this by running C<dpkg --set-selections> and piping in the
+package name(s) followed by B<install>.
+
+NOTE: This program does not install, remove, purge any package. It ONLY
+sets the status of the package. Any actual removal or purging is done
+the next time B<dselect>, B<apt-get>, B<aptitude>, etc are run.
+
+=head1 BUGS
+
+The name is little bit of a misnomer in that it marks the package for
+installation. This effectively "unholds" the package if it is held, but
+will cause B<dselect>/B<apt>/etc to install it if it wasn't already installed.
+
+=head1 SEE ALSO
+
+L<dpkg(1)>,
+L<dpkg-hold(1)>,
+L<dpkg-remove(1)>,
+L<dpkg-purge(1)>.

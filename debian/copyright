@@ -14,7 +14,7 @@ License: GPL-2+
  `/usr/share/common-licenses/GPL-2'.
 
 Files:
- update-dlocatedb.8
+ update-dlocatedb.pod
 Copyright:
  Andreas Metzler <ametzler at downhill.at.eu.org>
 License: GPL
@@ -27,7 +27,7 @@ License: GPL
 
 Files:
  dlocate
- dlocate.1
+ dlocate.pod
 Copyright:
  Jim Pick <jim@pick.com> and Craig Sanders <cas@taz.net.au>
 License: GPL
