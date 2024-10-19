@@ -447,15 +447,15 @@ elif [ "$OPTION" = '-k' ]; then
   )
   kmods_re=$(joinargs '|' "${kmodules[@]}")
 
-  linux_pkgs='^(linux-(image|source|headers|doc|debug|kbuild|perf|support|tools|manual))'
+  kpkgs_re='^(linux-(image|source|headers|doc|debug|kbuild|perf|support|tools|manual))'
   if [ -n "$kmods_re" ]; then
-    linux_pkgs="$linux_pkgs|^($kmods_re)$"
+    kpkgs_re="$kpkgs_re|^($kmods_re)$"
   fi
 
   if [ -n "$VERBOSE" ]; then
-    warn RUNNING: grep-status -P -e "'$linux_pkgs'"
+    warn RUNNING: grep-status -P -e "'$kpkgs_re'"
   fi
-  grep-status -P -e "$linux_pkgs" \
+  grep-status -P -e "$kpkgs_re" \
     | grep-dctrl -n -s Package -F status " installed" - \
     | sort -V
   result=$?
