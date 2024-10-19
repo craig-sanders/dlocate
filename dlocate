@@ -447,7 +447,7 @@ elif [ "$OPTION" = '-k' ]; then
   )
   kmods_re=$(joinargs '|' "${kmodules[@]}")
 
-  kpkgs_re='^(linux-(image|source|headers|doc|debug|kbuild|perf|support|tools|manual))'
+  kpkgs_re='^(linux-(image|source|headers|doc|debug|kbuild|perf|support|tools|manual)|gnumach-(image|common|dev))'
   if [ -n "$kmods_re" ]; then
     kpkgs_re="$kpkgs_re|^($kmods_re)$"
   fi
