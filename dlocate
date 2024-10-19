@@ -22,66 +22,49 @@ usage() {
   [ -n "$*" ] && printf "%s\n" "$*" >/dev/stderr && exit 1
 
   cat <<__EOF__
-Usage: dlocate [option...] [command] [PATTERN...]
+Usage: dlocate [<option>...] [<command>] [<pattern>...]
 
 Commands:
-  none         PATTERN   List records that match either package or files names
-  -S           PATTERN   List records that match filenames
+  <none>     <pattern>   List records that match either package or files names.
+  -S         <pattern>   List records that match filenames, regexp emulation
+                           of 'dpkg -S'.
+  -L         <package>   List all files in package.
+  -l         <package>   Regexp-enhanced emulation of 'dpkg -l'.
+  -s         <package>   Print package's status.
+  --ls       <package>   'ls -ldF' of all files in package.
+  --du       <package>   'du -sck' of all files in package.
+  --conf     <package>   List conffiles in package.
+  --lsconf   <package>   'ls -ldF' of conffiles in package.
+  --md5sum   <package>   List package's md5sums (if any).
+  --md5check <package>   Check package's md5sums (if any).
+  --man      <package>   List package's man pages (if any).
+  --lsman    <package>   List full path/filenames of man pages.
+  --lsbin    <package>   List full path/filenames of executable files.
+  --lsdir    <package>   List only the directories in package.
+  -K                     List installed kernel & related packages.
+  -k                     Detailed list of installed kernel & related packages.
+  --                     Stop processing commands and options. Remainder of
+                           command-line is filename(s)/package-name(s).
 
-  -L           package   List all files in package
-  -l           package   Regexp-enhanced emulation of 'dpkg -l'
-  -s           package   Print package's status
+Options:
+  -f, --filename-only    Strip 'package: ' prefix from search output.
+  -p, --package-only     Output package names only when searching.
 
-  --ls         package   'ls -ldF' of all files in package
-  --du         package   'du -sck' of all files in package
-  --conf       package   List conffiles in package
-  --lsconf     package   'ls -ldF' of conffiles in package
-  --md5sum     package   List package's md5sums (if any)
-  --md5check   package   Check package's md5sums (if any)
-  --man        package   List package's man pages (if any)
-  --lsman      package   List full path/filenames of man pages
-  --lsbin      package   List full path/filenames of executable files
-  --lsdir      package   List only the directories in package
-
-Output directory names only when searching for files
-
-  -K                     List installed kernel & related packages
-  -k                     detailed list of installed kernel & related packages
-
-  --                     Stop processing commands and options.  Remainder of
-                         command-line is filename(s)/package-name(s)
-
-
-The -l, and -S commands are approximately the same as the equivalent dpkg
-options except that the search is performed using regular expressions
-rather than fixed strings.
-
-Options
-
-  -f, --filename-only     Strip 'package: ' prefix from search output
-  -p, --package-only      Output package names only when searching
-
-Regular Expression Options (see grep(1) for details):
-
+Regexp options (see grep(1) for details):
   -E, --extended-regexp
   -F, --fixed-strings
   -G, --basic-regexp
   -P, --perl-regexp
+  -w, --word-regexp       Restrict matches to whole words.
+  -i, --ignore-case       Case-insensitive match.
 
-  -w, --word-regexp     Restrict matches to whole words
-  -i, --ignore-case     Case-insensitive match
-
-Miscellaneous Options:
-
-  -h, --help              Display this help message and exit.
+General options:
+  -c, --columns [<cols>]  Set COLUMN width (defaults to entire terminal width).
+  -C, --colour            Colourise -l or -s output (needs 'supercat' command).
+      --debug             Debug output.
+  -v, --verbose           Verbose output.
   -V, --version           Display dlocate's version number and exit.
-  -v, --verbose, --debug  Verbose/debug output
-
-  -c, --columns [cols]    Set COLUMN width.  Without -c, dlocate defaults to
-                          using the entire terminal line width.
-
-  -C, --colour            Colourise -l or -s output
-                            (requires supercat to be installed)
+  -h, --help              Display this help message and exit.
 __EOF__
   exit 1
 }

@@ -10,8 +10,7 @@
 # that any existing scripts that depend on them don't break..
 
 if [ -z "$*" ]; then
-  echo "Usage:"
-  echo "      dpkg-hold <package...>"
+  echo "Usage: dpkg-hold <package>..."
   exit 1
 fi
 

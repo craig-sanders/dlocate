@@ -9,16 +9,13 @@ usage() {
   [ -n "$*" ] && printf "%s\n" "$*" >/dev/stderr && exit 1
 
   cat <<__EOF__
-Usage:
-      $0 [options]
+Usage: $0 [<option>...]
 
 Options:
-    -p    Update the packages list only
-    -f    Update the files list only
-    -b    Update both (default)
-
-    -h    This help message
-
+  -p        Update the packages list only.
+  -f        Update the files list only.
+  -b        Update both (default).
+  -h        This help message.
 __EOF__
   exit 1
 }
