@@ -196,9 +196,9 @@ Set I<columns> width to override the B<dlocate> default of using the entire
 terminal line width.
 Any value for I<columns> less than 80 will be increased to 80.
 
-=item B<-C>, B<--colour>, B<--color>
+=item B<-C>, B<--color>
 
-Colourise B<-l> or B<-s> output (requires supercat to be installed).
+Colorize B<-l> or B<-s> output (requires supercat to be installed).
 
 =back
 

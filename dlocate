@@ -58,7 +58,7 @@ Regexp options (see grep(1) for details):
 
 General options:
   -c, --columns [<cols>]  Set COLUMN width (defaults to entire terminal width).
-  -C, --colour            Colourise -l or -s output (needs 'supercat' command).
+  -C, --color             Colorize -l or -s output (needs 'supercat' command).
       --debug             Debug output.
   -v, --verbose           Verbose output.
   -V, --version           Display dlocate's version number and exit.
@@ -133,8 +133,8 @@ output_filter() {
   esac
 }
 
-colourise_dpkg() {
-  case "$COLOURISE" in
+colorize_dpkg() {
+  case "$COLORIZE" in
   1)
     spc -c "$CCONFD"
     ;;
@@ -144,8 +144,8 @@ colourise_dpkg() {
   esac
 }
 
-colourise_packages() {
-  case "$COLOURISE" in
+colorize_packages() {
+  case "$COLORIZE" in
   1)
     spc -c "$CCONFP"
     ;;
@@ -158,7 +158,7 @@ colourise_packages() {
 VERBOSE=''
 KERNEL=''
 
-COLOURISE=''
+COLORIZE=''
 CCONFP=''
 CCONFD=''
 
@@ -206,7 +206,7 @@ while true; do
     shift
     ;;
   -C|--colo*)
-    COLOURISE=1
+    COLORIZE=1
     shift
     ;;
   -c|--col*)
@@ -398,7 +398,7 @@ if [ "$OPTION" = '-l' ]; then
   )
 
   if [ -n "$BODY" ]; then
-    printf "%s\n" "$HEADER" "$BODY" | colourise_dpkg
+    printf "%s\n" "$HEADER" "$BODY" | colorize_dpkg
   fi
 elif [ "$OPTION" = '-S' ]; then
   if [ "$RE_TYPE" = '-F' ]; then
@@ -426,7 +426,7 @@ elif [ "$OPTION" = 'DEFAULT' ]; then
   #[ "$result" -eq 1 ] && echo "not in package: $PKGS_REGEXP" >&2
 elif [ "$OPTION" = '-s' ]; then
   for p in "${PKGS[@]}"; do
-    grep-status -P -X "$p" | colourise_packages
+    grep-status -P -X "$p" | colorize_packages
     result=$?
     if [ "$result"0 -ne 0 ]; then
       (
@@ -436,7 +436,7 @@ elif [ "$OPTION" = '-s' ]; then
           | xargs \
           | sed -e 's/ / | /g' \
         )"
-      ) | colourise_packages
+      ) | colorize_packages
       # use X-Available-Provides: to provide a hint that it's a synthetic status field.
     fi
   done
