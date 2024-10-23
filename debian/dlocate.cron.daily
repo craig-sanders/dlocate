@@ -1,6 +1,8 @@
 #!/bin/sh
 
+PATH="$PATH:/usr/bin:/bin:/usr/sbin:/sbin"
+
 # update databases for both files and packages.
-if [ -x /usr/sbin/update-dlocatedb ]; then
+if command -v update-dlocatedb >/dev/null; then
   /usr/sbin/update-dlocatedb -b
 fi

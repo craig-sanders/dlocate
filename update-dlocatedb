@@ -47,7 +47,7 @@ done
 shift $((OPTIND - 1))
 
 # See ionice(1)
-if [ -x /usr/bin/ionice ]; then
+if command -v ionice >/dev/null; then
   # Redirect ionice output to /dev/null because VSERVER & OPENVZ
   # & probably other container environments don't like it.  See
   # Bug#456292
