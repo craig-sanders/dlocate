@@ -16,8 +16,8 @@ chomp $myarch;
 use subs qw(parse_pkg);
 
 # get details for all packages known by dpkg
-open(DPKG, '-|', 'dpkg -l "*"');
-while (<DPKG>) {
+open my $dpkg_fh, '-|', 'dpkg -l "*"';
+while (<$dpkg_fh>) {
     next unless (m/^[uihrp][ncHUFWti]/);
     chomp;
 
@@ -28,27 +28,28 @@ while (<DPKG>) {
     $packages{"$pkg"}->{$arch}->{'version'} = $version;
     $packages{$pkg}->{$arch}->{'desc'} = $desc;
 }
-close(DPKG);
+close $dpkg_fh;
 
 # now get missing details for uninstalled packages
 $/ = '';
-open(DCTRL, '-|', "grep-available -e . -s Package,Description,Architecture,Version");
-while (<DCTRL>) {
+open my $dctrl_fh, '-|',
+    "grep-available -e . -s Package,Description,Architecture,Version";
+while (<$dctrl_fh>) {
     parse_pkg('DCTRL', $_);
 }
-close(DCTRL);
+close $dctrl_fh;
 
 
 my $dlist = '/var/lib/dlocate/dpkg-list';
 
-open(DPKGLIST, '>', "$dlist.new")
+open my $dpkglist_fh, '>', "$dlist.new"
     or die "$program: couldn't open $dlist.new for write: $!\n";
 foreach (sort keys %packages) {
     foreach my $arch (sort keys %{$packages{$_}}) {
         next if ($arch eq '<none>');
         my $pkg = ($arch =~ m/^($myarch|all)$/io) ? $_ : "$_:$arch";
 
-        printf DPKGLIST "%s\t%s\t%s:%s\t%s\n",
+        printf { $dpkglist_fh } "%s\t%s\t%s:%s\t%s\n",
         #printf DPKGLIST "%s\t%s\t%s\t%s\t%s\n",
             $packages{$_}->{$arch}->{'status'},
             $pkg,
@@ -56,7 +57,7 @@ foreach (sort keys %packages) {
             $packages{$_}->{$arch}->{'desc'};
     }
 }
-close(DPKGLIST);
+close $dpkglist_fh;
 rename("$dlist.new", $dlist);
 
 

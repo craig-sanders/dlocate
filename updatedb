@@ -29,8 +29,8 @@ my $infodir = '/var/lib/dpkg/info';
 
 my $compress = 0;
 my $defaults = '/etc/default/dlocate';
-if (open(DEFAULTS, '<', $defaults)) {
-    while (<DEFAULTS>) {
+if (open my $defaults_fh, '<', $defaults) {
+    while (<$defaults_fh>) {
         chomp;
         s/#.*|^\s*|\s*$//g;
         next if (/^$/);
@@ -40,54 +40,54 @@ if (open(DEFAULTS, '<', $defaults)) {
             $compress = $val;
         }
     }
-    close(DEFAULTS);
+    close $defaults_fh;
 }
 
 my (%old_stamps, %stamps);
 
-if (open(STAMPS, '<', $stampsfile)) {
-    while (<STAMPS>) {
+if (open my $stamps_fh, '<', $stampsfile) {
+    while (<$stamps_fh>) {
         chomp;
         my ($stamp, $file) = split /:/, $_, 2;
         $old_stamps{$file} = $stamp;
     }
-    close(STAMPS);
+    close $stamps_fh;
 }
 
-open(DBFILE, '>', "$dbfile.new")
+open my $dbnew_fh, '>', "$dbfile.new"
     or die "$program: couldn't open $dbfile.new for write: $!\n";
 
-opendir(DIR, $infodir)
+opendir my $dir_dh, $infodir
     or die "$program: can't open directory $infodir: $!\n";
-while (defined(my $pkg = readdir(DIR))) {
+while (defined(my $pkg = readdir $dir_dh)) {
     next unless $pkg =~ s/\.list$// and -s "$infodir/$pkg.list";
     $stamps{$pkg} = (stat(_))[10]; # ctime
 }
-closedir DIR;
+closedir $dir_dh;
 
 my @new_pkgs;
 my %processed;
 
 chdir $infodir;
-if (%old_stamps and open(DB, '<', $dbfile)) {
-    while (<DB>) {
+if (%old_stamps and open my $db_fh, '<', $dbfile) {
+    while (<$db_fh>) {
         my ($pkg) = /^(\S+?):/;
         if (not exists $stamps{$pkg}) {
             # skip packages which are no longer installed
         } elsif (exists $old_stamps{$pkg} and
                  $stamps{$pkg} == $old_stamps{$pkg}) {
-            print DBFILE $_;
+            print { $dbnew_fh } $_;
         } elsif (not exists $processed{$pkg}) {
-            open(FILE, '<', "$pkg.list")
+            open my $files_fh, '<', "$pkg.list"
                 or die "$program: can't open file $pkg.list: $!\n";
-            foreach (<FILE>) {
-                print DBFILE "$pkg: $_";
+            foreach (<$files_fh>) {
+                print { $dbnew_fh } "$pkg: $_";
             }
-            close FILE;
+            close $files_fh;
         }
         $processed{$pkg} = 1;
     }
-    close(DB);
+    close $db_fh;
 
     my %tmp = %stamps;
     delete $tmp{$_} for keys %processed;
@@ -97,25 +97,24 @@ if (%old_stamps and open(DB, '<', $dbfile)) {
 }
 
 foreach my $pkg (@new_pkgs) {
-    open(FILE, '<', "$pkg.list")
+    open my $files_fh, '<', "$pkg.list"
         or die "$program: can't open new $pkg.list for read: $!\n";
-    foreach (<FILE>) {
-        print DBFILE $pkg, ': ', $_;
+    foreach (<$files_fh>) {
+        print { $dbnew_fh } $pkg, ': ', $_;
     }
-    close FILE;
+    close $files_fh;
 }
 
 # append diversions info to dlocatedb
 my $divpipe = 'dpkg-divert --list \*';
-open(DIVERSIONS, "-|", $divpipe)
+open my $diversion_fh, "-|", $divpipe
     or die "$program: can't open pipe from '$divpipe': $!\n";
-while (<DIVERSIONS>) {
-  print DBFILE $_;
+while (<$diversion_fh>) {
+  print { $dbnew_fh } $_;
 }
-close(DIVERSIONS);
+close $diversion_fh;
 
-
-close DBFILE;
+close $dbnew_fh;
 
 # Create a backup to the database before replacing it with the new database.
 # This is effectively two rename's done atomically.
@@ -132,10 +131,10 @@ if ($compress eq "1") {
     rename("$dbfile.gz", $dbfile);
 }
 
-open(STAMPS, '>', "$stampsfile.new")
+open my $stamps_fh, '>', "$stampsfile.new"
     or die "$program: can't create stamps file $stampsfile.new: $!\n";
-print STAMPS "$stamps{$_}:$_\n" for keys %stamps;
-close STAMPS;
+print { $stamps_fh } "$stamps{$_}:$_\n" for keys %stamps;
+close $stamps_fh;
 
 if (-e $stampsfile) {
     unlink($stampsfile);
