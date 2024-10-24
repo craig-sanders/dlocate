@@ -24,9 +24,9 @@ while (<$dpkg_fh>) {
     my ($status, $pkg, $version, $arch, $desc) = split /\s+/, $_, 5;
     $pkg =~ s/:.*//;
 
-    $packages{"$pkg"}->{$arch}->{'status'} = sprintf('%-3s', $status);
-    $packages{"$pkg"}->{$arch}->{'version'} = $version;
-    $packages{$pkg}->{$arch}->{'desc'} = $desc;
+    $packages{$pkg}->{$arch}->{status} = sprintf('%-3s', $status);
+    $packages{$pkg}->{$arch}->{version} = $version;
+    $packages{$pkg}->{$arch}->{desc} = $desc;
 }
 close $dpkg_fh;
 
@@ -51,10 +51,10 @@ foreach (sort keys %packages) {
 
         printf { $dpkglist_fh } "%s\t%s\t%s:%s\t%s\n",
         #printf DPKGLIST "%s\t%s\t%s\t%s\t%s\n",
-            $packages{$_}->{$arch}->{'status'},
+            $packages{$_}->{$arch}->{status},
             $pkg,
-            $packages{$_}->{$arch}->{'version'}, $arch,
-            $packages{$_}->{$arch}->{'desc'};
+            $packages{$_}->{$arch}->{version}, $arch,
+            $packages{$_}->{$arch}->{desc};
     }
 }
 close $dpkglist_fh;
@@ -96,18 +96,18 @@ sub parse_pkg {
     return unless ($pkg && $arch);
     return if ($arch ne $myarch && !defined($packages{$pkg}->{$arch}));
 
-    $packages{$pkg}->{$arch}->{'desc'} = $desc;
+    $packages{$pkg}->{$arch}->{desc} = $desc;
 
-    if (! defined($packages{$pkg}->{$arch}->{'status'})) {
-        $packages{$pkg}->{$arch}->{'status'} = 'un ';
+    if (! defined($packages{$pkg}->{$arch}->{status})) {
+        $packages{$pkg}->{$arch}->{status} = 'un ';
     }
 
-    if (! defined($packages{$pkg}->{$arch}->{'version'}) ||
-        $packages{$pkg}->{$arch}->{'version'} eq '<none>') {
-        $packages{$pkg}->{$arch}->{'version'} = $version;
+    if (! defined($packages{$pkg}->{$arch}->{version}) ||
+        $packages{$pkg}->{$arch}->{version} eq '<none>') {
+        $packages{$pkg}->{$arch}->{version} = $version;
     }
 
     if (! defined($packages{$pkg}->{$arch})) {
-        $packages{$pkg}->{$arch}->{'arch'} = $arch;
+        $packages{$pkg}->{$arch}->{arch} = $arch;
     }
 }
