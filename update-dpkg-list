@@ -110,4 +110,6 @@ sub parse_pkg {
     if (! defined($packages{$pkg}->{$arch})) {
         $packages{$pkg}->{$arch}->{arch} = $arch;
     }
+
+    return;
 }
