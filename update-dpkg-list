@@ -72,7 +72,7 @@ sub parse_pkg {
         '(no description available)',
         'un ',
         '',
-        ''
+        '',
     );
 
     # split package details by newline
