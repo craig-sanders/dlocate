@@ -78,7 +78,7 @@ if (%old_stamps and open(DB, '<', $dbfile)) {
                  $stamps{$pkg} == $old_stamps{$pkg}) {
             print DBFILE $_;
         } elsif (not exists $processed{$pkg}) {
-            open(FILE, "$pkg.list")
+            open(FILE, '<', "$pkg.list")
                 or die "$program: can't open file $pkg.list: $!\n";
             foreach (<FILE>) {
                 print DBFILE "$pkg: $_";
