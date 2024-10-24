@@ -80,7 +80,7 @@ if (%old_stamps and open my $db_fh, '<', $dbfile) {
         } elsif (not exists $processed{$pkg}) {
             open my $files_fh, '<', "$pkg.list"
                 or die "$program: can't open file $pkg.list: $!\n";
-            foreach (<$files_fh>) {
+            while (<$files_fh>) {
                 print { $dbnew_fh } "$pkg: $_";
             }
             close $files_fh;
@@ -99,7 +99,7 @@ if (%old_stamps and open my $db_fh, '<', $dbfile) {
 foreach my $pkg (@new_pkgs) {
     open my $files_fh, '<', "$pkg.list"
         or die "$program: can't open new $pkg.list for read: $!\n";
-    foreach (<$files_fh>) {
+    while (<$files_fh>) {
         print { $dbnew_fh } $pkg, ': ', $_;
     }
     close $files_fh;
