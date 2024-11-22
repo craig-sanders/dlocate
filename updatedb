@@ -72,7 +72,10 @@ chdir $infodir;
 if (%old_stamps and open my $db_fh, '<', $dbfile) {
     while (<$db_fh>) {
         my ($pkg) = /^(\S+?):/;
-        if (not exists $stamps{$pkg}) {
+        if (not defined $pkg) {
+            # Skip diversion lines.
+            next;
+        } elsif (not exists $stamps{$pkg}) {
             # skip packages which are no longer installed
         } elsif (exists $old_stamps{$pkg} and
                  $stamps{$pkg} == $old_stamps{$pkg}) {
