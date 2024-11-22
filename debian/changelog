@@ -1,3 +1,39 @@
+dlocate (1.16) unstable; urgency=medium
+
+  * update-dlocatedb: Remove ancient compatibility code for Linux < 2.6.13.
+  * Improve and simplify programs help output.
+  * update-dlocatedb: Fix error message on unknown option.
+  * Do not exit with failure on help options.
+  * dlocate: Add gnumach support to -k option for GNU/Hurd.
+  * Use US English spelling for color.
+  * Remove redundant file entries filter from stat output.
+    Based on a patch by Axel Beckert <abe@debian.org>. Closes: #903773
+  * Use «command -v» instead of absolute paths and «test -x».
+  * Deprecate dpkg-hold, dpkg-purge, dpkg-remove and dpkg-unhold commands.
+  * Documentation:
+    - man: Remove AUTHOR sections.
+    - man: Rewrite manual pages in POD. Closes: #970892
+  * Code internals:
+    - Remove emacs local variable trailers.
+    - updatedb: Enable Perl warnings.
+    - Use «funcname()» instead of «function funcname()» in shell scripts.
+    - Remove redundant trailing ; after code blocks in Perl scripts.
+    - Fix coding style.
+    - Refactor usage_error() out of usage().
+    - dlocate: Rename linux_pkgs variable to kpkgs_re.
+    - Use three-argument form for Perl open().
+    - Use variables instead of barewords for filehandles and dirhandles.
+    - Remove unnecessary quoting for hash key accesses.
+    - Use «while» instead of «foreach» with readline().
+    - update-dpkg-list: Add trailing comma for last element in list.
+    - update-dpkg-list: Add return to parse_pkg().
+  * Packaging:
+    - Remove obsolete code to remove old databases.
+    - Mark /etc/bash_completion.d/dlocate-completion as remove-on-upgrade.
+      Closes: #1029647
+
+ -- Guillem Jover <guillem@debian.org>  Fri, 22 Nov 2024 10:57:04 +0100
+
 dlocate (1.15) unstable; urgency=medium
 
   * Take over maintainership as part of the Dpkg Developers umbrella.
