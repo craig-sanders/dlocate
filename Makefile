@@ -36,6 +36,7 @@ install:
 	install -m 755 dpkg-unhold $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-remove $(DESTDIR)/usr/sbin/
 	install -m 755 dpkg-purge $(DESTDIR)/usr/sbin/
+	install -m 644 completion/bash/* $(DESTDIR)/usr/share/bash-completion/completions/
 
 %.1 %.8: %.pod
 	filename='$@'; \

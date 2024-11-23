@@ -1,5 +1,6 @@
 etc/default
 usr/bin
 usr/sbin
+usr/share/bash-completion/completions
 usr/share/dlocate
 var/lib/dlocate

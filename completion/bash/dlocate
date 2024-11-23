@@ -1,0 +1,78 @@
+# dlocate(1) completion
+
+_comp_cmd_dlocate()
+{
+  local cur prev
+  _comp_initialize -s -- "$@" || return
+
+  case "$prev" in
+    -S)
+      _comp_compgen_filedir
+      return
+      ;;
+    -@(L|l|s|-ls|-du|-conf|-lsconf|-md5sum|-md5check|-man|-lsman|-lsbin|-lsdir))
+      _comp_compgen -x dpkg installed_packages
+      return
+      ;;
+    *)
+      case "$cur" in
+        -)
+          _comp_compgen -- -W '
+            -C
+            -E
+            -F
+            -G
+            -K
+            -L
+            -P
+            -S
+            -V
+            -c
+            -d
+            -f
+            -h
+            -i
+            -k
+            -l
+            -p
+            -s
+            -v
+            -w
+            --basic-regexp
+            --color
+            --columns
+            --conf
+            --debug
+            --du
+            --extended-regexp
+            --filename-only
+            --fixed-strings
+            --help
+            --ignore-case
+            --ls
+            --lsbin
+            --lsconf
+            --lsdir
+            --lsman
+            --man
+            --md5check
+            --md5sum
+            --package-only
+            --perl-regexp
+            --verbose
+            --version
+            --word-regexp
+          '
+          return
+          ;;
+        *)
+          _comp_compgen_filedir
+          return
+          ;;
+      esac
+      ;;
+  esac
+} &&
+  complete -F _comp_cmd_dlocate -o default dlocate
+
+# ex: ts=2 sts=2 sw=2 et filetype=bash
