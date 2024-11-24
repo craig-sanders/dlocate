@@ -1,3 +1,16 @@
+dlocate (1.17) unstable; urgency=medium
+
+  * updatedb: Fix Perl warnings due to unmatched diversion lines in db.
+    Closes: #1088148
+  * Clarify command arguments in --help output and manual page.
+  * Clarify output order for -L option. Closes: #1061629
+  * Add bash completion. Closes: #921520
+  * Packaging:
+    - Wrap and sort -ast debian/tests/control.
+    - Allow stderr output for autopkgtests due to new deprecation warnings.
+
+ -- Guillem Jover <guillem@debian.org>  Mon, 25 Nov 2024 01:14:28 +0100
+
 dlocate (1.16) unstable; urgency=medium
 
   * update-dlocatedb: Remove ancient compatibility code for Linux < 2.6.13.
