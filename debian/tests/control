@@ -1,6 +1,7 @@
 Test-Command:
  dpkg-hold coreutils
 Restrictions:
+ allow-stderr
  needs-root
  superficial
 
@@ -9,5 +10,6 @@ Test-Command:
  dpkg-unhold coreutils &&
  ! apt-mark showhold | grep coreutils
 Restrictions:
+ allow-stderr
  needs-root
  superficial
