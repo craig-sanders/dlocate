@@ -20,33 +20,33 @@ GREP='grep'
 
 usage() {
   cat <<__EOF__
-Usage: dlocate [<option>...] [<command>] [<pattern>...]
+Usage: dlocate [<option>...] [<command>]
 
 Commands:
-  <none>     <pattern>   List records that match either package or files names.
-  -S         <pattern>   List records that match filenames, regexp emulation
-                           of 'dpkg -S'.
-  -L         <package>   List all files in package.
-  -l         <package>   Regexp-enhanced emulation of 'dpkg -l'.
-  -s         <package>   Print package's status.
-  --ls       <package>   'ls -ldF' of all files in package.
-  --du       <package>   'du -sck' of all files in package.
-  --conf     <package>   List conffiles in package.
-  --lsconf   <package>   'ls -ldF' of conffiles in package.
-  --md5sum   <package>   List package's md5sums (if any).
-  --md5check <package>   Check package's md5sums (if any).
-  --man      <package>   List package's man pages (if any).
-  --lsman    <package>   List full path/filenames of man pages.
-  --lsbin    <package>   List full path/filenames of executable files.
-  --lsdir    <package>   List only the directories in package.
-  -K                     List installed kernel & related packages.
-  -k                     Detailed list of installed kernel & related packages.
-  --                     Stop processing commands and options. Remainder of
-                           command-line is filename(s)/package-name(s).
+  <pattern>...            List records that match either package or files names.
+  -S <filename>...        List records that match filenames, regexp emulation
+                            of 'dpkg -S'.
+  -L <package>...         List all files in package.
+  -l <package>...         Regexp-enhanced emulation of 'dpkg -l'.
+  -s <package>...         Print package's status.
+  --ls <package>...       'ls -ldF' of all files in package.
+  --du <package>...       'du -sck' of all files in package.
+  --conf <package>...     List conffiles in package.
+  --lsconf <package>...   'ls -ldF' of conffiles in package.
+  --md5sum <package>...   List package's md5sums (if any).
+  --md5check <package>... Check package's md5sums (if any).
+  --man <package>...      List package's man pages (if any).
+  --lsman <package>...    List full path/filenames of man pages.
+  --lsbin <package>...    List full path/filenames of executable files.
+  --lsdir <package>...    List only the directories in package.
+  -K                      List installed kernel & related packages.
+  -k                      Detailed list of installed kernel & related packages.
+  --                      Stop processing commands and options. Remainder of
+                            command-line is filename(s)/package-name(s).
 
 Options:
-  -f, --filename-only    Strip 'package: ' prefix from search output.
-  -p, --package-only     Output package names only when searching.
+  -f, --filename-only     Strip 'package: ' prefix from search output.
+  -p, --package-only      Output package names only when searching.
 
 Regexp options (see grep(1) for details):
   -E, --extended-regexp

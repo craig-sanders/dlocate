@@ -6,7 +6,7 @@ dlocate - program to view debian package information
 
 =head1 SYNOPSIS
 
-B<dlocate> [I<option>...] [I<command>] [I<package>...|I<pattern>...]
+B<dlocate> [I<option>...] [I<command>]
 
 =head1 DESCRIPTION
 
@@ -17,7 +17,7 @@ and C<dpkg -S>.
 
 =over
 
-=item B<(none)>
+=item I<pattern>...
 
 List all records where either the package name or the filename matches
 I<pattern>.
@@ -33,9 +33,9 @@ or
 
   dlocate -F '/usr/bin/['
 
-=item B<-S>
+=item B<-S> I<filename>...
 
-List all records where only the filename matches I<pattern>.
+List all records where only the filename matches the I<filename> pattern.
 
 Note that dlocate uses GNU grep, so normal regexp metacharacters need to be
 taken into account.
@@ -45,7 +45,7 @@ For example, to search for C</usr/bin/[>, you need to type:
 
   dlocate  '/usr/bin/\['
 
-=item B<-l>
+=item B<-l> I<package>...
 
 Regexp-enhanced emulation of C<dpkg -l>.
 Shows all packages which match I<package>.
@@ -83,51 +83,51 @@ List package names of installed kernels and all related packages.
 
 Detailed list of installed kernels and all related packages.
 
-=item B<-L>
+=item B<-L> I<package>...
 
 List all files in I<package>.
 
-=item B<-s>
+=item B<-s> I<package>...
 
 Print status of I<package>.
 
-=item B<--ls>
+=item B<--ls> I<package>...
 
 C<ls -ldF> of all files in I<package>.
 
-=item B<--lsconf>
+=item B<--lsconf> I<package>...
 
 C<ls -ldF> of conffiles in I<package>.
 
-=item B<--conf>
+=item B<--conf> I<package>...
 
 List conffiles in I<package>.
 
-=item B<--du>
+=item B<--du> I<package>...
 
 C<du -sck> of all files in I<package>.
 
-=item B<--md5sum>
+=item B<--md5sum> I<package>...
 
 List md5sums (if any) of I<package>.
 
-=item B<--md5check>
+=item B<--md5check> I<package>...
 
 Check md5sums (if any) of I<package>.
 
-=item B<--man>
+=item B<--man> I<package>...
 
 List man pages (if any) in I<package>.
 
-=item B<--lsman>
+=item B<--lsman> I<package>...
 
 List full path/filenames of man pages (if any) in I<package>.
 
-=item B<--lsbin>
+=item B<--lsbin> I<package>...
 
 List full path/filenames of executable files (if any) in I<package>.
 
-=item B<--lsdir>
+=item B<--lsdir> I<package>...
 
 List only the directories in I<package>.
 
