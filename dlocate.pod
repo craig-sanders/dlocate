@@ -87,6 +87,11 @@ Detailed list of installed kernels and all related packages.
 
 List all files in I<package>.
 
+The output order is preserved from the one used by B<dpkg-query>,
+which preserves the order from the B<.deb> archive,
+where symlinks are provided at the end to guarantee they point to
+already unpacked entries in the filesystem.
+
 =item B<-s> I<package>...
 
 Print status of I<package>.
