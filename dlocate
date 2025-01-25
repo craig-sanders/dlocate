@@ -478,7 +478,7 @@ else
                 if [ -s "$PLIST" ] ; then
                     "$DLOCATE" -L $PKG | \
                       xargs -d '\n' -r stat -c '%A %n' | \
-                      awk '!/^[^-]/ &&  /^-.{2,8}[xs]/ {print $2}'
+                      awk '/^-..[xs]..[xs]..[xs]/ {print $2}'
                     result=$?
                 else
                     warn "Package $PKG is not installed or $PLIST is empty."
