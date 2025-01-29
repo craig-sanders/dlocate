@@ -6,7 +6,7 @@ Uploaders:
  Craig Sanders <cas@taz.net.au>
 Vcs-Browser: https://git.taz.net.au/cas/dlocate.git
 Vcs-Git: https://git.taz.net.au/cas/dlocate.git
-Homepage: https://git.taz.net.au/cas/dlocate-new
+Homepage: https://git.taz.net.au/cas/dlocate
 Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Build-Depends:
