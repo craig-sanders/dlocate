@@ -2,7 +2,6 @@
 
 use strict;
 use warnings;
-use IPC::Open2;
 use File::Basename;
 
 my $program = basename($0);
@@ -32,42 +31,12 @@ close(DPKG);
 
 # now get missing details for uninstalled packages
 $/='';
-my $pkgfiles='/var/lib/dpkg/status /var/lib/dpkg/available';
-my $fields= join(',',qw(Package Description Architecture Version));
-
-open(DCTRL,'-|',"grep-dctrl -e . -s $fields $pkgfiles");
+open(DCTRL,'-|',"grep-available -e . -s Package,Description,Architecture,Version");
 while(<DCTRL>) {
   parse_pkg('DCTRL',$_);
 };
 close(DCTRL);
 
-
-# as a last ressort, try to get missing details from apt-cache show
-# if arch or version is '<none>'
-my @unknown = ();
-foreach my $pkg (keys %packages) {
-  foreach my $arch (keys %{ $packages{$pkg} } ) {
-
-    push @unknown, $pkg if (
-            $arch eq '<none>'
-         || $packages{$pkg}->{$arch}->{'version'} eq '<none>'
-        );
-  };
-};
-
-if (@unknown) {
-  # apt-cache doesn't read stdin, so we have to use xargs to make sure we
-  # never exceed the bash command line limit.
-  my $pid = open2(\*ACS, \*XARGS, 'xargs -0r apt-cache show');
-
-  print XARGS join("\0",@unknown);
-  close(XARGS);
-
-  while (<ACS>) {
-    parse_pkg('ACS',$_);
-  };
-  close(ACS);
-};
 
 my $dlist = '/var/lib/dlocate/dpkg-list';
 
