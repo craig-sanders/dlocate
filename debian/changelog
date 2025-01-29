@@ -1,3 +1,12 @@
+dlocate (2.00) unstable; urgency=medium
+
+  * Rewrote dlocate in perl
+  * Added -I, --installed-only option to show only installed packages
+  * Added -a, --arch option to limit searches to one architecture
+  * Added -0, -z, --zero option to use NUL as the output separator
+
+ -- Craig Sanders <cas@taz.net.au>  Wed, 29 Jan 2025 18:10:27 +1100
+
 dlocate (1.17) unstable; urgency=medium
 
   * updatedb: Fix Perl warnings due to unmatched diversion lines in db.

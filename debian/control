@@ -1,12 +1,12 @@
 Source: dlocate
 Section: utils
 Priority: optional
-Maintainer: Dpkg Developers <debian-dpkg@lists.debian.org>
+Maintainer: Craig Sanders <cas@taz.net.au>
 Uploaders:
- Guillem Jover <guillem@debian.org>,
-Vcs-Browser: https://git.dpkg.org/git/dpkg/dlocate.git
-Vcs-Git: https://git.dpkg.org/cgit/dpkg/dlocate.git
-Homepage: https://wiki.debian.org/Teams/Dpkg
+ Craig Sanders <cas@taz.net.au>
+Vcs-Browser: https://git.taz.net.au/cas/dlocate.git
+Vcs-Git: https://git.taz.net.au/cas/dlocate.git
+Homepage: https://git.taz.net.au/cas/dlocate-new
 Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Build-Depends:

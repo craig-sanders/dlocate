@@ -22,8 +22,9 @@ and C<dpkg -S>.
 List all records where either the package name or the filename matches
 I<pattern>.
 
-Note that dlocate uses GNU grep, so normal regexp metacharacters need to be
-taken into account or avoided by using the B<-F> (Fixed String) grep option.
+Note that dlocate is written in Perl and uses Perl regular expressions, so
+regexp metacharacters need to be taken into account or avoided by using
+the B<-F> (Fixed String) option.
 
 For example, to search for C</usr/bin/[>, you might try:
 
@@ -37,7 +38,7 @@ or
 
 List all records where only the filename matches the I<filename> pattern.
 
-Note that dlocate uses GNU grep, so normal regexp metacharacters need to be
+Note that dlocate is written in Perl, so regexp metacharacters need to be
 taken into account.
 Fixed String searches are incompatible with B<-S>.
 
@@ -47,24 +48,16 @@ For example, to search for C</usr/bin/[>, you need to type:
 
 =item B<-l> I<package>...
 
-Regexp-enhanced emulation of C<dpkg -l>.
+Perl regexp-enhanced emulation of C<dpkg -l>.
 Shows all packages which match I<package>.
 
-Internally this uses grep on a file containing the reformatted
+Internally this searches a file containing the reformatted
 output of C<dpkg -l> (four fields separated by tabs; status,
 package-name, installed version, short description) so it will return
 packages whose version or short description matches, too.
 
-Various flavours of regular expression are supported.
-For example, Extended Regexp:
-
-  dlocate -l '^..[[:space:]]libc6'
-
-or Perl Regexp:
-
-  dlocate -P -l '^..\slibc6'
-
-Both of these will list all the packages whose names start with C<libc6>.
+All searches use Perl regular expressions by default.  Fixed strings can be
+used instead by using the B<-F> (Fixed String) option.
 
 Note that because of the difference between regular expressions and
 dpkg's shell-style pattern matching, the output from C<dlocate -l>
@@ -142,6 +135,18 @@ List only the directories in I<package>.
 
 =over
 
+=item B<-a> I<architecture>, B<--arch> I<architecture>
+
+Limit search to packages for one architecture
+
+=item B<-I>, B<--installed-only>
+
+Show only installed packages in output.
+
+=item B<--zero>, B<-z>, B<-0>
+
+Use NUL-separated output for all commands and options except <B><--du>
+
 =item B<--filename-only>
 
 Only output file names when searching for files.
@@ -163,25 +168,10 @@ Word-constituent characters are letters, digits, and the underscore.
 
 Ignore case distinctions in the I<pattern>.
 
-=item B<-E>, B<--extended-regexp>
-
-Interpret I<pattern> as an extended regular expression.
-This is the default.
-
 =item B<-F>, B<--fixed-strings>
 
 Interpret I<pattern> as a list of fixed strings, separated by newlines,
 any of which is to be matched.
-
-=item B<-G>, B<--basic-regexp>
-
-Interpret I<pattern> as a basic regular expression.
-
-=item B<-P>, B<--perl-regexp>
-
-Interpret I<pattern> as a Perl regular expression.
-This is considered to be highly experimental within GNU grep and
-may warn of unimplemented features.
 
 =item B<-h>, B<--help>
 
@@ -201,9 +191,9 @@ Set I<columns> width to override the B<dlocate> default of using the entire
 terminal line width.
 Any value for I<columns> less than 80 will be increased to 80.
 
-=item B<-C>, B<--color>
+=item B<-C>, B<--colour>, B<--color>
 
-Colorize B<-l> or B<-s> output (requires supercat to be installed).
+Colourise B<-l> or B<-s> output (requires supercat to be installed).
 
 =back
 
@@ -214,12 +204,14 @@ Colorize B<-l> or B<-s> output (requires supercat to be installed).
 =item F</etc/default/dlocate>
 
 Configuration file with default options. Currently the only option is
-to enable/disable gzip compression of F</var/lib/dlocate/dlocatedb>.
+to enable/disable gzip compression of F</var/lib/dlocate/dlocatedb>. This
+option is obsolete and unsupported unless someone wants to provide a patch (shouldn't be too hard with, say, B<IO::Compress::Gzip>)
 
 =item F</var/lib/dlocate/dlocatedb>
 
-Plain text listing of all files belonging to all packages
-(optionally compressed).
+Plain text listing of all files belonging to all packages (previously,
+this was optionally compressed but B<dlocate> now supports
+uncompressed text only).
 
 =item F</var/lib/dlocate/dpkg-list>
 
