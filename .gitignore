@@ -1,2 +1,9 @@
 *.1
 *.8
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/dlocate.substvars
+debian/dlocate/
+debian/files
+nytprof.out
+nytprof/
