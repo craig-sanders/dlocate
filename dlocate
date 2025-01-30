@@ -395,8 +395,11 @@ sub list_packages {
   my $fieldw = int(($columns - 24) / 4);
   my $fieldd = ($columns - $fieldw * 2 - 9);
 
-  my $hfmt = "%3s-%${fieldw}s-%${fieldw}s-%${fieldd}s\n";
-  my $bfmt = "%3s %-${fieldw}s %-${fieldw}s %-s\n";
+  my $hfmt = "%3s-%-${fieldw}.${fieldw}s-%-${fieldw}.${fieldw}s-%-${fieldd}.${fieldd}s\n";
+  (my $bfmt = $hfmt) =~ s/-%/ %/g;
+
+  print "hfmt=$hfmt" if $opts{debug};
+  print "bfmt=$bfmt" if $opts{debug};
 
   # print header and ruler
   my $header = <<__EOF__;
@@ -411,7 +414,9 @@ __EOF__
   print $header;
 
   foreach my $p (@packages) {
-    printf $bfmt, $p->{status}, $p->{package}, $p->{version}, $p->{desc};
+    my $out = sprintf $bfmt, $p->{status}, $p->{package}, $p->{version}, $p->{desc};
+    $out =~ s/ +$//;  # strip trailing spaces
+    print $out;
   };
 };
 
