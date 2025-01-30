@@ -8,6 +8,7 @@ use warnings;
 use Getopt::Long qw(:config gnu_getopt);
 use File::Basename;
 use List::Util qw(uniq);
+require 'sys/ioctl.ph';
 
 # This is in libdata-dump-perl, but is only needed while debugging the
 # script.
@@ -421,7 +422,6 @@ __EOF__
 
 sub get_terminal_width {
   # From perldoc -q "screen size"
-  require 'sys/ioctl.ph';
   die "no TIOCGWINSZ" unless defined &TIOCGWINSZ;
   open(TTY, "+</dev/tty") or die "No tty: $!";
   my $winsize;
