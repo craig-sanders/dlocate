@@ -50,7 +50,7 @@ GetOptions(\%opts, qw(S
                       installed-only|I
 
                       help|h
-                      debug|verbose|v
+                      debug|d|verbose|v
                       version|V
                       columns|column|c=i
                       colour|color|C
@@ -80,8 +80,8 @@ elsif ($opts{S})        { &search('-S', @ARGV) }
 elsif ($opts{l})        { &list_packages(@ARGV) }
 elsif ($opts{s})        { &show_status(@ARGV) }
 
-elsif ($opts{k})        { &list_kernel_packages }
-elsif ($opts{K})        { &list_kernel_packages_verbose }
+elsif ($opts{k})        { &list_kernel_packages(@ARGV) }
+elsif ($opts{K})        { &list_kernel_packages_verbose(@ARGV) }
 
 elsif ($opts{ls})       { &ls_files('list', '', @ARGV) }
 elsif ($opts{du})       { &du_files('list', '-f', @ARGV) }
@@ -118,8 +118,15 @@ sub dlocate_version {
   exit 0
 };
 
-sub search {
-  my $search_type = shift @_;
+sub construct_pattern_string {
+  # Input:
+  # @_ - pattern(s) to match package or file names
+
+  #dd \@_ if ($opts{debug});
+
+  # If pattern is already a compiled regexp, return it
+  # unchanged.
+  return $0 if ($0 =~ m/^\\qr\/\(/);
 
   my $pattern = '(';
   # Handle -F aka --fixed-string option.
@@ -136,6 +143,19 @@ sub search {
   } else {
     $pattern = qr/$pattern/;
   };
+
+  return $pattern;
+};
+
+
+sub search {
+  # Input:
+  # $0 - Search type ('-S' or '')
+  # @_ - pattern(s) to match package names
+
+  my $search_type = shift;
+
+  my $pattern = &construct_pattern_string(@_);
 
   # don't output the diversions if we're listing only package (-p) or
   # file (-f) names, or if we're doing a filename-only search (-S).
@@ -339,42 +359,18 @@ if (0) {
 
 };
 
-sub list_packages {
-  my $pattern = '(';
-  # Handle -F aka --fixed-string option.
-  if (defined $opts{'fixed-string'}) {
-    $pattern .= join("|", map { quotemeta } @_) . ')';
-  } else {
-    $pattern .= join("|", @_) . ')';
-  };
+sub get_packages {
+  # Input:
+  # $0 - Array ref to store/return package names in
+  #      This is an AoH, with 'status', 'package', 'version', and 'desc'
+  #      fields.
+  #
+  # @_ - pattern(s) to match package names
 
-  $pattern = "\\b$pattern\\b" if (defined $opts{word});
+  my $packages = shift;
 
-  print "PATTERN = $pattern\n\n" if ($opts{debug});
+  my $pattern = &construct_pattern_string(@_);
 
-  if (defined $opts{'ignore-case'}) {
-    $pattern = qr/$pattern/i;
-  } else {
-    $pattern = qr/$pattern/;
-  };
-
-  my $fieldw = int(($columns - 24) / 4);
-  my $fieldd = ($columns - $fieldw * 2 - 9);
-
-  my $hfmt = "%3s-%${fieldw}s-%${fieldw}s-%${fieldd}s\n";
-  my $bfmt = "%3s %-${fieldw}s %-${fieldw}s %-s\n";
-
-  # print header and ruler
-  my $header = <<__EOF__;
-Desired=Unknown/Install/Remove/Purge/Hold
-| Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
-|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
-__EOF__
-
-  $header .= sprintf "||/ %-${fieldw}s %-${fieldw}s %s\n", qw(Name Version Description);
-  $header .= sprintf $hfmt, '+++', '=' x $fieldw, '=' x $fieldw, '=' x $fieldd;
-
-  my $output = '';
   open(my $fh, "<", $dpkg_list_file) or die "Couldn't open $dpkg_list_file for read: $!\n";
   while(<$fh>) {
     chomp;
@@ -397,11 +393,48 @@ __EOF__
       next unless $a eq $opts{arch};
     };
 
-    $output .= sprintf $bfmt, $status, $package, $version, $desc;
+    push @{ $packages }, { status => $status, package => $package,
+                           version => $version, desc => $desc };
   };
   close($fh);
+}
 
-  print $header, $output if $output;
+
+sub list_packages {
+  # Input:
+  # @_ - pattern(s) to match package names
+
+  my @packages;
+  &get_packages(\@packages, @_);
+
+  return unless @packages;
+
+  if (defined $opts{'packages-only'}) {
+    print join($output_separator, (map { $_->{package} } @packages) ), $output_separator;
+    exit;
+  };
+
+  my $fieldw = int(($columns - 24) / 4);
+  my $fieldd = ($columns - $fieldw * 2 - 9);
+
+  my $hfmt = "%3s-%${fieldw}s-%${fieldw}s-%${fieldd}s\n";
+  my $bfmt = "%3s %-${fieldw}s %-${fieldw}s %-s\n";
+
+  # print header and ruler
+  my $header = <<__EOF__;
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
+|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+__EOF__
+
+  $header .= sprintf "||/ %-${fieldw}s %-${fieldw}s %s\n", qw(Name Version Description);
+  $header .= sprintf $hfmt, '+++', '=' x $fieldw, '=' x $fieldw, '=' x $fieldd;
+
+  print $header;
+
+  foreach my $p (@packages) {
+    printf $bfmt, $p->{status}, $p->{package}, $p->{version}, $p->{desc};
+  };
 };
 
 sub get_terminal_width {
@@ -447,7 +480,7 @@ sub colourise_output {
 };
 
 sub show_status {
-  foreach my $p (@ARGV) {
+  foreach my $p (@_) {
 
     print qx(grep-status -P -X '$p');
     my $result = $?;
@@ -472,39 +505,42 @@ sub show_status {
 };
 
 sub get_kernel_packages {
+  # Input:
+  # @_ - pattern(s) to match package names
   #my $module_packages = '-dkms';
   chomp(my @module_packages = qx'grep-status -P -s Package -n -e \'[- ](module-assistant|dkms)([, ]|$)\'');
   @module_packages = grep { ! m/^(dh-dkms|module-assistant|dkms)$/ } @module_packages;
   my $module_packages = join("|",@module_packages);
 
-  my $linux_packages = '^(linux-(image|source|headers|doc|debug|kbuild|perf|support|tools|manual|config)|gnumach-(image|common|dev))';
+  my $linux_packages = '(linux-(image|source|headers|doc|debug|kbuild|perf|support|tools|manual|config)|gnumach-(image|common|dev))';
 
   my $kernel_pattern = "($linux_packages|$module_packages)";
   $kernel_pattern = qr($kernel_pattern);
 
-  my $user_pattern = join ('|', @ARGV);
-  $user_pattern = qr($user_pattern);
+  my $user_pattern = &construct_pattern_string(@_);
+
+  print "kernel_pattern = $kernel_pattern\n" if ($opts{debug});;
+  print "user_pattern = $user_pattern\n" if ($opts{debug});;
 
   my @packages = ();
+  $opts{'installed-only'} = 1;
+  &get_packages(\@packages, $kernel_pattern);
+  my @package_names = grep { m/$user_pattern/ } map { $_->{package} } @packages;
 
-  open(my $fh, "<", $dpkg_list_file) or die "Couldn't open $dpkg_list_file for read: $!\n";
-  while(<$fh>) {
-    chomp;
-    my ($status, $package, $version, $desc) = split /\t/;
-    next unless m/$user_pattern/;
-    next unless $package =~ $kernel_pattern;
-    push @packages, $package if $status =~ /^.i/;
-  }
-  return @packages;
+  #dd \@package_names if ($opts{debug});
+  return @package_names;
 }
 
 sub list_kernel_packages {
-  print join($output_separator, &get_kernel_packages(@ARGV)), $output_separator;
+  # Input:
+  # @_ - pattern(s) to match package names
+  print join($output_separator, &get_kernel_packages(@_)), $output_separator;
 }
 
 sub list_kernel_packages_verbose {
-  $opts{'installed-only'} = 1;
-  &list_packages(&get_kernel_packages(@ARGV));
+  # Input:
+  # @_ - pattern(s) to match package names
+  &list_packages(&get_kernel_packages(@_));
 }
 
 sub usage() {
