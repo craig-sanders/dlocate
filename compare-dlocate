@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# compare about of two versions of dlocate
+
+#testpkg=dlocate
+testpkg=util-linux-extra
+
+# defaults to main system dlocate and dlocate in current directory
+dlocate1='dlocate'
+dlocate2='./dlocate'
+
+declare -a args=(
+  "$testpkg"
+  "-f $testpkg"
+  "-p $testpkg"
+  "-S -f $testpkg"
+  "-S -p $testpkg"
+  "-S $testpkg"
+  "-L $testpkg"
+  "-l $testpkg"
+  "-s $testpkg"
+  "--ls $testpkg"
+  "--du $testpkg"
+  "--conf $testpkg"
+  "--lsconf $testpkg"
+  "--md5sum $testpkg"
+  "--man $testpkg"
+  "--lsman $testpkg"
+  "--lsbin $testpkg"
+  "--lsdir $testpkg"
+  "-K"
+  "-k"
+)
+
+#  "--md5check $testpkg"
+
+#declare -p args
+#exit 0;
+
+for a in "${args[@]}" ; do
+  # compare the sorted output of dlocate and dlocate.pl
+  #colordiff -u <(dlocate "$@" | sort ) <(./dlocate.pl "$@" | sort )
+
+  printf "dlocate %s: " "$a"
+  #cmp <("$dlocate1" $a | sort ) <("$dlocate2" $a | sort ) >/dev/null 2>&1
+  colordiff -u <("$dlocate1" $a 2>&1 | sort ) <("$dlocate2" $a 2>&1 | sort )
+  #colordiff -u <("$dlocate1" $a 2>&1 | sort | grep -v '^diversion' ) <("$dlocate2" $a 2>&1 | sort | grep -v '^diversion' )
+  if [ $? = 0 ]; then
+    printf "%s\n" OK
+  else
+    printf "%s\n" FAILED
+  fi
+done

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Use the same command line args with two versions of dlocate and show
+# colordiff of the (sorted) output
+
+# The output of both is sorted because, for this purpose, it doesn't matter if
+# packages/files are listed in different order as long as they're the same.
+
+# defaults to main system dlocate and dlocate in current directory
+dlocate1='dlocate'
+dlocate2='./dlocate'
+
+# with stderr
+colordiff -u <("$dlocate1" "$@" | sort ) <("$dlocate2" "$@" | sort )
+
+# without
+#(colordiff -u <("$dlocate1" "$@" | sort ) <("$dlocate2" "$@" | sort )) 2>/dev/null
+
