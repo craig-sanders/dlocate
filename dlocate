@@ -311,39 +311,19 @@ sub md5check {
   my @files;
   get_package_files(\@files, 'md5sums', '', @_);
 
-if (0) {
-  # Simple version, pipe to md5sum -c
-  # Doesn't handle FAILED or diversions like the shell version of dlocate.
-  #
-  # About as fast as the original dlocate shell script, which is
-  # approx twice as fast (5.9 seconds vs 10.3 seconds) as using
-  # Digest::MD5 on big packages like texlive-fonts-extra
-  #
-  # For oxygen-icon-theme, a package with 6300 files, this algo takes
-  # 0.16 seconds.  The original shell version took 0.14 seconds.
-
-  # redirect stderr
-  open(OLDERR, ">&", \*STDERR) or die "Can't dup STDERR: $!";
-  open(STDERR, ">", '/dev/null') or die "Can't redirect STDERR: $!\n";
-
-  open(my $fh, "|-", qw(md5sum -c -) );
-  print $fh join("\n", map {s/  /  \//; $_} @files );
-  close($fh);
-
-  # restore stderr
-  open(STDERR, ">&", \*OLDERR) or die "Can't dup OLDERR: $!";
-} else {
   # Digest::MD5 version
-  # This is half as fast as piping to md5sum. This is only really
-  # noticable on a handful of huge packages like texlive-fonts-extra
-  # with over 100K files (10.3 seconds)
+  # This is about half as fast as piping to md5sum -c (as the original
+  # shell version of dlocate did). This is only really noticable on a
+  # handful of huge packages like texlive-fonts-extra with over 100K files
+  # (10.3 seconds vs 5.9 seconds for piping to md5sum)
+  #
+  # For oxygen-icon-theme, a package with 6300 files, this algo takes 0.22
+  # seconds.  The original shell pipe to md5sum version took 0.14 seconds.
   #
   # The median number of files in a package is around 180, so performance
-  # probably doesn't matter.  And this lets us handle md5 check failures
-  # in perl (TODO).
-  #
-  # For oxygen-icon-theme, a package with 6300 files, this algo takes
-  # 0.22 seconds.  The original shell version took 0.14 seconds.
+  # probably doesn't matter.  And this lets us handle md5 check failures in
+  # perl (TODO).
+
   use Digest::MD5 qw(md5_hex);
   foreach (@files) {
     my ($hash, $file) = split;
@@ -355,8 +335,6 @@ if (0) {
       print "$file: OK\n";
     }
   }
-};
-
 };
 
 sub get_packages {
