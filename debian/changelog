@@ -1,3 +1,16 @@
+dlocate (2.01) UNRELEASED; urgency=medium
+
+  * Added support for regexp filtering -k & -K (e.g. dlocate -k '6.1[012]')
+  * Added support for -p and -0 when listing (-l) packages. -p also
+    makes -K work like -k (so -k is now redundant. but will remain for
+    convenience and backwards-compatibility)
+  * These additions are useful for piping to xargs or using in $(dlocate ...) in bash
+  * Updated list_packages() output header (for -l, -K) to match current dpkg -l header
+  * Fixed typo with --fixed-strings option.  Updated dlocate.pod to reflect the fact that -F and --fixed-strings work with -S now
+  * Fixed format strings for -l, -K. Stripped trailing spaces from desc output
+
+ -- Craig Sanders <cas@hex.taz.net.au>  Thu, 30 Jan 2025 15:20:25 +1100
+
 dlocate (2.00) unstable; urgency=medium
 
   * Rewrote dlocate in perl
