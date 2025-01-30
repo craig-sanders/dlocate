@@ -1,3 +1,9 @@
+dlocate (2.02) UNRELEASED; urgency=medium
+
+  * Fixed single-dash short options to double-dash in test-dlocate.sh
+
+ -- Craig Sanders <cas@taz.net.au>  Thu, 30 Jan 2025 15:49:32 +1100
+
 dlocate (2.01) UNRELEASED; urgency=medium
 
   * Added support for regexp filtering -k & -K (e.g. dlocate -k '6.1[012]')
@@ -9,7 +15,7 @@ dlocate (2.01) UNRELEASED; urgency=medium
   * Fixed typo with --fixed-strings option.  Updated dlocate.pod to reflect the fact that -F and --fixed-strings work with -S now
   * Fixed format strings for -l, -K. Stripped trailing spaces from desc output
 
- -- Craig Sanders <cas@hex.taz.net.au>  Thu, 30 Jan 2025 15:20:25 +1100
+ -- Craig Sanders <cas@taz.net.au>  Thu, 30 Jan 2025 15:20:25 +1100
 
 dlocate (2.00) unstable; urgency=medium
 

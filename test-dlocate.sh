@@ -24,7 +24,7 @@ for opt in " " "-S"; do
   done
 done
 
-for opt in -l -du -conf -lsconf -md5sum -md5check -man -lsman -lsbin; do
+for opt in -l --du --conf --lsconf --md5sum --md5check --man --lsman --lsbin; do
   for pkg in $EXIST $NOTEXIST $EMPTY; do
     echo '-------------------------------'
     echo "running: ./dlocate $opt $pkg"
