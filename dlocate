@@ -45,7 +45,7 @@ GetOptions(\%opts, qw(S
 
                       word|w
                       ignore-case|i
-                      fixed-string|F
+                      fixed-strings|F
 
                       installed-only|I
 
@@ -130,7 +130,7 @@ sub construct_pattern_string {
 
   my $pattern = '(';
   # Handle -F aka --fixed-string option.
-  if (defined $opts{'fixed-string'}) {
+  if (defined $opts{'fixed-strings'}) {
     $pattern .= join("|", map { quotemeta } @_) . ')';
   } else {
     $pattern .= join("|", @_) . ')';
@@ -146,7 +146,6 @@ sub construct_pattern_string {
 
   return $pattern;
 };
-
 
 sub search {
   # Input:
@@ -376,7 +375,6 @@ sub get_packages {
   };
   close($fh);
 }
-
 
 sub list_packages {
   # Input:

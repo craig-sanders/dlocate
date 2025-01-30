@@ -24,7 +24,7 @@ I<pattern>.
 
 Note that dlocate is written in Perl and uses Perl regular expressions, so
 regexp metacharacters need to be taken into account or avoided by using
-the B<-F> (Fixed String) option.
+the B<-F> or B<--fixed-strings> option.
 
 For example, to search for C</usr/bin/[>, you might try:
 
@@ -40,11 +40,14 @@ List all records where only the filename matches the I<filename> pattern.
 
 Note that dlocate is written in Perl, so regexp metacharacters need to be
 taken into account.
-Fixed String searches are incompatible with B<-S>.
 
 For example, to search for C</usr/bin/[>, you need to type:
 
   dlocate  '/usr/bin/\['
+
+Or use the B<-F> or B<--fixed-strings> option
+
+  dlocate -F '/usr/bin/['
 
 =item B<-l> I<package>...
 
@@ -57,7 +60,7 @@ package-name, installed version, short description) so it will return
 packages whose version or short description matches, too.
 
 All searches use Perl regular expressions by default.  Fixed strings can be
-used instead by using the B<-F> (Fixed String) option.
+used instead by using the B<-F> or B<--fixed-strings> option.
 
 Note that because of the difference between regular expressions and
 dpkg's shell-style pattern matching, the output from C<dlocate -l>
@@ -170,8 +173,8 @@ Ignore case distinctions in the I<pattern>.
 
 =item B<-F>, B<--fixed-strings>
 
-Interpret I<pattern> as a list of fixed strings, separated by newlines,
-any of which is to be matched.
+Interpret I<pattern>... as a list of fixed strings (with all metacharacters
+escaped via perl's B<quotemeta()> function), any of which will match.
 
 =item B<-h>, B<--help>
 
