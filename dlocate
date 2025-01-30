@@ -479,8 +479,11 @@ sub get_kernel_packages {
 
   my $linux_packages = '^(linux-(image|source|headers|doc|debug|kbuild|perf|support|tools|manual|config)|gnumach-(image|common|dev))';
 
-  my $pattern = "($linux_packages|$module_packages)";
-  $pattern = qr($pattern);
+  my $kernel_pattern = "($linux_packages|$module_packages)";
+  $kernel_pattern = qr($kernel_pattern);
+
+  my $user_pattern = join ('|', @ARGV);
+  $user_pattern = qr($user_pattern);
 
   my @packages = ();
 
@@ -488,19 +491,20 @@ sub get_kernel_packages {
   while(<$fh>) {
     chomp;
     my ($status, $package, $version, $desc) = split /\t/;
-    next unless $package =~ $pattern;
+    next unless m/$user_pattern/;
+    next unless $package =~ $kernel_pattern;
     push @packages, $package if $status =~ /^.i/;
   }
   return @packages;
 }
 
 sub list_kernel_packages {
-  print join($output_separator, &get_kernel_packages), $output_separator;
+  print join($output_separator, &get_kernel_packages(@ARGV)), $output_separator;
 }
 
 sub list_kernel_packages_verbose {
   $opts{'installed-only'} = 1;
-  &list_packages(&get_kernel_packages);
+  &list_packages(&get_kernel_packages(@ARGV));
 }
 
 sub usage() {
