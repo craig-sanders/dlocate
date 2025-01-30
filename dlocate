@@ -402,8 +402,8 @@ sub list_packages {
   # print header and ruler
   my $header = <<__EOF__;
 Desired=Unknown/Install/Remove/Purge/Hold
-| Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
-|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
 __EOF__
 
   $header .= sprintf "||/ %-${fieldw}s %-${fieldw}s %s\n", qw(Name Version Description);
