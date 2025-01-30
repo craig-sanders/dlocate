@@ -207,14 +207,12 @@ Colourise B<-l> or B<-s> output (requires supercat to be installed).
 =item F</etc/default/dlocate>
 
 Configuration file with default options. Currently the only option is
-to enable/disable gzip compression of F</var/lib/dlocate/dlocatedb>. This
-option is obsolete and unsupported unless someone wants to provide a patch (shouldn't be too hard with, say, B<IO::Compress::Gzip>)
+to enable/disable gzip or zstd compression of F</var/lib/dlocate/dlocatedb>.
 
 =item F</var/lib/dlocate/dlocatedb>
 
-Plain text listing of all files belonging to all packages (previously,
-this was optionally compressed but B<dlocate> now supports
-uncompressed text only).
+Plain text listing of all files belonging to all packages.  This file may
+optionally be compressed with either gzip or zstd.
 
 =item F</var/lib/dlocate/dpkg-list>
 

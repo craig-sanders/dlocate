@@ -16,6 +16,7 @@ Package: dlocate
 Architecture: all
 Depends:
  dctrl-tools,
+ zstd,
  ${misc:Depends},
  ${perl:Depends},
 Recommends:

@@ -1,7 +1,9 @@
 # You can enable compression if you are short on disk space and don't
-# mind dlocate being about 10 times slower.
+# mind dlocate being about 10 times slower. (zstd decompress=10x gzip)
 #
-# 1 = enable compression
+# 1 = enable gzip compression
+# 2 = enable zstd compression
+#
 # anything else = disable compression
 #
 # disabled by default.

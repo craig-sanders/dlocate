@@ -163,7 +163,8 @@ sub search {
                             $search_type eq '-S' ) ? 1 : 0;
   my %seen = ();
 
-  open(my $fh, "<", $dlocatedb) or die "Couldn't open $dlocatedb for read: $!\n";
+  #open(my $fh, "<", $dlocatedb) or die "Couldn't open $dlocatedb for read: $!\n";
+  open(my $fh, "-|", 'zstdcat', $dlocatedb) or die "Couldn't open $dlocatedb for read: $!\n";
 
   while(<$fh>) {
     chomp;

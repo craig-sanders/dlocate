@@ -1,3 +1,14 @@
+dlocate (2.03) UNRELEASED; urgency=medium
+
+  * Re-enabled support for dlocatedb compression, either gzip or zstd.
+    As a result, dlocate now depends on the zstd package for zstdcat
+    (which can read uncompressed, gzip-compressed, and zstd-
+    compressed files)
+  * zstd support thanks to Anders Björklund (afbjorklund on github)
+    https://github.com/craig-sanders/dlocate/commit/361265df574e8f67eae5ad92494f54ef8261a181
+
+ -- Craig Sanders <cas@taz.net.au>  Thu, 30 Jan 2025 17:11:36 +1100
+
 dlocate (2.02) UNRELEASED; urgency=medium
 
   * Fixed single-dash short options to double-dash in test-dlocate.sh
