@@ -28,7 +28,7 @@ my $dpkg_list_file  = '/var/lib/dlocate/dpkg-list';
 
 chomp(my $dpkg_arch = qx(dpkg --print-architecture 2>/dev/null));
 
-GetOptions(\%opts, qw(S
+GetOptions(\%opts, qw(S P
                       L K
                       l s k
 
@@ -38,6 +38,7 @@ GetOptions(\%opts, qw(S
                       bin lsbin
                       dir lsdir
                       md5sum|md5-sum md5check|md5-check
+                      changelogs
 
                       filenames-only|filename-only|f
                       packages-only|package-only|p
@@ -60,9 +61,10 @@ GetOptions(\%opts, qw(S
 
                       extended-regexp|E
                       basic-regexp|G
-                      perl-regexp|P
                      )
           ) or die ("Error in command line arguments\n");
+
+#                      perl-regexp|P
 
 #dd \%opts if ($opts{debug});
 
@@ -78,6 +80,7 @@ $output_separator = "\0" if $opts{zero};
 
 if    ($opts{L})        { &list_files('list', '', @ARGV) }
 elsif ($opts{S})        { &search('-S', @ARGV) }
+elsif ($opts{P})        { &search('-P', @ARGV) }
 elsif ($opts{l})        { &list_packages(@ARGV) }
 elsif ($opts{s})        { &show_status(@ARGV) }
 
@@ -101,6 +104,8 @@ elsif ($opts{lsdir})    { &list_files('list', '-d', @ARGV) }
 
 elsif ($opts{md5sum})   { &list_files('md5sums', '', @ARGV) }
 elsif ($opts{md5check}) { &md5check(@ARGV) }
+
+elsif ($opts{changelogs}) { &changelogs(@ARGV) }
 
 else                    { &search('', @ARGV) }; # default action
 ;
@@ -138,6 +143,7 @@ sub construct_pattern_string {
   };
 
   $pattern = "\\b$pattern\\b" if (defined $opts{word});
+  print "PATTERN = $pattern\n" if ($opts{debug});
 
   if (defined $opts{'ignore-case'}) {
     $pattern = qr/$pattern/i;
@@ -150,9 +156,10 @@ sub construct_pattern_string {
 
 sub search {
   # Input:
-  # $0 - Search type ('-S' or '')
+  # $0 - Search type ('-S', '-P', or '')
   # @_ - pattern(s) to match package names
 
+  #dd \@_ if ($opts{debug});
   my $search_type = shift;
 
   my $pattern = &construct_pattern_string(@_);
@@ -171,16 +178,17 @@ sub search {
     chomp;
     next if ($ignore_diversions && m/^diversion/);
     next unless m/$pattern/;
-    my ($p, $f) = ();
+    my ($p, $f, $a) = ();
 
     # split input line into package ($p) and filename ($f)
     ($p, $f) = split /: /, $_, 2;
 
     if (defined $opts{arch}) {
       # arch is separated from the package name by a colon
-      my (undef, $a) = split /:/, $p;
+      (undef, $a) = split /:/, $p;
       next if ( (defined $a) && ($a ne $opts{arch}) );
     };
+    #print "p=$p, f=$f\n" if $opts{debug};
 
     my $out = $_;
     if (defined $opts{'packages-only'}) {
@@ -189,6 +197,7 @@ sub search {
       $out = $f;
     };
 
+    next if ($search_type eq '-P' && $p !~ m/$pattern/);
     next if ($search_type eq '-S' && $f !~ m/$pattern/);
     next if ($seen{$p}++ && defined $opts{'packages-only'});
     print $out, $output_separator;
@@ -236,25 +245,27 @@ sub get_package_files {
 
   foreach my $p (@_) {
     my $f;
+    my @F;
     resolve_filename($p, $ext, \$f);
     print "filename = $f\n" if ($opts{debug});
     if ( -e $f ) {
       open(my $fh, "<", $f) or die "Couldn't open $f for read: $!\n";
-      chomp (@{ $files } = grep /$pattern/, <$fh>);
+      chomp (@F = grep /$pattern/, <$fh>);
 
       if ($filetest eq '-f') {  # only files
-        @{ $files } =  grep { -f } @{ $files };
+        @F =  grep { -f } @F;
       };
 
       if ($filetest eq '-x') {  # only executables
-        @{ $files } = grep { -f && -x } @{ $files };
+        @F = grep { -f && -x } @F;
       };
 
       if ($filetest eq '-d') {  # only directories
-        @{ $files } = grep { -d } @{ $files };
+        @F = grep { -d } @F;
       };
 
       close($fh);
+      push @{ $files }, @F;
     } else {
       if ($ext eq 'conffiles') {
         print STDERR "Package $p is not installed or has no conffiles.\n";
@@ -486,6 +497,22 @@ sub show_status {
   };
 };
 
+sub changelogs {
+  # Input:
+  # @_ - pattern(s) to match package names
+
+  my @files;
+
+  $opts{'ignore-case'} = 1; # changelog files often start with a capital C
+  get_package_files(\@files, 'list', '/usr/share/doc/[^/]*/change.*', @_);
+
+  if ($opts{'filenames-only'}) {
+    print join($output_separator, @files), $output_separator;
+  } else {
+    system('sensible-pager', @files);
+  }
+}
+
 sub get_kernel_packages {
   # Input:
   # @_ - pattern(s) to match package names
@@ -547,6 +574,7 @@ Commands:
   --lsman      package   List full path/filenames of man pages
   --lsbin      package   List full path/filenames of executable files
   --lsdir      package   List only the directories in package
+  --changelogs package   View changelogs in package
 
   -k                     List installed kernel & related packages
   -K                     detailed list of installed kernel & related packages

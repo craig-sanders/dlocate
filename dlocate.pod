@@ -26,6 +26,9 @@ Note that dlocate is written in Perl and uses Perl regular expressions, so
 regexp metacharacters need to be taken into account or avoided by using
 the B<-F> or B<--fixed-strings> option.
 
+Also note that regexp patterns often need to be quoted or escaped
+to prevent the shell from trying to expand them.
+
 For example, to search for C</usr/bin/[>, you might try:
 
   dlocate '/usr/bin/\['
@@ -38,6 +41,8 @@ or
 
 List all records where only the filename matches the I<filename> pattern.
 
+Perl regexp-enhanced emulation of C<dpkg -S>.
+
 Note that dlocate is written in Perl, so regexp metacharacters need to be
 taken into account.
 
@@ -49,35 +54,47 @@ Or use the B<-F> or B<--fixed-strings> option
 
   dlocate -F '/usr/bin/['
 
+=item B<-P> I<package>...
+
+List all records where only the package name matches the I<pattern>.
+
 =item B<-l> I<package>...
 
 Perl regexp-enhanced emulation of C<dpkg -l>.
 Shows all packages which match I<package>.
 
-Internally this searches a file containing the reformatted
-output of C<dpkg -l> (four fields separated by tabs; status,
-package-name, installed version, short description) so it will return
-packages whose version or short description matches, too.
+Internally this searches a file containing the reformatted output of C<dpkg -l>
+(four fields separated by tabs; status, package-name, installed version, short
+description) so, unlike C<dpkg -l> it will return packages whose version or
+short description matches, too.
 
 All searches use Perl regular expressions by default.  Fixed strings can be
 used instead by using the B<-F> or B<--fixed-strings> option.
 
-Note that because of the difference between regular expressions and
-dpkg's shell-style pattern matching, the output from C<dlocate -l>
-is occasionally different to the output from C<dpkg -l>.
+Note that because of the difference between regular expressions and dpkg's
+shell-style pattern matching, the output from C<dlocate -l> is occasionally
+different to the output from C<dpkg -l>.
 
 This is not a bug, regular expressions are far more flexible than shell
 pattern matching. This is the way dlocate is supposed to run, but it
 may require some knowledge of regular expressions to get the output you
 want.
 
+Regular expressions may need to be quoted on the command line to avoid being
+expanded by the shell.
+
 =item B<-k>
 
 List package names of installed kernels and all related packages.
 
+Optionally takes a regexp pattern argument to list only matching kernels.  For
+example, C<dlocate -k 6.10>, or C<apt-get purge $(dlocate -k '6.12.(8|11)')> to
+purge all kernel-related packages for versions 6.12.8 and 6.12.11
+
 =item B<-K>
 
-Detailed list of installed kernels and all related packages.
+Detailed list of installed kernels and all related packages.  Optionally takes
+a regexp pattern argument to list only matching kernels.
 
 =item B<-L> I<package>...
 
@@ -132,6 +149,12 @@ List full path/filenames of executable files (if any) in I<package>.
 
 List only the directories in I<package>.
 
+=item B<--changelogs> I<package>...
+
+View the changelogs in I<package> with C<sensible-viewer>.  If combined with
+the B<-f> or B<--filenames-only> option will instead output the list of
+changelog files in I<package>.
+
 =back
 
 =head1 OPTIONS
@@ -140,7 +163,7 @@ List only the directories in I<package>.
 
 =item B<-a> I<architecture>, B<--arch> I<architecture>
 
-Limit search to packages for one architecture
+Limit search to packages for one architecture.  For example, C<dlocate -L libxcursor -a i386>
 
 =item B<-I>, B<--installed-only>
 
@@ -150,11 +173,11 @@ Show only installed packages in output.
 
 Use NUL-separated output for all commands and options except <B><--du>
 
-=item B<--filename-only>
+=item B<-f>, B<--filename-only>
 
 Only output file names when searching for files.
 
-=item B<--package-only>
+=item B<-p>, B<--package-only>
 
 Only output package names when searching for files.
 
@@ -232,32 +255,26 @@ To view all man pages contained within the dpkg package:
 
   man $(dlocate -man dpkg)
 
-To purge kernel version 2.6.28.7 and all related module packages:
+To purge kernel versions 6.10.10 and 6.10.11, including -image, -headers and -kbuild
+packages.
 
-  dlocate -k | grep -- -2.6.28.7 | xargs apt-get purge
+  apt-get purge $(dlocate -k 6.1[01])
+
+or
+
+   dlocate -0 -k 6.1[01] | xargs -0r apt-get purge
 
 To check the md5sums of the dlocate package:
 
   dlocate --md5check dlocate
 
-To use dpkg-repack to make a backup copy of all installed mythtv packages
-just before upgrading them:
+To run C<dpkg-repack> on all installed packages where the package name matches xserver:
 
-  dlocate -l mythtv | awk '/^.i/ {print $2}' | xargs dpkg-repack
+  dpkg-repack $(dlocate -I -P -p xserver)
 
-  # dlocate -l mythtv | awk '/^.i/ {print $2}' | xargs dpkg-repack
-  dpkg-deb: building package `libmythtv-perl' in `./libmythtv-perl_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv' in `./mythtv_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv-backend' in `./mythtv-backend_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv-common' in `./mythtv-common_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv-database' in `./mythtv-database_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv-doc' in `./mythtv-doc_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv-frontend' in `./mythtv-frontend_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv-perl' in `./mythtv-perl_0.21.svn20090414-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtv-status' in `./mythtv-status_0.9.0-5_amd64.deb'.
-  dpkg-deb: building package `mythtv-themes' in `./mythtv-themes_0.21-0.0_amd64.deb'.
-  dpkg-deb: building package `mythtvfs' in `./mythtvfs_0.5.2-2_amd64.deb'.
-  dpkg-deb: building package `python-mythtv' in `./python-mythtv_0.21.svn20090414-0.0_amd64.deb'.
+or
+
+  dlocate -I -P -p xserver -0 | xargs -0r dpkg-repack
 
 =head1 NOTES
 

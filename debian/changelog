@@ -1,4 +1,15 @@
-dlocate (2.03) UNRELEASED; urgency=medium
+dlocate (2.04) unstable; urgency=medium
+
+  * Fixed get_package_files to return filenames from multiple packages
+  * Added --changelogs option to view or return list of changelog files in package(s).
+  * Updated dlocate.pod to document -f & -p synonyms for --filename-only and --package-only
+  * Updated dlocate.pod to mention that -k and -K optionally take regexp args.
+  * Added -P command to match only package names, as a counterpart to -S (prior to v 2.00 -P was for perl regexps, now obsolete)
+  * Updated the EXAMPLES section in dlocate.pod and various other examples in the text.
+
+ -- Craig Sanders <cas@taz.net.au>  Sat, 01 Feb 2025 11:54:19 +1100
+
+dlocate (2.03) unstable; urgency=medium
 
   * Re-enabled support for dlocatedb compression, either gzip or zstd.
     As a result, dlocate now depends on the zstd package for zstdcat
@@ -9,13 +20,13 @@ dlocate (2.03) UNRELEASED; urgency=medium
 
  -- Craig Sanders <cas@taz.net.au>  Thu, 30 Jan 2025 17:11:36 +1100
 
-dlocate (2.02) UNRELEASED; urgency=medium
+dlocate (2.02) unstable; urgency=medium
 
   * Fixed single-dash short options to double-dash in test-dlocate.sh
 
  -- Craig Sanders <cas@taz.net.au>  Thu, 30 Jan 2025 15:49:32 +1100
 
-dlocate (2.01) UNRELEASED; urgency=medium
+dlocate (2.01) unstable; urgency=medium
 
   * Added support for regexp filtering -k & -K (e.g. dlocate -k '6.1[012]')
   * Added support for -p and -0 when listing (-l) packages. -p also
