@@ -1,12 +1,16 @@
 #!/bin/bash
 
+# By Craig Sanders <cas@taz.net.au>, 2025.  This script is hereby placed into
+# the public domain.
+
 # Use the same command line args with two versions of dlocate and show
 # colordiff of the (sorted) output
 
 # The output of both is sorted because, for this purpose, it doesn't matter if
 # packages/files are listed in different order as long as they're the same.
 
-# defaults to main system dlocate and dlocate in current directory
+# Defaults to main system dlocate and dlocate in current directory.
+# Edit script to change.
 dlocate1='dlocate'
 dlocate2='./dlocate'
 

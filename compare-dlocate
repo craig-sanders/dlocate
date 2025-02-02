@@ -1,11 +1,16 @@
 #!/bin/bash
 
-# compare about of two versions of dlocate
+# Compare the output of two versions of dlocate
+
+# By Craig Sanders <cas@taz.net.au>, 2025.  This script is hereby placed into
+# the public domain.
 
 #testpkg=dlocate
+# util-linux-extra makes for a reasonably comprehensive sample package.
 testpkg=util-linux-extra
 
-# defaults to main system dlocate and dlocate in current directory
+# Defaults to main system dlocate and dlocate in current directory.
+# Edit script to change.
 dlocate1='dlocate'
 dlocate2='./dlocate'
 
@@ -24,6 +29,7 @@ declare -a args=(
   "--conf $testpkg"
   "--lsconf $testpkg"
   "--md5sum $testpkg"
+  "--md5check $testpkg"
   "--man $testpkg"
   "--lsman $testpkg"
   "--lsbin $testpkg"
@@ -32,22 +38,17 @@ declare -a args=(
   "-k"
 )
 
-#  "--md5check $testpkg"
-
-#declare -p args
-#exit 0;
-
 for a in "${args[@]}" ; do
   # compare the sorted output of dlocate and dlocate.pl
   #colordiff -u <(dlocate "$@" | sort ) <(./dlocate.pl "$@" | sort )
 
   printf "dlocate %s: " "$a"
   #cmp <("$dlocate1" $a | sort ) <("$dlocate2" $a | sort ) >/dev/null 2>&1
-  colordiff -u <("$dlocate1" $a 2>&1 | sort ) <("$dlocate2" $a 2>&1 | sort )
-  #colordiff -u <("$dlocate1" $a 2>&1 | sort | grep -v '^diversion' ) <("$dlocate2" $a 2>&1 | sort | grep -v '^diversion' )
+  d=$(colordiff -u <("$dlocate1" $a 2>&1 | sort ) <("$dlocate2" $a 2>&1 | sort ) )
   if [ $? = 0 ]; then
     printf "%s\n" OK
   else
     printf "%s\n" FAILED
+    printf "%s\n" "$d"
   fi
 done

@@ -4,7 +4,7 @@ Files:
  *
 Copyright:
  1999 Jim Pick <jim@jimpick.com>, Craig Sanders <cas@taz.net.au>
- 2007-2016 Craig Sanders <cas@taz.net.au>
+ 2007-2025 Craig Sanders <cas@taz.net.au>
 License: GPL-2+
  This program is released under the GNU General Public License (GPL),
  version 2 (or later, at your option).
@@ -29,9 +29,10 @@ Files:
  dlocate
  dlocate.pod
 Copyright:
- Jim Pick <jim@pick.com> and Craig Sanders <cas@taz.net.au>
-License: GPL
- dlocate is Free Software licensed under the GNU General Public License.
+ Craig Sanders <cas@taz.net.au>
+License: GPL-2+
+ dlocate is Free Software licensed under the GNU General Public License (GPL)
+ version 2 (or later, at your option)
 
 Files:
  dpkg-hold*
