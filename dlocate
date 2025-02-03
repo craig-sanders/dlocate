@@ -292,7 +292,7 @@ sub ls_files {
     # no need to run xargs if we're just printing a NUL-separated list.
     print join("\0", @files), "\0";
   } else {
-    open(my $xargs, "|-", "xargs -0r ls $args") || die "Couldn't open pipe to xargs: $!\n";
+    open(my $xargs, "|-", "xargs -0r ls $args") or die "Couldn't open pipe to xargs: $!\n";
     print $xargs join("\0", @files);
     close($xargs);
   };
@@ -303,7 +303,7 @@ sub du_files {
   get_package_files(\@files, @_);
 
   my $args = '-sck';
-  open(my $xargs, "|-","xargs -0r du $args") || die "Couldn't open pipe to xargs:\n";
+  open(my $xargs, "|-","xargs -0r du $args") or die "Couldn't open pipe to xargs: $!\n";
   print $xargs join("\0", @files );
   close($xargs);
 };
