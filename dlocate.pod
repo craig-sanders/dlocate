@@ -13,7 +13,13 @@ B<dlocate> [I<option>...] [I<command>]
 B<dlocate> is a fast alternative to dpkg for queries like C<dpkg -L>
 and C<dpkg -S>.
 
-=head1 COMMANDS
+=head1 OPTIONS
+
+=over
+
+=back
+
+=head2 COMMAND OPTIONS
 
 =over
 
@@ -157,7 +163,7 @@ changelog files in I<package>.
 
 =back
 
-=head1 OPTIONS
+=head2 NON-COMMAND OPTIONS
 
 =over
 
@@ -302,5 +308,4 @@ Values lower than 80 are increased to 80.
 
 L<dpkg(1)>,
 L<update-dlocatedb(8)>,
-L<grep(1)>,
 L<grep-dctrl(1)>.
