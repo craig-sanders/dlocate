@@ -1,7 +1,14 @@
+dlocate (2.05) unstable; urgency=medium
+
+  * quotemeta() the package names when verbosely listing kernel packages (-K)
+  * Minor pod updates
+
+ -- Craig Sanders <cas@taz.net.au>  Thu, 11 Sep 2025 23:19:25 +1000
+
 dlocate (2.04) unstable; urgency=medium
 
   * Fixed get_package_files to return filenames from multiple packages
-  * Added --changelogs option to view or return list of changelog files in package(s).
+  * Added --changelogs command to view or return list of changelog files in package(s).
   * Updated dlocate.pod to document -f & -p synonyms for --filename-only and --package-only
   * Updated dlocate.pod to mention that -k and -K optionally take regexp args.
   * Added -P command to match only package names, as a counterpart to -S (prior to v 2.00 -P was for perl regexps, now obsolete)

@@ -549,7 +549,7 @@ sub list_kernel_packages {
 sub list_kernel_packages_verbose {
   # Input:
   # @_ - pattern(s) to match package names
-  &list_packages(&get_kernel_packages(@_));
+  &list_packages(map { quotemeta } &get_kernel_packages(@_));
 }
 
 sub usage() {
