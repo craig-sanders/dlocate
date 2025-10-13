@@ -335,6 +335,8 @@ sub md5check {
   # The median number of files in a package is around 180, so performance
   # probably doesn't matter.  And this lets us handle md5 check failures in
   # perl (TODO).
+  my $failcount = 0;
+  my $plural='';
 
   use Digest::MD5 qw(md5_hex);
   foreach (@files) {
@@ -345,8 +347,14 @@ sub md5check {
     close($fh);
     if ($hash eq $digest) {
       print "$file: OK\n";
+    } else {
+      print "$file: FAILED\n";
+      $failcount++;
     }
   }
+  $plural = 's' if ($failcount > 1);
+  print STDERR "dlocate: WARNING: $failcount computed checksum$plural did NOT match\n" if $failcount;
+
 };
 
 sub get_packages {
