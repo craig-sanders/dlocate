@@ -8,3 +8,4 @@ debian/files
 nytprof.out
 nytprof/
 *.patch
+*.swp

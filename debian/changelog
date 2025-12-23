@@ -1,4 +1,10 @@
-dlocate (2.06) UNRELEASED; urgency=medium
+dlocate (2.07) UNRELEASED; urgency=medium
+
+  * dlocate -l now uses maximum length()s of package, version, and desc for field widths.
+
+ -- Craig Sanders <cas@taz.net.au>  Tue, 23 Dec 2025 15:25:11 +1100
+
+dlocate (2.06) unstable; urgency=medium
 
   * --md5check now prints "FAILED" and a count of failures on mismatches, just like md5sum -c
 

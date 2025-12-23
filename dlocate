@@ -411,10 +411,17 @@ sub list_packages {
     exit;
   };
 
-  my $fieldw = int(($columns - 24) / 4);
-  my $fieldd = ($columns - $fieldw * 2 - 9);
+  # get max width of each field
+  my ($plen, $vlen, $dlen) = (0,0,0);
+  foreach my $p (@packages) {
+    my ($p,$v,$d) = (length($p->{package}), length($p->{version}), length($p->{desc}));
+    $plen = $p if $p > $plen;
+    $vlen = $v if $v > $vlen;
+    $dlen = $d if $d > $dlen;
+  };
+  $plen++; $vlen++; $dlen++;
 
-  my $hfmt = "%3s-%-${fieldw}.${fieldw}s-%-${fieldw}.${fieldw}s-%-${fieldd}.${fieldd}s\n";
+  my $hfmt = "%3s-%-${plen}.${plen}s-%-${vlen}.${vlen}s-%-${dlen}.${dlen}s\n";
   (my $bfmt = $hfmt) =~ s/-%/ %/g;
 
   print "hfmt=$hfmt" if $opts{debug};
@@ -427,8 +434,8 @@ Desired=Unknown/Install/Remove/Purge/Hold
 |/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
 __EOF__
 
-  $header .= sprintf "||/ %-${fieldw}s %-${fieldw}s %s\n", qw(Name Version Description);
-  $header .= sprintf $hfmt, '+++', '=' x $fieldw, '=' x $fieldw, '=' x $fieldd;
+  $header .= sprintf "||/ %-${plen}s %-${vlen}s %s\n", qw(Name Version Description);
+  $header .= sprintf $hfmt, '+++', '=' x $plen, '=' x $vlen, '=' x $dlen;
 
   print $header;
 
