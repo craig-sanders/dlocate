@@ -2,10 +2,6 @@
 
 MANS = \
 	dlocate.1 \
-	dpkg-hold.8 \
-	dpkg-purge.8 \
-	dpkg-remove.8 \
-	dpkg-unhold.8 \
 	update-dlocatedb.8 \
 	# EOL
 
@@ -32,10 +28,6 @@ install:
 	install -m 755 updatedb $(DESTDIR)/usr/share/dlocate/
 	install -m 755 update-dpkg-list $(DESTDIR)/usr/share/dlocate/
 	install -m 644 spcrc-* $(DESTDIR)/usr/share/dlocate/
-	install -m 755 dpkg-hold $(DESTDIR)/usr/sbin/
-	install -m 755 dpkg-unhold $(DESTDIR)/usr/sbin/
-	install -m 755 dpkg-remove $(DESTDIR)/usr/sbin/
-	install -m 755 dpkg-purge $(DESTDIR)/usr/sbin/
 	install -m 644 completion/bash/* $(DESTDIR)/usr/share/bash-completion/completions/
 
 %.1 %.8: %.pod
