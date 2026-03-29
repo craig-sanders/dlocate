@@ -1,6 +1,2 @@
 dlocate.1
-dpkg-hold.8
-dpkg-purge.8
-dpkg-remove.8
-dpkg-unhold.8
 update-dlocatedb.8
