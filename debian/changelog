@@ -1,3 +1,10 @@
+dlocate (2.10) stable; urgency=medium
+
+  * removed deprecated dpkg-{hold,purge,remove,unhold} 
+  * updated README.md for version 2
+
+ -- Craig Sanders <cas@taz.net.au>  Sun, 29 Mar 2026 16:06:33 +1100
+
 dlocate (2.09) unstable; urgency=medium
 
   * added -modules packages to dlocate -k|-K
