@@ -536,7 +536,7 @@ sub get_kernel_packages {
   @module_packages = grep { ! m/^(dh-dkms|module-assistant|dkms)$/ } @module_packages;
   my $module_packages = join("|",@module_packages);
 
-  my $linux_packages = '(linux-(base|image|source|headers|doc|debug|kbuild|perf|support|tools|manual|config)|gnumach-(image|common|dev))';
+  my $linux_packages = '(linux-(base|modules|image|source|headers|doc|debug|kbuild|perf|support|tools|manual|config)|gnumach-(image|common|dev))';
 
   my $kernel_pattern = "($linux_packages|$module_packages)";
   $kernel_pattern = qr($kernel_pattern);

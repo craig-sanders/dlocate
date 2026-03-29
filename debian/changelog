@@ -1,4 +1,16 @@
-dlocate (2.07) UNRELEASED; urgency=medium
+dlocate (2.09) unstable; urgency=medium
+
+  * added -modules packages to dlocate -k|-K
+
+ -- Craig Sanders <cas@taz.net.au>  Sun, 29 Mar 2026 15:38:25 +1100
+
+dlocate (2.08) unstable; urgency=medium
+
+  * added -base packages to dlocate -k|-K
+
+ -- Craig Sanders <cas@taz.net.au>  Tue, 10 Feb 2026 01:33:35 +1100
+
+dlocate (2.07) unstable; urgency=medium
 
   * dlocate -l now uses maximum length()s of package, version, and desc for field widths.
 
